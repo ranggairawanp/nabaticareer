@@ -1,0 +1,74 @@
+[
+  {
+    "id": "NAB-SR-2201",
+    "t": [
+      "Sales Representative",
+      "Sales Representative"
+    ],
+    "cat": "sales",
+    "city": [
+      "Bandung",
+      "Bandung"
+    ],
+    "country": "ID",
+    "type": "full",
+    "lvl": "entry",
+    "date": "2026-06-10",
+    "sum": [
+      "Menjual dan membangun hubungan dengan mitra dagang di wilayah Bandung Raya.",
+      "Sell and build relationships with trade partners across greater Bandung."
+    ],
+    "resp": [
+      [
+        "Mencapai target penjualan bulanan.",
+        "Achieve monthly sales targets."
+      ],
+      [
+        "Membina hubungan dengan toko dan distributor.",
+        "Maintain relationships with stores and distributors."
+      ]
+    ],
+    "qual": [
+      [
+        "Minimal SMA atau setara.",
+        "High school or equivalent."
+      ],
+      [
+        "Memiliki SIM C dan bersedia mobilitas tinggi.",
+        "Holds a driving license and willing to travel."
+      ]
+    ]
+  },
+  {
+    "id": "NAB-DA-2213",
+    "t": [
+      "Data Analyst",
+      "Data Analyst"
+    ],
+    "cat": "tech",
+    "city": [
+      "Manila",
+      "Manila"
+    ],
+    "country": "PH",
+    "type": "full",
+    "lvl": "entry",
+    "date": "2026-06-05",
+    "sum": [
+      "Mengolah data penjualan dan operasi menjadi wawasan.",
+      "Turn sales and operations data into insights."
+    ],
+    "resp": [
+      [
+        "Membangun dasbor dan laporan rutin.",
+        "Build dashboards and recurring reports."
+      ]
+    ],
+    "qual": [
+      [
+        "Menguasai SQL dan satu alat visualisasi.",
+        "Knows SQL and one visualization tool."
+      ]
+    ]
+  }
+]
