@@ -36,6 +36,19 @@ sit on the same web origin, since they exchange state through the browser
 storage of that origin. Serve the folder with any static server, for example
 `python3 -m http.server`, then open the two files from that origin.
 
+## Live deployment
+
+The candidate site is the public front door and is served at the site root. The
+admin console is a separate page at its own path and is not linked from the
+public site. On a typical deploy:
+
+- Candidate site: `https://<your-domain>/`
+- Admin console: `https://<your-domain>/admin` (or `/admin.html`)
+
+Both pages sit on the same origin, so the live link between them works with no
+extra setup. A `vercel.json` is included for a clean `/admin` URL. Full steps
+for Vercel and GitHub Pages are in `DEPLOY.md`.
+
 ## How the surfaces connect
 
 The admin console is the source of truth for job postings and for the status of
