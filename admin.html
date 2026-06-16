@@ -131,7 +131,7 @@ tr.rowlink:hover td{background:var(--surface-2);cursor:pointer}
  .h1{font-size:22px}
  .page{padding:18px 0 60px}
 }
-.livehint{font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin:-4px 0 16px}.navdot{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:var(--primary);color:#fff;font-size:10.5px;font-weight:700;font-family:var(--font-ui);margin-left:5px;vertical-align:middle}.pill.new{background:var(--primary);color:#fff;border-color:var(--primary)}</style></head>
+.livehint{font-size:12.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:8px 12px;margin:-4px 0 16px}.navdot{display:inline-flex;align-items:center;justify-content:center;min-width:17px;height:17px;padding:0 5px;border-radius:9px;background:var(--primary);color:#fff;font-size:10.5px;font-weight:700;font-family:var(--font-ui);margin-left:5px;vertical-align:middle}.pill.new{background:var(--primary);color:#fff;border-color:var(--primary)}.cmeta{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-bottom:10px}.cmeta>div{display:flex;flex-direction:column;gap:1px}.cmeta span{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);font-weight:700}.cmeta b{font-size:13px}.crow{display:flex;align-items:center;gap:8px;font-size:13px;margin:5px 0}.cdot{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;background:var(--surface-3);color:var(--ink-3);font-size:11px;font-weight:700;flex:none}.cdot.on{background:var(--success-tint);color:var(--success)}</style></head>
 <body>
 <div id="app"></div>
 <div class="toast" id="toast"></div>
@@ -147,6 +147,18 @@ var TYPE={full:["Penuh waktu","Full-time"],part:["Paruh waktu","Part-time"],cont
 var STG=[["Diterima","Received"],["Ditinjau","Under review"],["Wawancara","Interview"],["Keputusan","Decision"]];
 var MON=["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des"];
 var DICT={
+ad_consent:["Consent & perlindungan data","Consent & data protection"],
+ad_country:["Negara","Country"],
+ad_law:["Dasar hukum","Legal basis"],
+ad_consent_when:["Waktu consent","Consent time"],
+ad_consent_lang:["Bahasa","Language"],
+ad_c_process:["Pemrosesan data lamaran","Application data processing"],
+ad_c_alerts:["Berlangganan info lowongan","Job alerts opt-in"],
+ad_c_pool:["Masuk talent pool","Talent pool opt-in"],
+ad_c_china:["Consent PIPL, pemrosesan di China","PIPL consent, processing in China"],
+ad_cn_note:["Lowongan China. Data diproses dan disimpan di dalam China sesuai PIPL.","China role. Data processed and stored within China per PIPL."],
+ad_consent_none:["Jejak consent tidak tercatat untuk lamaran ini.","No consent trail recorded for this application."],
+
 new_tag:["Baru","New"],
 k_new:["Pelamar baru","New applicants"],
 new_app:["Pelamar baru masuk","New applicant received"],
@@ -210,8 +222,8 @@ function setJobs(a){try{localStorage.setItem('nabAdminJobs',JSON.stringify(a));}
 function apps(){try{return JSON.parse(localStorage.getItem('nabApps')||'{}');}catch(e){return {};}}
 function setApps(o){try{localStorage.setItem('nabApps',JSON.stringify(o));}catch(e){}}
 function seedApps(){var o=apps();if(Object.keys(o).length)return;var D='demo@nabati.test';
- o['NAB-2026-100245']={role:["Sales Representative","Sales Representative"],email:D,stage:1,when:'10 Jun 2026'};
- o['NAB-2026-100401']={role:["Data Analyst","Data Analyst"],email:D,stage:2,when:'5 Jun 2026',interview:{date:'18 Jun 2026',time:'10:00 WIB',start:'20260618T100000',mode:["Daring via Google Meet","Online via Google Meet"]},docs:[["KTP","National ID"],["Ijazah terakhir","Latest diploma"]]};
+ o['NAB-2026-100245']={role:["Sales Representative","Sales Representative"],email:D,stage:1,when:'10 Jun 2026',consent:{ts:Date.now()-518400000,country:'ID',law:'UU PDP No. 27/2022',ver:'1.0',lang:'id',process:true,alerts:true,pool:true}};
+ o['NAB-2026-100401']={role:["Data Analyst","Data Analyst"],email:D,stage:2,when:'5 Jun 2026',interview:{date:'18 Jun 2026',time:'10:00 WIB',start:'20260618T100000',mode:["Daring via Google Meet","Online via Google Meet"]},docs:[["KTP","National ID"],["Ijazah terakhir","Latest diploma"]],consent:{ts:Date.now()-432000000,country:'CN',law:'PIPL',ver:'1.0',lang:'zh',process:true,alerts:false,pool:true,china:true}};
  o['NAB-2026-100382']={role:["Supply Chain Analyst","Supply Chain Analyst"],email:D,stage:3,outcome:'offer',when:'2 Jun 2026'};
  setApps(o);}
 seedApps();
@@ -377,10 +389,11 @@ function renderAppDetail(){
  var ob='';if(r.stage===3){ob='<div class="divline"></div><label>'+L('ad_outcome')+'</label><div class="stagebtns"><button class="'+(r.outcome==='offer'?'on':'')+'" onclick="setOutcome(\'offer\')">'+L('set_offer')+'</button><button class="'+(r.outcome==='not_selected'?'on':'')+'" onclick="setOutcome(\'not_selected\')">'+L('set_not')+'</button></div>';}
  var iv=r.interview?('<div class="tag" style="display:block;padding:8px 10px;line-height:1.6">'+esc(r.interview.date)+' &middot; '+esc(r.interview.time)+'<br>'+esc(TX(r.interview.mode))+(r.interviewConfirmed?' &middot; <b style="color:var(--success)">'+L('cand_iv_confirmed')+'</b>':'')+'</div>'):('<div style="color:var(--ink-3);font-size:12.5px;margin-bottom:10px">'+L('iv_none')+'</div>');
  var dl=(r.docs&&r.docs.length)?('<div style="margin-bottom:10px">'+r.docs.map(function(d,i){return '<div class="rowline" style="grid-template-columns:1fr auto"><span class="tag" style="text-align:left">'+esc(TX(d))+'</span><div class="x" onclick="rmDoc('+i+')">&times;</div></div>';}).join('')+(r.docsSubmitted?'<div style="font-size:12px;color:var(--success);font-weight:600;margin-top:4px">'+L('cand_docs_done')+'</div>':'')+'</div>'):('<div style="color:var(--ink-3);font-size:12.5px;margin-bottom:10px">'+L('doc_none')+'</div>');
+ var ct=r.consent;var cons;function _crow(ok,lab){return '<div class="crow"><span class="cdot '+(ok?'on':'')+'">'+(ok?'✓':'·')+'</span>'+lab+'</div>';}if(ct){var _w=new Date(ct.ts);var _wd=_w.getDate()+' '+MON[_w.getMonth()]+' '+_w.getFullYear();cons='<div class="fsec"><h4>'+L('ad_consent')+'</h4>'+'<div class="cmeta"><div><span>'+L('ad_country')+'</span><b>'+TX(COUNTRY[ct.country]||[ct.country,ct.country])+'</b></div>'+'<div><span>'+L('ad_law')+'</span><b class="num">'+esc(ct.law)+'</b></div>'+'<div><span>'+L('ad_consent_when')+'</span><b>'+_wd+'</b></div>'+'<div><span>'+L('ad_consent_lang')+'</span><b>'+esc((ct.lang||'').toUpperCase())+'</b></div></div>'+_crow(ct.process,L('ad_c_process'))+_crow(ct.alerts,L('ad_c_alerts'))+_crow(ct.pool,L('ad_c_pool'))+(ct.china?_crow(true,L('ad_c_china')):'')+(ct.china?'<div style="margin-top:8px;background:var(--info-tint);border:1px solid var(--info);border-radius:8px;padding:8px 10px;font-size:12px;color:var(--ink-2)">'+L('ad_cn_note')+'</div>':'')+'</div>';}else{cons='<div class="fsec"><h4>'+L('ad_consent')+'</h4><div style="color:var(--ink-3);font-size:12.5px">'+L('ad_consent_none')+'</div></div>';}
  return chrome()+'<div class="wrap page"><div class="back" onclick="go(\'apps\')">&larr; '+L('ad_back')+'</div>'
   +'<h1 class="h1">'+TX(r.role)+'</h1><p class="sub"><span class="num">'+appNo+'</span> &middot; '+esc(r.email||'')+' &middot; '+pillStage(r)+'</p>'
   +'<div class="appgrid">'
-   +'<div class="fsec"><h4>'+L('ad_stage')+'</h4><div class="stagebtns">'+sbtn+'</div>'+ob+'</div>'
+   +'<div class="fsec"><h4>'+L('ad_stage')+'</h4><div class="stagebtns">'+sbtn+'</div>'+ob+'</div>'+cons
    +'<div>'
     +'<div class="fsec"><h4>'+L('ad_iv')+'</h4>'+iv
      +'<div class="two"><div class="field"><label>'+L('iv_date')+'</label><input id="iv_date" type="date"></div><div class="field"><label>'+L('iv_time')+'</label><input id="iv_time" type="time"></div></div>'
