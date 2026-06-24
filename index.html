@@ -1373,4 +1373,27 @@ function setLang(l){lang=l;try{localStorage.setItem('nabLang',l);}catch(e){}chro
 chrome();render();maybeNudge();
 if(window.addEventListener&&!window._jobsync){window._jobsync=1;window.addEventListener('storage',function(e){if(!e)return;if(e.key==='nabPublishedJobs'||e.key==='nabJobIndex'){JOBS=mergeLive(JOBS_SEED);render();}else if(e.key==='nabApps'||e.key==='nabInbox'){render();}});}
 </script>
+<script>
+/* One HCMS career site navigation router repair (Iteration 2). The original render() did not switch views on navigation, so clicking a job returned to home instead of opening the role and FLK. This replaces the global render with a working router; all internal callers (go, openJob, startApply, form steps, filters) pick it up automatically. */
+(function(){
+  function paint(){
+    try{ if(typeof mergeLive==='function' && typeof JOBS_SEED!=='undefined'){ JOBS=mergeLive(JOBS_SEED); } }catch(e){}
+    var h;
+    if(view==='home')h=renderHome();
+    else if(view==='list')h=renderList();
+    else if(view==='detail')h=renderDetail();
+    else if(view==='apply')h=renderForm();
+    else if(view==='success')h=renderSuccess();
+    else if(view==='about'){ if(typeof renderAbout==='function'){ renderAbout(); return; } h=renderHome(); }
+    else if(view==='status')h=renderStatus();
+    else if(view==='account')h=renderAccount();
+    else h=renderHome();
+    var app=document.getElementById('app');
+    if(app){ app.innerHTML='<div class="view active">'+h+'</div>'; }
+    if(typeof postRender==='function'){ try{ postRender(); }catch(e){} }
+  }
+  window.render=paint;
+  try{ paint(); }catch(e){}
+})();
+</script>
 </body></html>
