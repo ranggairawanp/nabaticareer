@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Chief People Officer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;--border:#e6e9ef;--border-strong:#d4dae3;
+--ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;--n300:#d4dae3;--n400:#aeb6c2;
+--primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+--success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;
+--font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+--r-sm:8px;--r-md:11px;--e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);--e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);--accent:#1f242c}
+*{box-sizing:border-box}body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+h1,h2,h3,h4{font-family:var(--font-display);margin:0}.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+button{font-family:inherit;cursor:pointer}a{color:inherit;text-decoration:none}::selection{background:var(--primary);color:#fff}
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:10px}.brand img{height:25px;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:14.5px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:9.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.vdiv{width:1px;height:24px;background:var(--border)}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;white-space:nowrap}
+.modtag .n{font-family:var(--font-num);font-size:10.5px;color:var(--primary);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:22px;height:22px;display:grid;place-items:center}
+.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.personasw{position:relative;display:flex;align-items:center;gap:7px;cursor:pointer;padding:6px 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface-2)}
+.rolechip{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;white-space:nowrap}
+.rolechip i{width:9px;height:9px;border-radius:3px;background:var(--accent)}
+.psw-caret{width:14px;height:14px;color:var(--ink-3)}
+.psw-menu{display:none;position:absolute;top:calc(100% + 8px);left:0;z-index:60;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:var(--e2);min-width:250px;padding:7px;max-height:70vh;overflow:auto}
+.psw-menu.open{display:block}
+.psw-h{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-3);padding:6px 10px}
+.psw-menu a{display:block;padding:8px 10px;border-radius:8px}
+.psw-menu a:hover{background:var(--surface-2)}
+.psw-menu a.active{background:var(--primary-tint)}
+.psw-menu a b{display:block;font-size:12.5px}.psw-menu a span{display:block;font-size:10.5px;color:var(--ink-3)}
+.psw-sep{height:1px;background:var(--border);margin:6px 4px}
+.psw-out b{color:var(--primary-700)}
+.sp{flex:1}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.on{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:7px 12px;font-weight:600;font-size:12px}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-weight:700;font-size:11.5px}
+.layout{flex:1;display:flex;min-height:0}
+.side{width:230px;flex:0 0 auto;border-right:1px solid var(--border);background:var(--surface);overflow-y:auto;padding:13px 9px}
+.sidehead{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);padding:4px 10px 8px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:8px;color:var(--ink-2);font-weight:500;font-size:12.5px;cursor:pointer;margin-bottom:1px}
+.nav-item i{width:8px;height:8px;border-radius:3px;background:var(--n400);flex:0 0 auto}
+.nav-item:hover{background:var(--surface-2);color:var(--ink)}
+.nav-item.on{background:color-mix(in srgb,var(--accent) 10%,#fff);color:var(--accent);font-weight:700}
+.nav-item.on i{background:var(--accent)}
+.nav-item .ct{margin-left:auto;font-family:var(--font-num);font-size:9.5px;color:#fff;background:var(--primary);border-radius:999px;padding:1px 7px}
+.main{flex:1;overflow-y:auto;padding:18px 24px 44px;min-width:0}
+.phead{display:flex;align-items:center;gap:12px;margin-bottom:13px;flex-wrap:wrap}
+.phead h2{font-size:20px;font-weight:800;letter-spacing:-.4px}
+.phead .who{margin-left:auto;display:inline-flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;color:#fff;background:var(--accent);border-radius:999px;padding:6px 13px}
+.phead .who i{width:8px;height:8px;border-radius:3px;background:rgba(255,255,255,.85)}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:13px}
+@media(max-width:900px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 13px;box-shadow:var(--e1);border-top:3px solid var(--n300)}
+.kpi.info{border-top-color:var(--info)}.kpi.warn{border-top-color:var(--warning)}.kpi.dng{border-top-color:var(--danger)}.kpi.ok{border-top-color:var(--success)}
+.kpi .l{font-size:10.5px;color:var(--ink-3)}.kpi .v{font-family:var(--font-num);font-weight:600;font-size:21px;letter-spacing:-.5px;margin:2px 0}
+.kpi.warn .v{color:var(--warning)}.kpi.dng .v{color:var(--danger)}.kpi.ok .v{color:var(--success)}.kpi.info .v{color:var(--info)}
+.kpi .s{font-size:10px;color:var(--ink-3)}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px;margin-bottom:13px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.panel .ph h4{font-size:13.5px}.panel .ph .sp2{flex:1}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:6px 11px;font-weight:600;font-size:11.5px;border:1px solid transparent;white-space:nowrap}
+.btn-p{background:var(--accent);color:#fff}.btn-r{background:var(--primary);color:#fff}
+.btn-g{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}
+.btn-ok{background:var(--success);color:#fff}.btn-no{background:var(--surface);color:var(--danger);border-color:#f3c9c4}
+.tbl{width:100%;border-collapse:collapse;font-size:12px}
+.tbl th{text-align:left;font-weight:600;color:var(--ink-3);font-size:10px;text-transform:uppercase;letter-spacing:.04em;padding:0 9px 7px;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px 9px;border-bottom:1px solid var(--surface-3);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;border-radius:6px;padding:2px 8px;border:1px solid;white-space:nowrap}
+.b-ok{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.b-pend{color:var(--warning);background:var(--warning-tint);border-color:#eed9ab}
+.b-dng{color:var(--danger);background:var(--danger-tint);border-color:#f3c9c4}
+.b-info{color:var(--info);background:var(--info-tint);border-color:#c4d8f5}
+.b-mut{color:var(--ink-3);background:var(--surface-3);border-color:var(--border)}
+.pillid{font-family:var(--font-num);font-size:10px;background:var(--surface-3);border:1px solid var(--border);border-radius:6px;padding:1px 6px;color:var(--ink-2)}
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar .bl{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:4px}.bar .bl .num{color:var(--ink-3)}
+.track{height:8px;border-radius:6px;background:var(--surface-3);overflow:hidden}.track span{display:block;height:100%;background:var(--accent);border-radius:6px}
+.note{display:flex;gap:9px;font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:13px;align-items:flex-start}
+.note svg{width:14px;height:14px;flex:none;margin-top:2px;color:var(--ink-3)}
+.note.info{background:var(--info-tint);border-color:#c4d8f5;color:#1d4f9e}.note.info svg{color:var(--info)}
+.note.warn{background:var(--warning-tint);border-color:#eed9ab;color:#7a5a13}.note.warn svg{color:var(--warning)}
+.cfgrow{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--surface-3);flex-wrap:wrap}
+.cfgrow:last-child{border-bottom:none}
+.cfgrow .cl{flex:1;min-width:220px}.cfgrow .cl b{font-size:12.5px;display:block}.cfgrow .cl span{font-size:10.5px;color:var(--ink-3)}
+.pills{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.pills button{border:none;background:transparent;padding:5px 12px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.pills button.on{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+@media(max-width:900px){.cards3{grid-template-columns:1fr}}
+.ccard{border:1px solid var(--border);border-radius:var(--r-md);padding:12px;background:var(--surface-2)}
+.ccard b{font-family:var(--font-display);font-size:13px;display:block;margin-bottom:4px}
+.ccard p{margin:0;font-size:11px;color:var(--ink-3);line-height:1.45}
+.audit .ev{padding:8px 0;border-bottom:1px solid var(--surface-3)}.audit .ev:last-child{border-bottom:none}
+.audit .mt{font-family:var(--font-num);font-size:10px;color:var(--ink-3)}.audit .tx{font-size:12px;color:var(--ink-2)}
+.unitsw{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px;flex-wrap:wrap}
+.unitsw button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11px;font-weight:700;color:var(--ink-3)}
+.unitsw button.on{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aidrawer{display:none;position:fixed;right:18px;top:62px;width:320px;max-height:70vh;overflow:auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:var(--e2);z-index:70;padding:13px}
+.aidrawer.open{display:block}
+.aidrawer h5{font-family:var(--font-display);font-size:13px;margin:0 0 8px;display:flex;align-items:center;gap:7px}
+.aidrawer h5 .b{font-family:var(--font-num);font-size:10px;color:#fff;background:var(--primary);border-radius:5px;padding:2px 7px}
+.aichips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+.aichips .c{border:1px solid var(--border-strong);background:var(--surface-2);border-radius:999px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--ink-2)}
+.ailog .q{font-size:11.5px;font-weight:700;margin:8px 0 3px}.ailog .a{font-size:11.5px;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:8px 10px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(16px);background:var(--accent);color:#fff;border-radius:999px;padding:9px 16px;font-size:12px;font-weight:600;opacity:0;pointer-events:none;transition:.18s;z-index:90}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.modal{display:none;position:fixed;inset:0;background:rgba(23,26,31,.45);z-index:80;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.mbox{background:var(--surface);border-radius:16px;box-shadow:var(--e2);width:min(440px,100%);padding:18px}
+.mbox h4{font-size:15px;margin-bottom:12px}
+.mf{margin-bottom:10px}.mf label{display:block;font-size:11px;font-weight:600;color:var(--ink-2);margin-bottom:4px}
+.mf input,.mf select,.mf textarea{width:100%;border:1px solid var(--border-strong);border-radius:8px;padding:8px 10px;font-family:inherit;font-size:12.5px;background:var(--surface);color:var(--ink)}
+.mrow{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}
+.empty{font-size:11.5px;color:var(--ink-3);padding:14px 4px;text-align:center}
+.emb{width:100%;height:calc(100vh - 205px);min-height:460px;border:1px solid var(--border);border-radius:12px;background:#fff;box-shadow:var(--e1)}
+.embbar{display:flex;align-items:center;gap:10px;justify-content:space-between;font-size:10.5px;color:var(--ink-3);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:7px 10px;margin-bottom:9px}
+.embbar a{flex:0 0 auto}
+</style>
+</head><body style="--accent:#E1231B">
+<div class="app">
+ <div class="topbar">
+  <div class="brand"><img src="data:image/png;base64,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" alt="Nabati"><div class="pn">One HCMS<small>Human Capital Management</small></div></div>
+  <div class="vdiv"></div>
+  <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small>Recruitment</small></div></div>
+  <div class="vdiv"></div>
+  <div class="personasw" onclick="togglePersona(event)"><span class="rolechip"><i></i>Chief People Officer</span><svg class="psw-caret" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+   <div class="psw-menu" id="pswMenu" onclick="event.stopPropagation()"><div class="psw-h">Beralih persona</div><a href="TA_Master_Admin.html"><b>Master Admin</b><span>Tata kelola TA penuh</span></a><a href="TA_Admin_Module.html"><b>Admin Module</b><span>Konfigurasi modul TA</span></a><a href="TA_Recruiter.html"><b>Recruiter</b><span>Jantung ATS, pipeline harian</span></a><a href="TA_TA_Manager.html"><b>TA Manager</b><span>Operasi rekrutmen</span></a><a href="TA_HCBP_BU.html"><b>HCBP per BU</b><span>Mitra HR per PT</span></a><a href="TA_Line_Manager.html"><b>Line Manager</b><span>Manajer perekrut</span></a><a href="TA_Individual_Contributor.html"><b>Individual Contributor</b><span>Referral dan lamaran internal</span></a><a href="TA_C_Level_non_HC.html"><b>C-Level non HC</b><span>Eksekutif fungsi</span></a><a class="active" href="TA_CPO.html"><b>Chief People Officer</b><span>Kebijakan people grup</span></a><a href="TA_Group_CEO.html"><b>Group CEO</b><span>Pengawasan perusahaan</span></a><div class="psw-sep"></div><a class="psw-out" onclick="taSignOut()"><b>Keluar dari sesi</b><span>Kembali ke halaman masuk</span></a></div></div>
+  <div class="sp"></div>
+  <div class="lang"><button id="lgID" class="on" onclick="setLang('id')">ID</button><button id="lgEN" onclick="setLang('en')">EN</button></div>
+  <button class="aibtn" onclick="toggleAI(event)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+  <div class="avatar">SM</div>
+ </div>
+ <div class="layout">
+  <aside class="side"><div class="sidehead" id="sidehead">Ruang kerja</div><div id="nav"></div></aside>
+  <main class="main" id="main"></main>
+ </div>
+</div>
+<div class="aidrawer" id="aidrawer" onclick="event.stopPropagation()"><h5><span class="b">HC AI</span>Chief People Officer</h5><div class="aichips" id="aichips"><button class="c" onclick="aiAsk(0)">Apa yang menunggu pengesahan saya?</button><button class="c" onclick="aiAsk(1)">Bagaimana kualitas hire grup?</button><button class="c" onclick="aiAsk(2)">Apa dampak menurunkan ambang k-anonimitas?</button></div><div class="ailog" id="ailog"></div></div>
+<div class="toast" id="toast"></div>
+<div class="modal" id="modal"><div class="mbox">
+ <h4 id="mtitle"></h4>
+ <div class="mf"><label id="f1l"></label><input id="f1"></div>
+ <div class="mf" id="f2wrap"><label>PT</label><select id="f2"><option>PMA</option><option>KSNI</option><option>Enerlife</option><option>NFM</option></select>
+  <label style="margin-top:8px">Risiko</label><select id="f2r"><option value="rendah">rendah</option><option value="sedang" selected>sedang</option><option value="tinggi">tinggi</option></select></div>
+ <div class="mf"><label id="f3l"></label><textarea id="f3" rows="2"></textarea></div>
+ <div class="mrow"><button class="btn btn-g" onclick="closeModal()">Batal</button><button class="btn btn-r" onclick="submitForm()">Kirim</button></div>
+</div></div>
+<script>
+var FILE="TA_CPO.html",PERSONA="Chief People Officer",WHO="Sinta M.",OWNER="CPO";
+var SEED=[{"id": "REQ-101", "kind": "req", "title": ["Sales Representative", "Sales Representative"], "pt": "PMA", "by": ["Dewa Made (Line Manager)", "Dewa Made (Line Manager)"], "risk": "sedang", "status": "pending", "owner": "LM"}, {"id": "REQ-102", "kind": "req", "title": ["QA Analyst", "QA Analyst"], "pt": "KSNI", "by": ["Rina S. (TA Manager)", "Rina S. (TA Manager)"], "risk": "rendah", "status": "pending", "owner": "TAM"}, {"id": "REQ-103", "kind": "req", "title": ["Plant Manager", "Plant Manager"], "pt": "Enerlife", "by": ["Arifin H. (C-Level non HC)", "Arifin H. (C-Level non HC)"], "risk": "tinggi", "status": "pending", "owner": "CL"}, {"id": "OFR-201", "kind": "offer", "title": ["Offer Team Lead, 1.4x titik tengah", "Team Lead offer, 1.4x midpoint"], "pt": "PMA", "by": ["Rina S. (TA Manager)", "Rina S. (TA Manager)"], "risk": "tinggi", "status": "pending", "owner": "TAM"}, {"id": "POL-301", "kind": "policy", "title": ["Penurunan ambang k-anonimitas untuk studi keadilan", "Lower k-anonymity threshold for a fairness study"], "pt": "Grup", "by": ["People Analytics", "People Analytics"], "risk": "tinggi", "status": "pending", "owner": "PA"}, {"id": "EXE-401", "kind": "exec", "title": ["Akses break-glass data offer eksekutif", "Break-glass access to executive offer data"], "pt": "Grup", "by": ["Master Admin", "Master Admin"], "risk": "tinggi", "status": "pending", "owner": "MA"}, {"id": "REF-501", "kind": "ref", "title": ["Referral: Senior Analyst", "Referral: Senior Analyst"], "pt": "KSNI", "by": ["Fitri H. (Individual Contributor)", "Fitri H. (Individual Contributor)"], "risk": "rendah", "status": "pending", "owner": "IC"}];
+
+var SECTIONS=[{"id": "dash", "ti": ["Ringkasan", "Summary"], "blocks": [{"t": "kpis", "items": [{"l": ["Hire 12 bulan", "Hires 12 months"], "v": "1.840", "s": ["agregat", "aggregate"]}, {"l": ["Time to fill", "Time to fill"], "v": "33", "s": ["hari rata", "avg days"], "tone": "info"}, {"l": ["Quality of hire", "Quality of hire"], "v": "78%", "s": ["indeks", "index"], "tone": "ok"}, {"l": ["Menunggu pengesahan", "Awaiting ratification"], "v": "0", "s": ["eksekutif", "executive"], "tone": "warn", "dyn": true}]}, {"t": "bars", "ti": ["Hire per wilayah", "Hires by region"], "items": [{"l": ["Indonesia", "Indonesia"], "v": "72%", "pct": 72}, {"l": ["Asia lain", "Other Asia"], "v": "21%", "pct": 21}, {"l": ["China", "China"], "v": "7%", "pct": 7}]}]}, {"id": "appr", "ti": ["Persetujuan kebijakan", "Policy approvals"], "blocks": [{"t": "note", "tone": "info", "tx": ["Anda mengesahkan kebijakan dan offer di atas rentang. Eksekusi teknis kembali ke administrator.", "You ratify policies and above range offers. Technical execution returns to administrators."]}, {"t": "q", "ti": ["Item menunggu", "Pending items"], "kinds": ["offer", "policy"], "acts": [{"st": "didukung", "a": "ratify", "lb": ["Sahkan", "Ratify"]}, {"st": "pending", "a": "ratify", "lb": ["Sahkan", "Ratify"]}]}], "count": true}, {"id": "fair", "ti": ["Keadilan dan privasi", "Fairness and privacy"], "blocks": [{"t": "note", "tone": "info", "tx": ["Demografi tidak pernah menjadi fitur skor kandidat. Seluruh analitik orang tunduk pada ambang di bawah.", "Demographics are never a candidate scoring feature. All people analytics obey the thresholds below."]}, {"t": "cfg", "ti": ["Tuas kebijakan", "Policy levers"], "groups": [{"l": ["Ambang k-anonimitas minimum", "Minimum k-anonymity threshold"], "s": ["Jumlah minimum agar agregat boleh tampil", "Minimum count for an aggregate to show"], "key": "kanon", "opts": [3, 5, 10]}, {"l": ["Ambang tabulasi silang sensitif", "Sensitive cross tabulation threshold"], "s": ["Untuk kombinasi dimensi sensitif", "For sensitive dimension combinations"], "key": "xtab", "opts": [5, 10, 20]}, {"l": ["Kadensi tinjauan akses data kandidat", "Candidate data access review cadence"], "s": ["Dalam bulan", "In months"], "key": "recert", "opts": [3, 6, 12]}]}]}, {"id": "ops", "ti": ["Model operasi TA", "TA operating model"], "blocks": [{"t": "bars", "ti": ["Headcount fungsi TA per wilayah", "TA function headcount by region"], "items": [{"l": ["Indonesia", "Indonesia"], "v": "31", "pct": 62}, {"l": ["Asia lain", "Other Asia"], "v": "14", "pct": 28}, {"l": ["China", "China"], "v": "5", "pct": 10}]}, {"t": "note", "tone": "info", "tx": ["Target model operasi: fungsi HC di bawah seratus orang untuk seluruh negara, ditopang HC AI.", "Operating model target: an HC function under one hundred people for all countries, supported by HC AI."]}]}, {"id": "audit", "ti": ["Audit", "Audit"], "blocks": [{"t": "audit", "ti": ["Jejak audit bersama", "Shared audit trail"]}]}, {"hdr": ["Layar kerja", "Working screens"]}, {"id": "scr_ta_12_recruitment_analyt", "ti": ["Analitik rekrutmen", "Recruitment analytics"], "blocks": [{"t": "embed", "src": "screens/ta_12_recruitment_analytics.html"}]}];
+var AIQ=[{"c": ["Apa yang menunggu pengesahan saya?", "What awaits my ratification?"], "a": ["Offer di atas rentang dan satu usulan kebijakan keadilan menunggu pengesahan Anda di bagian Persetujuan.", "An above range offer and one fairness policy proposal await your ratification under Approvals."]}, {"c": ["Bagaimana kualitas hire grup?", "How is group quality of hire?"], "a": ["Indeks kualitas hire tujuh puluh delapan persen, stabil pada posisi kunci lintas BU.", "The quality of hire index is seventy eight percent, stable in key roles across BUs."]}, {"c": ["Apa dampak menurunkan ambang k-anonimitas?", "What happens if I lower the k-anonymity threshold?"], "a": ["Angka kecil lebih terlihat tetapi risiko identifikasi naik. Perubahan tercatat dan berlaku lintas analitik TA.", "Small numbers become visible but identification risk rises. Changes are logged and apply across TA analytics."]}];
+</script>
+<script>
+try{if(localStorage.getItem('taAuthed')!=='1')location.replace('index.html');}catch(e){}
+try{localStorage.setItem('taLastPersona',JSON.stringify({file:FILE,name:PERSONA}));}catch(e){}
+var LANG='id';try{LANG=localStorage.getItem('taLang')||'id';}catch(e){}
+function L(a){return Array.isArray(a)?((LANG==='en'&&a[1]!=null)?a[1]:a[0]):a;}
+var KEY='oneHcmsTaShared_v1';
+function loadS(){try{var r=JSON.parse(localStorage.getItem(KEY));if(r&&r.requests)return r;}catch(e){}
+ var s={requests:JSON.parse(JSON.stringify(SEED)),audit:[{ts:'08 Jun 2026 · 09.00',who:'Sistem',tx:['Data demo dimuat.','Demo data seeded.']}],cfg:{kanon:5,xtab:10,recert:6},seq:600};
+ saveS(s);return s;}
+function saveS(s){try{localStorage.setItem(KEY,JSON.stringify(s));}catch(e){}}
+var ST=loadS();var CUR=SECTIONS[0].id;var UNIT=(typeof UNITS!=='undefined')?Object.keys(UNITS)[0]:null;
+function nowTs(){return '08 Jun 2026 · '+new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'}).replace(':','.');}
+function logA(tx){ST.audit.unshift({ts:nowTs(),who:PERSONA,tx:tx});if(ST.audit.length>40)ST.audit.length=40;saveS(ST);}
+function toast(t){var el=document.getElementById('toast');el.textContent=t;el.classList.add('show');clearTimeout(window._tt);window._tt=setTimeout(function(){el.classList.remove('show');},2400);}
+var KINDL={req:['Requisition','Requisition'],offer:['Offer','Offer'],policy:['Kebijakan','Policy'],exec:['Eksekutif','Executive'],ref:['Referral','Referral']};
+var STL={pending:['menunggu','pending','b-pend'],didukung:['didukung','supported','b-info'],disetujui:['disetujui','approved','b-ok'],ditolak:['ditolak','rejected','b-dng']};
+function inScope(r){if(UNIT===null)return true;if(UNITS[UNIT].corp)return true;return r.pt===UNITS[UNIT].pt;}
+function qItems(b){return ST.requests.filter(function(r){
+ if(b.kinds.indexOf(r.kind)<0)return false;
+ if(b.own&&r.owner!==OWNER)return false;
+ if(b.scope==='unit'&&!inScope(r))return false;
+ return true;});}
+function doAct(id,act){var r=ST.requests.find(function(x){return x.id===id;});if(!r)return;
+ var was=r.status;
+ if(act==='approve'||act==='ratify'){r.status='disetujui';}
+ else if(act==='support'){r.status='didukung';}
+ else if(act==='reject'){r.status='ditolak';}
+ logA([(act==='reject'?'Menolak ':(act==='support'?'Mendukung dan meneruskan ':(act==='ratify'?'Mengesahkan ':'Menyetujui ')))+r.id+' ('+L(r.title)+').',
+       (act==='reject'?'Rejected ':(act==='support'?'Supported and forwarded ':(act==='ratify'?'Ratified ':'Approved ')))+r.id+' ('+(Array.isArray(r.title)?(r.title[1]||r.title[0]):r.title)+').']);
+ saveS(ST);renderAll();
+ toast(act==='reject'?L(['Permintaan ditolak.','Request rejected.']):(act==='support'?L(['Diteruskan untuk pengesahan.','Forwarded for ratification.']):L(['Disetujui dan tercatat di audit.','Approved and logged.'])));}
+function rowActs(b,r){var out='';(b.acts||[]).forEach(function(a){
+ if(a.st!==r.status)return;
+ if(a.risk&&a.risk.indexOf(r.risk)<0)return;
+ if(a.kind&&a.kind.indexOf(r.kind)<0)return;
+ out+='<button class="btn btn-ok" onclick="doAct(\''+r.id+'\',\''+a.a+'\')">'+L(a.lb)+'</button> ';});
+ if(out&&b.rej!==false)out+='<button class="btn btn-no" onclick="doAct(\''+r.id+'\',\'reject\')">'+L(['Tolak','Reject'])+'</button>';
+ return out||'<span class="badge b-mut">'+L(['tidak ada aksi','no action'])+'</span>';}
+function pendCount(){var ids={};SECTIONS.forEach(function(s){(s.blocks||[]).forEach(function(b){if(b.t==='q'){qItems(b).forEach(function(r){var can=(b.acts||[]).some(function(a){return a.st===r.status&&(!a.risk||a.risk.indexOf(r.risk)>=0)&&(!a.kind||a.kind.indexOf(r.kind)>=0);});if(can)ids[r.id]=1;});}});});return Object.keys(ids).length;}
+function badgeOf(r){var s=STL[r.status];return '<span class="badge '+s[2]+'">'+L([s[0],s[1]])+'</span>';}
+function riskBadge(x){var m={rendah:['rendah','low','b-ok'],sedang:['sedang','medium','b-pend'],tinggi:['tinggi','high','b-dng']}[x];return '<span class="badge '+m[2]+'">'+L([m[0],m[1]])+'</span>';}
+function cellHtml(c){if(c==null)return '';
+ if(typeof c==='object'&&!Array.isArray(c)){if(c.b)return '<span class="badge '+c.c+'">'+L(c.b)+'</span>';if(c.id)return '<span class="pillid">'+c.id+'</span>';if(c.n)return '<span class="num">'+c.n+'</span>';}
+ return L(c);}
+function blockHtml(b){
+ if(b.t==='kpis'){return '<div class="kpis">'+b.items.map(function(k){return '<div class="kpi '+(k.tone||'')+'"><div class="l">'+L(k.l)+'</div><div class="v num">'+(k.dyn?String(pendCount()):k.v)+'</div><div class="s">'+L(k.s)+'</div></div>';}).join('')+'</div>';}
+ if(b.t==='note'){return '<div class="note '+(b.tone||'')+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+L(b.tx)+'</span></div>';}
+ if(b.t==='bars'){return '<div class="panel"><div class="ph"><h4>'+L(b.ti)+'</h4></div><div class="bars">'+b.items.map(function(i){return '<div class="bar"><div class="bl"><span>'+L(i.l)+'</span><span class="num">'+i.v+'</span></div><div class="track"><span style="width:'+i.pct+'%"></span></div></div>';}).join('')+'</div></div>';}
+ if(b.t==='stbl'){return '<div class="panel"><div class="ph"><h4>'+L(b.ti)+'</h4></div><table class="tbl"><thead><tr>'+b.head.map(function(h){return '<th>'+L(h)+'</th>';}).join('')+'</tr></thead><tbody>'+b.rows.map(function(r){return '<tr>'+r.map(function(c){return '<td>'+cellHtml(c)+'</td>';}).join('')+'</tr>';}).join('')+'</tbody></table></div>';}
+ if(b.t==='q'){var items=qItems(b);var newBtn=b.newBtn?'<button class="btn btn-r" onclick="openForm(\''+b.newBtn.form+'\')">'+L(b.newBtn.lb)+'</button>':'';
+  var rows=items.map(function(r){return '<tr><td><span class="pillid">'+r.id+'</span></td><td>'+L(KINDL[r.kind])+'</td><td style="font-weight:600">'+L(r.title)+'</td><td>'+r.pt+'</td><td>'+L(r.by)+'</td><td>'+riskBadge(r.risk)+'</td><td>'+badgeOf(r)+'</td><td>'+rowActs(b,r)+'</td></tr>';}).join('');
+  return '<div class="panel"><div class="ph"><h4>'+L(b.ti)+'</h4><div class="sp2"></div>'+newBtn+'</div>'+(items.length?'<table class="tbl"><thead><tr><th>ID</th><th>'+L(['Jenis','Type'])+'</th><th>'+L(['Judul','Title'])+'</th><th>PT</th><th>'+L(['Oleh','By'])+'</th><th>'+L(['Risiko','Risk'])+'</th><th>Status</th><th>'+L(['Aksi','Action'])+'</th></tr></thead><tbody>'+rows+'</tbody></table>':'<div class="empty">'+L(['Tidak ada item dalam lingkup ini.','No items in this scope.'])+'</div>')+'</div>';}
+ if(b.t==='cfg'){return '<div class="panel"><div class="ph"><h4>'+L(b.ti)+'</h4></div>'+b.groups.map(function(g){return '<div class="cfgrow"><div class="cl"><b>'+L(g.l)+'</b><span>'+L(g.s)+'</span></div><div class="pills">'+g.opts.map(function(o){return '<button class="'+(ST.cfg[g.key]===o?'on':'')+'" onclick="setCfg(\''+g.key+'\','+o+')">'+o+'</button>';}).join('')+'</div></div>';}).join('')+'</div>';}
+ if(b.t==='audit'){return '<div class="panel audit"><div class="ph"><h4>'+L(b.ti)+'</h4></div>'+(ST.audit.length?ST.audit.map(function(e){return '<div class="ev"><div class="mt">'+e.ts+' · '+e.who+'</div><div class="tx">'+L(e.tx)+'</div></div>';}).join(''):'<div class="empty">'+L(['Belum ada aktivitas.','No activity yet.'])+'</div>')+'</div>';}
+ if(b.t==='cards'){return '<div class="panel"><div class="ph"><h4>'+L(b.ti)+'</h4><div class="sp2"></div>'+(b.btn?'<button class="btn btn-p" onclick="toast(L([\'Laporan dibangkitkan dan disimpan.\',\'Report generated and stored.\']))">'+L(b.btn)+'</button>':'')+'</div><div class="cards3">'+b.items.map(function(c){return '<div class="ccard"><b>'+c.h+'</b><p>'+L(c.tx)+'</p></div>';}).join('')+'</div></div>';}
+ if(b.t==='embed'){return '<div class="embbar"><span>'+L(['Layar kerja dimuat di dalam konsol. Bila tidak tampil, paket harus dibuka utuh dari folder hasil ekstrak ZIP atau lewat GitHub Pages.','The working screen loads inside the console. If it does not show, open the package whole from the extracted ZIP folder or via GitHub Pages.'])+'</span><a class="btn btn-g" href="'+b.src+'" target="_blank" rel="noopener">'+L(['Buka di tab baru','Open in new tab'])+'</a></div><iframe class="emb" src="'+b.src+'" loading="lazy"></iframe>';}
+ if(b.t==='unitsw'){return '<div class="panel"><div class="ph"><h4>'+L(b.ti)+'</h4><div class="sp2"></div><div class="unitsw">'+Object.keys(UNITS).map(function(u){return '<button class="'+(UNIT===u?'on':'')+'" onclick="setUnit(\''+u+'\')">'+u+'</button>';}).join('')+'</div></div><div class="note info" style="margin:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg><span>'+L(UNITS[UNIT].corp?['Unit Corporate. Tampilan melebar lintas PT dan negara.','Corporate unit. The view widens across PTs and countries.']:['Lingkup terbatas ke '+UNITS[UNIT].pt+'.','Scope limited to '+UNITS[UNIT].pt+'.'])+'</span></div>';}
+ return '';}
+function setCfg(k,v){ST.cfg[k]=v;saveS(ST);logA(['Mengubah '+k+' menjadi '+v+'.','Changed '+k+' to '+v+'.']);renderAll();toast(L(['Kebijakan diperbarui.','Policy updated.']));}
+function setUnit(u){UNIT=u;renderAll();}
+function go(id){CUR=id;renderAll();document.getElementById('main').scrollTop=0;}
+function renderNav(){var el=document.getElementById('nav');el.innerHTML=SECTIONS.map(function(s){
+ if(s.hdr)return '<div class="sidehead" style="padding-top:13px">'+L(s.hdr)+'</div>';
+ var ct='';if(s.count){var n=pendCount();ct=n?'<span class="ct">'+n+'</span>':'';}
+ return '<div class="nav-item '+(s.id===CUR?'on':'')+'" onclick="go(\''+s.id+'\')"><i></i>'+L(s.ti)+ct+'</div>';}).join('');}
+function render(){var s=SECTIONS.find(function(x){return x.id===CUR;});if(!s||!s.blocks){s=SECTIONS.find(function(x){return x.id&&x.blocks;});CUR=s.id;}
+ document.getElementById('main').innerHTML='<div class="phead"><h2>'+L(s.ti)+'</h2><span class="who"><i></i>'+WHO+' · '+PERSONA+'</span></div>'+s.blocks.map(blockHtml).join('');}
+function renderChrome(){document.getElementById('lgID').classList.toggle('on',LANG==='id');document.getElementById('lgEN').classList.toggle('on',LANG==='en');document.getElementById('sidehead').textContent=L(['Ruang kerja','Workspace']);}
+function renderAll(){renderChrome();renderNav();render();}
+function setLang(l){LANG=l;try{localStorage.setItem('taLang',l);}catch(e){}renderAll();}
+function togglePersona(ev){document.getElementById('pswMenu').classList.toggle('open');ev.stopPropagation();}
+document.addEventListener('click',function(){var m=document.getElementById('pswMenu');if(m)m.classList.remove('open');var d=document.getElementById('aidrawer');});
+function taSignOut(){try{localStorage.removeItem('taAuthed');}catch(e){}location.href='index.html';}
+function toggleAI(ev){document.getElementById('aidrawer').classList.toggle('open');ev.stopPropagation();}
+function aiAsk(i){var c=AIQ[i];var lg=document.getElementById('ailog');lg.innerHTML+='<div class="q">'+L(c.c)+'</div><div class="a">'+L(c.a)+'</div>';lg.scrollTop=lg.scrollHeight;}
+function openForm(kind){window._fk=kind;var m=document.getElementById('modal');
+ document.getElementById('mtitle').textContent=kind==='req'?L(['Buat requisition','Create requisition']):L(['Ajukan referral','Submit referral']);
+ document.getElementById('f1l').textContent=kind==='req'?L(['Posisi','Position']):L(['Nama kandidat','Candidate name']);
+ document.getElementById('f2wrap').style.display=kind==='req'?'block':'none';
+ document.getElementById('f3l').textContent=kind==='req'?L(['Justifikasi bisnis','Business justification']):L(['Posisi yang dituju','Target position']);
+ document.getElementById('f1').value='';document.getElementById('f3').value='';m.classList.add('show');}
+function closeModal(){document.getElementById('modal').classList.remove('show');}
+function submitForm(){var k=window._fk;var v1=document.getElementById('f1').value.trim();var v3=document.getElementById('f3').value.trim();
+ if(!v1){toast(L(['Lengkapi isian dulu.','Complete the fields first.']));return;}
+ ST.seq++;var id=(k==='req'?'REQ-':'REF-')+ST.seq;
+ var pt=k==='req'?document.getElementById('f2').value:'KSNI';
+ var risk=k==='req'?(document.getElementById('f2r').value):'rendah';
+ ST.requests.unshift({id:id,kind:(k==='req'?'req':'ref'),title:[v1,v1],pt:pt,by:[WHO+' ('+PERSONA+')',WHO+' ('+PERSONA+')'],risk:risk,status:'pending',owner:OWNER});
+ logA(['Mengajukan '+id+' ('+v1+').','Submitted '+id+' ('+v1+').']);saveS(ST);closeModal();renderAll();
+ toast(L(['Terkirim dan masuk antrean bersama.','Submitted into the shared queue.']));}
+renderAll();
+</script>
+</body></html>

@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Penawaran</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff;--surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:150px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 60px;min-width:0}
+.crumb{display:flex;align-items:center;gap:7px;font-size:11.5px;color:var(--ink-3);margin-bottom:10px}
+.crumb a{color:var(--ink-3);text-decoration:none}.crumb a:hover{color:var(--primary)}
+.crumb svg{width:13px;height:13px}
+
+.ohead{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:16px;box-shadow:var(--e1);margin-bottom:14px}
+.ohead .top{display:flex;align-items:flex-start;gap:13px;flex-wrap:wrap}
+.ohead .cav{width:46px;height:46px;border-radius:50%;background:var(--primary-tint);color:var(--primary-700);display:grid;place-items:center;font-weight:800;font-size:16px;flex:none}
+.ohead h1{font-family:var(--font-display);font-weight:800;font-size:20px;letter-spacing:-.4px;margin:0}
+.ohead .subr{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.ohead .tier{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;color:var(--success);background:var(--success-tint);border:1px solid #bce6cd;border-radius:999px;padding:2px 9px;margin-top:6px}
+.ohead .tier .sc{font-family:var(--font-num)}
+.ohead .st{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:7px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;border-radius:999px;padding:3px 11px;border:1px solid;white-space:nowrap}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-wait{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:14px}
+@media(max-width:760px){.statrow{grid-template-columns:repeat(2,1fr)}}
+.stat{border:1px solid var(--border);border-radius:10px;background:var(--surface-2);padding:11px 12px}
+.stat .l{font-size:11px;color:var(--ink-3);font-weight:600}
+.stat .v{font-family:var(--font-num);font-weight:700;font-size:18px;letter-spacing:-.5px;margin-top:2px}
+.stat .v small{font-size:11px;color:var(--ink-3);font-weight:500}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:8px 14px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-dark{background:var(--dark);color:#fff;border-color:var(--dark)}.btn-dark:hover{background:var(--dark-2)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:2px}
+.subtab{border:none;background:transparent;padding:8px 13px;border-radius:8px 8px 0 0;font-size:12.5px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-3px}
+.subtab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.subview{display:none}.subview.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:15px;margin-bottom:14px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;margin:0 0 6px;gap:10px}
+.panel .ph h4{margin:0;font-size:14px}
+.panel .ph .frtag{font-family:var(--font-num);font-size:10px;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;padding:2px 7px}
+.panel .ph .act{margin-left:auto;display:flex;gap:8px}
+.panel .pdesc{font-size:11.5px;color:var(--ink-3);margin:0 0 13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+.subt{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin:16px 0 9px}
+.subt:first-child{margin-top:0}
+
+.aiband{display:flex;gap:11px;align-items:flex-start;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:10px;padding:12px 13px;margin-bottom:14px}
+.aiband .ic{width:30px;height:30px;border-radius:8px;background:#fff;border:1px solid var(--primary-tint-2);display:grid;place-items:center;color:var(--primary);flex:none}
+.aiband .ic svg{width:16px;height:16px}
+.aiband .tx{font-size:12px;color:var(--primary-700)}.aiband .tx b{display:block;font-size:12.5px;margin-bottom:1px}
+
+.field{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--surface-3)}
+.field:last-child{border-bottom:none}
+.field .fl{font-size:12.5px;color:var(--ink-2);font-weight:500}.field .fl small{display:block;font-size:10.5px;color:var(--ink-3);font-weight:400}
+.field .fv{display:flex;align-items:center;gap:8px}
+.inp{font-family:var(--font-num);font-weight:600;font-size:13px;color:var(--ink);background:var(--surface-2);border:1px solid var(--border-strong);border-radius:8px;padding:6px 11px;text-align:right;min-width:120px}
+.inp.txt{font-family:var(--font-ui);font-weight:500;text-align:left}
+.aitag{font-size:9px;font-weight:700;color:var(--primary-700);background:#fff;border:1px solid var(--primary-tint-2);border-radius:5px;padding:1px 5px}
+.pill{font-size:11px;font-weight:600;border-radius:7px;padding:4px 10px;border:1px solid}
+.pill-off{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.pill-on{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+
+/* market range */
+.market{margin-top:6px}
+.mrange{position:relative;height:40px;margin:22px 0 8px}
+.mtrack{position:absolute;top:16px;left:0;right:0;height:8px;border-radius:99px;background:linear-gradient(90deg,var(--info-tint),var(--success-tint),var(--warning-tint))}
+.mtick{position:absolute;top:6px;width:1px;height:18px;background:var(--n400)}
+.mtick span{position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-family:var(--font-num);font-size:10px;color:var(--ink-3);white-space:nowrap}
+.mtick b{position:absolute;top:20px;left:50%;transform:translateX(-50%);font-size:9px;color:var(--ink-3);font-weight:600}
+.moffer{position:absolute;top:2px;width:2px;height:26px;background:var(--primary)}
+.moffer span{position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-family:var(--font-num);font-size:10px;font-weight:700;color:var(--primary);background:#fff;border:1px solid var(--primary-tint-2);border-radius:5px;padding:0 5px;white-space:nowrap}
+
+.kv{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface-3);font-size:12.5px}
+.kv:last-child{border-bottom:none}
+.kv .k{display:flex;align-items:center;gap:8px;color:var(--ink-2)}
+.kv .v{font-family:var(--font-num);font-weight:600}
+
+.chain{position:relative;padding-left:22px}
+.chain::before{content:"";position:absolute;left:7px;top:4px;bottom:4px;width:2px;background:var(--surface-3)}
+.cstep{position:relative;padding:8px 0}
+.cstep .cd{position:absolute;left:-22px;top:9px;width:16px;height:16px;border-radius:50%;border:2px solid var(--n300);background:#fff}
+.cstep.done .cd{border-color:var(--success);background:var(--success)}
+.cstep.now .cd{border-color:var(--warning);background:var(--warning-tint)}
+.cstep .cn{font-size:12.5px;font-weight:600}
+.cstep .cm{font-size:11px;color:var(--ink-3)}
+
+.nego{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--surface-3)}
+.nego:last-child{border-bottom:none}
+.nego .nw{width:74px;font-family:var(--font-num);font-size:10.5px;color:var(--ink-3);flex:none}
+.nego .nc{flex:1;font-size:12px}.nego .nc b{font-weight:600}
+.who{font-size:9.5px;font-weight:700;border-radius:5px;padding:1px 6px;border:1px solid;height:fit-content;white-space:nowrap}
+.who-cand{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.who-rec{color:var(--primary-700);background:var(--primary-tint);border-color:var(--primary-tint-2)}
+
+.hand{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--surface-3)}
+.hand:last-child{border-bottom:none}
+.hand .hi{width:24px;height:24px;border-radius:7px;background:var(--success-tint);color:var(--success);display:grid;place-items:center;flex:none}
+.hand .hi svg{width:13px;height:13px}
+.hand .ht{flex:1;font-size:12.5px;font-weight:500}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:12px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.note.ai{background:var(--primary-tint);border-color:var(--primary-tint-2);color:var(--primary-700)}.note.ai svg{color:var(--primary)}
+.foot{margin-top:16px;font-size:11px;color:var(--ink-3);text-align:center}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Penawaran</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari penawaran, kandidat"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">DA</div><div class="nm">Dewi A.<small data-i18n="role">Recruiter</small></div></div>
+  </div>
+
+  <main class="main">
+    <div class="crumb"><a data-i18n="cb_req">Requisition</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><a data-i18n="cb_cand">Kandidat</a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg><span data-i18n="cb_off">Penawaran</span></div>
+
+    <div class="ohead">
+      <div class="top">
+        <div class="cav">AF</div>
+        <div>
+          <h1>Ahmad Fauzi</h1>
+          <div class="subr">Senior Sales Manager · REQ-2026-0142 · Commercial Sales · Jakarta</div>
+          <div class="tier"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="tier">Skor HC AI</span> <span class="sc">94</span> · Exceptional</div>
+        </div>
+        <div class="st">
+          <span class="badge b-wait"><span class="dot"></span><span data-i18n="st_wait">Menunggu approval</span></span>
+          <button class="btn btn-ghost sm" data-i18n="st_pdf">Pratinjau surat</button>
+        </div>
+      </div>
+      <div class="statrow">
+        <div class="stat"><div class="l" data-i18n="s1">Ekspektasi gaji</div><div class="v">40<small> jt/bln</small></div></div>
+        <div class="stat"><div class="l" data-i18n="s2">Posisi di pasar</div><div class="v">p50<small> sampai p75</small></div></div>
+        <div class="stat"><div class="l" data-i18n="s3">Prediksi diterima</div><div class="v">78<small>%</small></div></div>
+        <div class="stat"><div class="l" data-i18n="s4">Berlaku</div><div class="v">7<small> hari</small></div></div>
+      </div>
+    </div>
+
+    <div class="subtabs" id="tabs">
+      <button class="subtab active" data-st="build" data-i18n="t1">Susun paket</button>
+      <button class="subtab" data-st="bench" data-i18n="t2">Benchmark &amp; ekuitas</button>
+      <button class="subtab" data-st="approve" data-i18n="t3">Approval &amp; kirim</button>
+      <button class="subtab" data-st="nego" data-i18n="t4">Negosiasi &amp; hasil</button>
+    </div>
+
+    <!-- ===== SUSUN ===== -->
+    <div class="subview on" data-sv="build">
+      <div class="aiband">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+        <div class="tx"><b data-i18n="ai_t">HC AI menyarankan paket ini</b><span data-i18n="ai_d">Disusun dari ekspektasi 40 jt, benchmark pasar untuk role dan lokasi, ekuitas internal karyawan serupa, dan ketersediaan budget. Anda tetap memutuskan dan menyunting.</span></div>
+      </div>
+      <div class="grid2">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="b_comp">Komponen kompensasi</h4><span class="frtag">FR-OFFER-001</span></div>
+          <div class="field"><div class="fl" data-i18n="f1">Gaji pokok</div><div class="fv"><span class="aitag" data-i18n="aitag">HC AI</span><span class="inp">40 jt/bln</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f2">Signing bonus</div><div class="fv"><span class="aitag" data-i18n="aitag">HC AI</span><span class="inp">30 jt</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f3">Variabel<small data-i18n="f3s">komisi penjualan sampai 4x gaji</small></div><div class="fv"><span class="inp txt" data-i18n="f3v">Skema komisi</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f4">Benefit<small data-i18n="f4s">BPJS, asuransi swasta, cuti, tunjangan</small></div><div class="fv"><span class="inp txt" data-i18n="f4v">Paket standar</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f5">Tanggal mulai</div><div class="fv"><span class="inp">1 Jul 2026</span></div></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="b_terms">Syarat &amp; ketentuan</h4></div>
+          <div class="field"><div class="fl" data-i18n="f6">Pengaturan kerja</div><div class="fv"><span class="inp txt" data-i18n="f6v">Hybrid</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f7">Atasan &amp; departemen</div><div class="fv"><span class="inp txt" data-i18n="f7v">Rudi W., Sales</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f8">Kontingensi<small data-i18n="f8s">background check &amp; pemeriksaan medis</small></div><div class="fv"><span class="pill pill-on" data-i18n="f8v">2 syarat</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f9">Masa percobaan</div><div class="fv"><span class="inp">3 <span data-i18n="month">bln</span></span></div></div>
+          <div class="field"><div class="fl" data-i18n="f10">Jenis kontrak</div><div class="fv"><span class="pill pill-on">PKWTT</span></div></div>
+          <div class="field"><div class="fl" data-i18n="f11">Disclaimer at-will</div><div class="fv"><span class="pill pill-off" data-i18n="off">Mati</span></div></div>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="b_n">Indonesia memakai PKWT dan PKWTT, jadi disclaimer at-will dimatikan otomatis sesuai template negara.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== BENCHMARK & EKUITAS ===== -->
+    <div class="subview" data-sv="bench">
+      <div class="panel">
+        <div class="ph"><h4 data-i18n="m_h">Posisi penawaran di pasar</h4><span class="frtag">FR-OFFER-001</span></div>
+        <p class="pdesc" data-i18n="m_d">Benchmark dari Mercer, Radford, dan PayScale untuk role, lokasi, dan pengalaman setara. Gaji pokok per bulan.</p>
+        <div class="market">
+          <div class="mrange">
+            <div class="mtrack"></div>
+            <div class="mtick" style="left:8%"><span>32 jt</span><b>p25</b></div>
+            <div class="mtick" style="left:36%"><span>38 jt</span><b>p50</b></div>
+            <div class="mtick" style="left:68%"><span>44 jt</span><b>p75</b></div>
+            <div class="mtick" style="left:94%"><span>52 jt</span><b>p90</b></div>
+            <div class="moffer" style="left:50%"><span data-i18n="m_off">Tawaran 40 jt</span></div>
+          </div>
+        </div>
+        <div class="note ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="m_ai">Tawaran 40 jt berada di antara p50 dan p75, kompetitif untuk profil ini. Data historis: 78% kandidat profil serupa menerima di rentang ini.</span></div>
+      </div>
+      <div class="grid2">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="eq_h">Ekuitas internal</h4></div>
+          <p class="pdesc" data-i18n="eq_d">Banding terhadap karyawan serupa untuk menjaga keadilan. Rentang dimiliki Compensation &amp; Benefit.</p>
+          <div class="kv"><div class="k" data-i18n="eq1">Rentang karyawan serupa</div><div class="v">34 &ndash; 42 jt</div></div>
+          <div class="kv"><div class="k" data-i18n="eq2">Median tim saat ini</div><div class="v">39 jt</div></div>
+          <div class="kv"><div class="k" data-i18n="eq3">Status kompresi &amp; inversi</div><div class="v" style="color:var(--success)" data-i18n="eq3v">Aman</div></div>
+          <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="eq_n">Tawaran 40 jt berada dalam rentang internal dan tidak menimbulkan kompresi terhadap rekan atau inversi terhadap atasan.</span></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="hi_h">Data penerimaan historis</h4></div>
+          <div class="kv"><div class="k" data-i18n="hi1">Diterima di rentang ini</div><div class="v">78<small>%</small></div></div>
+          <div class="kv"><div class="k" data-i18n="hi2">Acceptance rate organisasi</div><div class="v">82<small>%</small></div></div>
+          <div class="kv"><div class="k" data-i18n="hi3">Ekspektasi premium dari kompetitor</div><div class="v">+15<small>%</small></div></div>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="hi_n">Rentang gaji dimiliki Compensation &amp; Benefit. Layar ini hanya merujuk untuk benchmarking, bukan menetapkan kebijakan gaji.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== APPROVAL & KIRIM ===== -->
+    <div class="subview" data-sv="approve">
+      <div class="grid2">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="ap_h">Rantai approval</h4><span class="frtag">FR-OFFER-001</span></div>
+          <p class="pdesc" data-i18n="ap_d">Approver ditentukan struktur lewat DOA. SLA 1 hari kerja per tahap dengan eskalasi otomatis.</p>
+          <div class="chain" style="margin-top:6px">
+            <div class="cstep done"><div class="cd"></div><div class="cn" data-i18n="ap1">Hiring manager, Rudi W.</div><div class="cm" data-i18n="ap1m">setuju kandidat &amp; paket · selesai</div></div>
+            <div class="cstep done"><div class="cd"></div><div class="cn" data-i18n="ap2">HRBP, ekuitas &amp; kebijakan</div><div class="cm" data-i18n="ap2m">ekuitas internal aman · selesai</div></div>
+            <div class="cstep now"><div class="cd"></div><div class="cn" data-i18n="ap3">Finance, otoritas budget</div><div class="cm" data-i18n="ap3m">berjalan · SLA 1 hari</div></div>
+          </div>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="ap_n">Approval CEO hanya untuk role eksekutif atau kompensasi sangat tinggi, tidak diperlukan di sini. Komentar negosiasi tercatat di tiap tahap.</span></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="dl_h">Pengiriman penawaran</h4><span class="frtag">FR-OFFER-002</span></div>
+          <p class="pdesc" data-i18n="dl_d">Setelah disetujui, surat dikirim aman dengan tanda tangan elektronik dan masa berlaku.</p>
+          <div class="field"><div class="fl" data-i18n="dl1">Tanda tangan elektronik</div><div class="fv"><span class="pill pill-on">DocuSign</span></div></div>
+          <div class="field"><div class="fl" data-i18n="dl2">Masa berlaku penawaran</div><div class="fv"><span class="inp">7 <span data-i18n="day">hari</span></span></div></div>
+          <div class="field"><div class="fl" data-i18n="dl3">Tampilan kandidat</div><div class="fv"><span class="pill pill-on" data-i18n="dl3v">Mobile, terima atau tolak</span></div></div>
+          <div class="field"><div class="fl" data-i18n="dl4">Panggilan personal sebelum surat</div><div class="fv"><span class="pill pill-on" data-i18n="on">Aktif</span></div></div>
+          <div style="margin-top:12px;display:flex;gap:9px"><button class="btn btn-ghost sm" data-i18n="dl_call">Jadwalkan panggilan</button><button class="btn btn-primary sm" data-i18n="dl_send">Kirim setelah disetujui</button></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== NEGOSIASI & HASIL ===== -->
+    <div class="subview" data-sv="nego">
+      <div class="panel">
+        <div class="ph"><h4 data-i18n="ng_h">Riwayat &amp; dukungan negosiasi</h4><span class="frtag">FR-OFFER-002</span></div>
+        <div class="nego"><div class="nw">07 Jun 14.20</div><div class="nc"><b data-i18n="ng1">Tawaran awal dikirim</b> <span data-i18n="ng1d">gaji pokok 40 jt, signing bonus 30 jt, hybrid</span></div><span class="who who-rec" data-i18n="who_rec">Recruiter</span></div>
+        <div class="nego"><div class="nw">08 Jun 09.05</div><div class="nc"><b data-i18n="ng2">Counter dari kandidat</b> <span data-i18n="ng2d">minta gaji pokok 43 jt dan 2 hari remote per minggu</span></div><span class="who who-cand" data-i18n="who_cand">Kandidat</span></div>
+        <div class="aiband" style="margin:12px 0 0">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+          <div class="tx"><b data-i18n="ng_ai_t">Saran respons HC AI</b><span data-i18n="ng_ai_d">Gaji 43 jt mendekati p75, masih dalam budget. Tawarkan 42 jt plus 2 hari remote yang sudah jadi standar tim. Counter ini perlu re-approval Finance, dan tinjauan legal bila ada syarat khusus. Saran, keputusan tetap pada Anda dan hiring manager.</span></div>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:9px"><button class="btn btn-ghost sm" data-i18n="ng_revise">Susun tawaran revisi</button><button class="btn btn-dark sm" data-i18n="ng_consult">Konsultasi hiring manager</button></div>
+      </div>
+      <div class="grid2">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="ac_h">Bila diterima, serah terima onboarding</h4><span class="frtag">FR-OFFER-003</span></div>
+          <p class="pdesc" data-i18n="ac_d">Penerimaan memicu langkah otomatis tanpa kandidat mengisi ulang data yang sama.</p>
+          <div class="hand"><div class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ht" data-i18n="ac1">Picu background &amp; reference check</div></div>
+          <div class="hand"><div class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ht" data-i18n="ac2">Reservasi employee ID &amp; email</div></div>
+          <div class="hand"><div class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ht" data-i18n="ac3">Serah terima ke modul onboarding, tanpa input ulang</div></div>
+          <div class="hand"><div class="hi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ht" data-i18n="ac4">Pipeline lain ditutup, satu kandidat cadangan ditahan</div></div>
+        </div>
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="dc_h">Bila ditolak, kelola &amp; pelajari</h4><span class="frtag">FR-OFFER-004</span></div>
+          <p class="pdesc" data-i18n="dc_d">Penolakan menangkap alasan terstruktur untuk memperbaiki tawaran berikutnya.</p>
+          <div class="kv"><div class="k" data-i18n="dc1">Alasan tersering</div><div class="v" data-i18n="dc1v" style="font-family:var(--font-ui);font-weight:500">Gaji &amp; tawaran lain</div></div>
+          <div class="kv"><div class="k" data-i18n="dc2">Decline rate role ini</div><div class="v">14<small>%</small></div></div>
+          <div class="kv"><div class="k" data-i18n="dc3">Analisis daya saing gaji</div><div class="v" style="color:var(--success)" data-i18n="dc3v">Kompetitif</div></div>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="dc_n">Kandidat yang menolak tetap dirawat di talent pool dengan consent, untuk peluang berikutnya.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Penawaran · Recruiter · prototipe, mengacu Design System v3</div>
+  </main>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Penawaran",en:"Offers"},
+  search:{id:"Cari penawaran, kandidat",en:"Search offers, candidates"},
+  role:{id:"Recruiter",en:"Recruiter"},
+  cb_req:{id:"Requisition",en:"Requisition"},cb_cand:{id:"Kandidat",en:"Candidate"},cb_off:{id:"Penawaran",en:"Offer"},
+  tier:{id:"Skor HC AI",en:"HC AI score"},
+  st_wait:{id:"Menunggu approval",en:"Awaiting approval"},st_pdf:{id:"Pratinjau surat",en:"Preview letter"},
+  s1:{id:"Ekspektasi gaji",en:"Expected salary"},s2:{id:"Posisi di pasar",en:"Market position"},s3:{id:"Prediksi diterima",en:"Predicted acceptance"},s4:{id:"Berlaku",en:"Valid for"},
+  t1:{id:"Susun paket",en:"Build package"},t2:{id:"Benchmark & ekuitas",en:"Benchmark & equity"},t3:{id:"Approval & kirim",en:"Approval & send"},t4:{id:"Negosiasi & hasil",en:"Negotiation & outcome"},
+
+  ai_t:{id:"HC AI menyarankan paket ini",en:"HC AI suggests this package"},
+  ai_d:{id:"Disusun dari ekspektasi 40 jt, benchmark pasar untuk role dan lokasi, ekuitas internal karyawan serupa, dan ketersediaan budget. Anda tetap memutuskan dan menyunting.",en:"Built from the 40M expectation, market benchmark for role and location, internal equity of similar employees, and budget availability. You still decide and edit."},
+  b_comp:{id:"Komponen kompensasi",en:"Compensation components"},
+  f1:{id:"Gaji pokok",en:"Base salary"},aitag:{id:"HC AI",en:"HC AI"},
+  f2:{id:"Signing bonus",en:"Signing bonus"},
+  f3:{id:"Variabel",en:"Variable"},f3s:{id:"komisi penjualan sampai 4x gaji",en:"sales commission up to 4x salary"},f3v:{id:"Skema komisi",en:"Commission scheme"},
+  f4:{id:"Benefit",en:"Benefits"},f4s:{id:"BPJS, asuransi swasta, cuti, tunjangan",en:"BPJS, private insurance, leave, allowances"},f4v:{id:"Paket standar",en:"Standard package"},
+  f5:{id:"Tanggal mulai",en:"Start date"},
+  b_terms:{id:"Syarat & ketentuan",en:"Terms & conditions"},
+  f6:{id:"Pengaturan kerja",en:"Work arrangement"},f6v:{id:"Hybrid",en:"Hybrid"},
+  f7:{id:"Atasan & departemen",en:"Manager & department"},f7v:{id:"Rudi W., Sales",en:"Rudi W., Sales"},
+  f8:{id:"Kontingensi",en:"Contingencies"},f8s:{id:"background check & pemeriksaan medis",en:"background check & medical exam"},f8v:{id:"2 syarat",en:"2 conditions"},
+  f9:{id:"Masa percobaan",en:"Probation period"},month:{id:"bln",en:"mo"},
+  f10:{id:"Jenis kontrak",en:"Contract type"},
+  f11:{id:"Disclaimer at-will",en:"At-will disclaimer"},off:{id:"Mati",en:"Off"},
+  b_n:{id:"Indonesia memakai PKWT dan PKWTT, jadi disclaimer at-will dimatikan otomatis sesuai template negara.",en:"Indonesia uses PKWT and PKWTT, so the at-will disclaimer is auto-disabled per the country template."},
+
+  m_h:{id:"Posisi penawaran di pasar",en:"Offer position in the market"},
+  m_d:{id:"Benchmark dari Mercer, Radford, dan PayScale untuk role, lokasi, dan pengalaman setara. Gaji pokok per bulan.",en:"Benchmark from Mercer, Radford, and PayScale for comparable role, location, and experience. Monthly base salary."},
+  m_off:{id:"Tawaran 40 jt",en:"Offer 40M"},
+  m_ai:{id:"Tawaran 40 jt berada di antara p50 dan p75, kompetitif untuk profil ini. Data historis: 78% kandidat profil serupa menerima di rentang ini.",en:"The 40M offer sits between p50 and p75, competitive for this profile. Historical data: 78% of similar-profile candidates accepted in this range."},
+  eq_h:{id:"Ekuitas internal",en:"Internal equity"},
+  eq_d:{id:"Banding terhadap karyawan serupa untuk menjaga keadilan. Rentang dimiliki Compensation & Benefit.",en:"Compared against similar employees to keep it fair. Ranges are owned by Compensation & Benefit."},
+  eq1:{id:"Rentang karyawan serupa",en:"Similar employees range"},eq2:{id:"Median tim saat ini",en:"Current team median"},eq3:{id:"Status kompresi & inversi",en:"Compression & inversion status"},eq3v:{id:"Aman",en:"Clear"},
+  eq_n:{id:"Tawaran 40 jt berada dalam rentang internal dan tidak menimbulkan kompresi terhadap rekan atau inversi terhadap atasan.",en:"The 40M offer is within the internal range and creates no compression against peers or inversion against the manager."},
+  hi_h:{id:"Data penerimaan historis",en:"Historical acceptance data"},
+  hi1:{id:"Diterima di rentang ini",en:"Accepted in this range"},hi2:{id:"Acceptance rate organisasi",en:"Org acceptance rate"},hi3:{id:"Ekspektasi premium dari kompetitor",en:"Premium expected from competitors"},
+  hi_n:{id:"Rentang gaji dimiliki Compensation & Benefit. Layar ini hanya merujuk untuk benchmarking, bukan menetapkan kebijakan gaji.",en:"Salary ranges are owned by Compensation & Benefit. This screen only references them for benchmarking, it does not set pay policy."},
+
+  ap_h:{id:"Rantai approval",en:"Approval chain"},
+  ap_d:{id:"Approver ditentukan struktur lewat DOA. SLA 1 hari kerja per tahap dengan eskalasi otomatis.",en:"Approvers are set by structure via DOA. SLA 1 business day per stage with auto-escalation."},
+  ap1:{id:"Hiring manager, Rudi W.",en:"Hiring manager, Rudi W."},ap1m:{id:"setuju kandidat & paket · selesai",en:"approved candidate & package · done"},
+  ap2:{id:"HRBP, ekuitas & kebijakan",en:"HRBP, equity & policy"},ap2m:{id:"ekuitas internal aman · selesai",en:"internal equity clear · done"},
+  ap3:{id:"Finance, otoritas budget",en:"Finance, budget authority"},ap3m:{id:"berjalan · SLA 1 hari",en:"in progress · SLA 1 day"},
+  ap_n:{id:"Approval CEO hanya untuk role eksekutif atau kompensasi sangat tinggi, tidak diperlukan di sini. Komentar negosiasi tercatat di tiap tahap.",en:"CEO approval is only for executive roles or very high compensation, not needed here. Negotiation comments are captured at each stage."},
+  dl_h:{id:"Pengiriman penawaran",en:"Offer delivery"},
+  dl_d:{id:"Setelah disetujui, surat dikirim aman dengan tanda tangan elektronik dan masa berlaku.",en:"Once approved, the letter is sent securely with electronic signature and an expiry."},
+  dl1:{id:"Tanda tangan elektronik",en:"Electronic signature"},
+  dl2:{id:"Masa berlaku penawaran",en:"Offer validity"},day:{id:"hari",en:"days"},
+  dl3:{id:"Tampilan kandidat",en:"Candidate view"},dl3v:{id:"Mobile, terima atau tolak",en:"Mobile, accept or decline"},
+  dl4:{id:"Panggilan personal sebelum surat",en:"Personal call before the letter"},on:{id:"Aktif",en:"On"},
+  dl_call:{id:"Jadwalkan panggilan",en:"Schedule call"},dl_send:{id:"Kirim setelah disetujui",en:"Send once approved"},
+
+  ng_h:{id:"Riwayat & dukungan negosiasi",en:"Negotiation history & support"},
+  ng1:{id:"Tawaran awal dikirim",en:"Initial offer sent"},ng1d:{id:"gaji pokok 40 jt, signing bonus 30 jt, hybrid",en:"base 40M, signing bonus 30M, hybrid"},
+  ng2:{id:"Counter dari kandidat",en:"Counter from candidate"},ng2d:{id:"minta gaji pokok 43 jt dan 2 hari remote per minggu",en:"asks for base 43M and 2 remote days per week"},
+  who_rec:{id:"Recruiter",en:"Recruiter"},who_cand:{id:"Kandidat",en:"Candidate"},
+  ng_ai_t:{id:"Saran respons HC AI",en:"HC AI response suggestion"},
+  ng_ai_d:{id:"Gaji 43 jt mendekati p75, masih dalam budget. Tawarkan 42 jt plus 2 hari remote yang sudah jadi standar tim. Counter ini perlu re-approval Finance, dan tinjauan legal bila ada syarat khusus. Saran, keputusan tetap pada Anda dan hiring manager.",en:"A 43M salary nears p75, still within budget. Offer 42M plus the 2 remote days that are already a team standard. This counter needs Finance re-approval, and legal review if there are custom terms. A suggestion, the decision stays with you and the hiring manager."},
+  ng_revise:{id:"Susun tawaran revisi",en:"Build revised offer"},ng_consult:{id:"Konsultasi hiring manager",en:"Consult hiring manager"},
+
+  ac_h:{id:"Bila diterima, serah terima onboarding",en:"If accepted, onboarding handoff"},
+  ac_d:{id:"Penerimaan memicu langkah otomatis tanpa kandidat mengisi ulang data yang sama.",en:"Acceptance triggers automatic steps without the candidate re-entering the same data."},
+  ac1:{id:"Picu background & reference check",en:"Trigger background & reference check"},
+  ac2:{id:"Reservasi employee ID & email",en:"Reserve employee ID & email"},
+  ac3:{id:"Serah terima ke modul onboarding, tanpa input ulang",en:"Handoff to onboarding module, no re-entry"},
+  ac4:{id:"Pipeline lain ditutup, satu kandidat cadangan ditahan",en:"Other pipelines closed, one backup candidate held"},
+  dc_h:{id:"Bila ditolak, kelola & pelajari",en:"If declined, manage & learn"},
+  dc_d:{id:"Penolakan menangkap alasan terstruktur untuk memperbaiki tawaran berikutnya.",en:"A decline captures structured reasons to improve the next offer."},
+  dc1:{id:"Alasan tersering",en:"Most common reason"},dc1v:{id:"Gaji & tawaran lain",en:"Salary & other offers"},
+  dc2:{id:"Decline rate role ini",en:"Decline rate this role"},
+  dc3:{id:"Analisis daya saing gaji",en:"Salary competitiveness analysis"},dc3v:{id:"Kompetitif",en:"Competitive"},
+  dc_n:{id:"Kandidat yang menolak tetap dirawat di talent pool dengan consent, untuk peluang berikutnya.",en:"Declined candidates are still nurtured in the talent pool with consent, for future opportunities."},
+
+  foot:{id:"One HCMS · Talent Acquisition · Penawaran · Recruiter · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Offer · Recruiter · prototype, per Design System v3"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.subtab');if(!b)return;
+  document.querySelectorAll('#tabs .subtab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('on',v.dataset.sv===b.dataset.st));
+});
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

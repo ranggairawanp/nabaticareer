@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Persona Governance &amp; SoD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff;--surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:150px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.layout{flex:1;display:flex;min-height:0}
+.side{width:240px;flex:0 0 auto;border-right:1px solid var(--border);overflow-y:auto;padding:14px 10px;background:var(--surface)}
+.sidehead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding:4px 10px 8px}
+.side nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:12.5px;margin-bottom:1px;cursor:pointer}
+.side nav a svg{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+.side nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side nav a.active{background:var(--primary-tint);color:var(--primary);font-weight:600}
+.side nav a.active svg{color:var(--primary)}
+.side .badge-new{margin-left:auto;font-size:9px;font-weight:700;color:var(--primary-700);background:#fff;border:1px solid var(--primary-tint-2);border-radius:5px;padding:1px 5px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 80px;min-width:0}
+.phead{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.phead .mt{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.5px}
+.phead .mt small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.rolebadge{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;background:var(--dark);color:#fff;border-radius:999px;padding:6px 13px;font-weight:600}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#fff}
+.scope{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin:12px 0 14px}
+.scope svg{width:15px;height:15px;color:var(--primary);flex:none}
+.scope .asof{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-num);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+
+.transition{display:flex;align-items:center;gap:12px;flex-wrap:wrap;background:var(--surface-2);border:1px dashed var(--border-strong);border-radius:10px;padding:11px 14px;margin-bottom:16px}
+.transition .from{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--ink-2);background:#fff;border:1px solid var(--border);border-radius:8px;padding:6px 11px}
+.transition .from .x{width:8px;height:8px;border-radius:50%;background:var(--danger)}
+.transition .ar{color:var(--primary);font-weight:800;font-size:16px}
+.transition .to{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:8px;padding:6px 11px}
+.transition .to .c{width:8px;height:8px;border-radius:50%;background:var(--success)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:7px 13px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:2px}
+.subtab{border:none;background:transparent;padding:8px 13px;border-radius:8px 8px 0 0;font-size:12.5px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-3px}
+.subtab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.subview{display:none}.subview.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.pgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:980px){.pgrid{grid-template-columns:1fr}}
+.pcard{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:15px;box-shadow:var(--e1)}
+.pcard.glass{border-color:var(--primary-tint-2);background:linear-gradient(180deg,#fff,var(--primary-tint))}
+.pcard .pchead{display:flex;align-items:center;gap:11px;margin-bottom:4px}
+.pcard .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;flex:none;color:#fff}
+.pcard .ic svg{width:18px;height:18px}
+.ic-plat{background:var(--slate)}.ic-gov{background:var(--primary)}.ic-dpo{background:var(--violet)}.ic-reg{background:var(--info)}.ic-aud{background:var(--dark)}.ic-glass{background:var(--warning)}
+.pcard h4{margin:0;font-size:14px}
+.pcard .mand{font-size:11px;color:var(--ink-3);font-weight:500}
+.pcard .blk{margin-top:11px}
+.pcard .bl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.pcard .bl.own{color:var(--success)}.pcard .bl.no{color:var(--danger)}.pcard .bl.co{color:var(--warning)}
+.pcard .bl svg{width:12px;height:12px}
+.pcard ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+.pcard li{font-size:11.5px;color:var(--ink-2);display:flex;gap:7px;align-items:flex-start;line-height:1.4}
+.pcard li::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--n400);margin-top:6px;flex:none}
+.pcard li.own::before{background:var(--success)}.pcard li.no::before{background:var(--danger)}.pcard li.co::before{background:var(--warning)}
+
+/* matrix */
+table.mtx{width:100%;border-collapse:collapse;font-size:12px;background:var(--surface)}
+table.mtx th{text-align:center;font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-2);padding:9px 6px;border-bottom:2px solid var(--border);font-weight:700;background:var(--surface-2)}
+table.mtx th.dom{text-align:left;min-width:150px}
+table.mtx td{padding:7px 6px;border-bottom:1px solid var(--surface-3);text-align:center;vertical-align:middle}
+table.mtx td.dom{text-align:left;font-weight:600;color:var(--ink);font-size:12px}
+table.mtx tr:last-child td{border-bottom:none}
+.cell{display:inline-block;font-size:9.5px;font-weight:700;border-radius:5px;padding:2px 7px;border:1px solid;letter-spacing:.02em}
+.c-own{color:#fff;background:var(--primary);border-color:var(--primary)}
+.c-dual{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.c-local{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.c-read{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.c-none{color:var(--n400)}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:12px;font-size:11px;color:var(--ink-3)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:15px;margin-bottom:14px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;margin:0 0 6px;gap:10px}
+.panel .ph h4{margin:0;font-size:14px}
+.panel .pdesc{font-size:11.5px;color:var(--ink-3);margin:0 0 13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+
+.dctrl{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--surface-3)}
+.dctrl:last-child{border-bottom:none}
+.dctrl .da{flex:1;font-size:12.5px;font-weight:500}
+.dctrl .keys{display:flex;align-items:center;gap:5px;flex:none}
+.keytag{font-size:9.5px;font-weight:700;border-radius:5px;padding:2px 7px;border:1px solid}
+.kt-gov{color:var(--primary-700);background:var(--primary-tint);border-color:var(--primary-tint-2)}
+.kt-dpo{color:var(--violet);background:var(--violet-tint);border-color:#ddd0f0}
+.kt-plat{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.kt-aud{color:#fff;background:var(--dark);border-color:var(--dark)}
+.dctrl .plus{color:var(--ink-3);font-weight:700}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--surface-3)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-row .tl{min-width:0}
+.toggle-row .tl b{display:flex;align-items:center;gap:8px;font-weight:600;font-size:12.5px;flex-wrap:wrap}
+.toggle-row .tl span{font-size:11px;color:var(--ink-3);display:block;margin-top:2px}
+.switch{position:relative;width:38px;height:22px;border-radius:999px;background:var(--n300);transition:.2s;flex:0 0 auto;border:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:var(--e1);transition:.2s}
+.switch[disabled]{opacity:.55;cursor:not-allowed}.switch.lockon{background:var(--success)}.switch.lockon::after{left:18px}
+.rbadge{font-size:9.5px;font-weight:700;border-radius:5px;padding:1px 6px;border:1px solid;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+.rb-lock{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:12px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.foot{margin-top:14px;font-size:11px;color:var(--ink-3);text-align:center}
+.savebar{position:sticky;bottom:0;margin:14px -26px -80px;padding:12px 26px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.savebar .sn{font-size:11.5px;color:var(--ink-3)}.savebar .sp2{flex:1}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Konsol Master Admin</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari persona, domain, kontrol"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">AN</div><div class="nm">Adi Nugroho<small>Platform Admin</small></div></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <div class="sidehead" data-i18n="navhead">Tata Kelola TA</div>
+      <nav>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="n_gov">Ringkasan tata kelola</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_rbac">Peran &amp; Akses</span></a>
+        <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M17 11l2 2 4-4"/></svg><span data-i18n="n_persona">Persona Governance &amp; SoD</span><span class="badge-new" data-i18n="new">BARU</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 1.7 3 .2.9 2.9 2 2.2-1 2.8.4 3-2.6 1.5-1.5 2.6-3-.4-2.7 1.3-2.7-1.3-3 .4-1.5-2.6L3.3 16l.4-3-1-2.8 2-2.2.9-2.9 3-.2Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_flow">Workflow &amp; Approval</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="n_ai">Model HC AI</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 6-6"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg><span data-i18n="n_asmt">Asesmen &amp; Validasi</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12l-3-3M20 15H8l3 3"/></svg><span data-i18n="n_stage">Tahap Pipeline</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg><span data-i18n="n_bgc">Background Check &amp; Adjudikasi</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 3.5a3 3 0 0 1 0 9"/></svg><span data-i18n="n_grow">Referral, Brand &amp; Talent Pool</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg><span data-i18n="n_tpl">Template &amp; Komunikasi</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg><span data-i18n="n_intg">Integrasi &amp; Channel</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span data-i18n="n_data">Data &amp; Residency</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="n_audit">Audit &amp; Keamanan</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="phead">
+        <div class="mt"><span data-i18n="ptitle">Persona Governance &amp; SoD</span><small data-i18n="psub">Memecah satu Master Admin jadi peran yang saling membatasi</small></div>
+        <div class="rolebadge"><i></i>Platform Admin</div>
+      </div>
+      <div class="scope">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/></svg>
+        <span data-i18n="scope">Untuk grup 32.000 orang di 15+ negara, satu admin yang bisa segalanya adalah risiko, bukan kekuatan. Kuasa dipecah jadi peran yang saling mengawasi, dengan kontrol ganda untuk kunci paling sensitif.</span>
+        <span class="asof"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>08 Jun 2026 09.40</span>
+      </div>
+
+      <div class="transition">
+        <span class="from"><span class="x"></span><span data-i18n="tr_from">Sebelum, 1 Master Admin penuh kuasa</span></span>
+        <span class="ar">&rarr;</span>
+        <span class="to"><span class="c"></span><span data-i18n="tr_to">Sesudah, 5 peran governance + break-glass darurat</span></span>
+      </div>
+
+      <div class="subtabs" id="tabs">
+        <button class="subtab active" data-st="persona" data-i18n="t1">Persona</button>
+        <button class="subtab" data-st="matrix" data-i18n="t2">Matriks kewenangan</button>
+        <button class="subtab" data-st="sod" data-i18n="t3">Kontrol ganda &amp; SoD</button>
+      </div>
+
+      <!-- ===== PERSONA ===== -->
+      <div class="subview on" data-sv="persona">
+        <div class="pgrid">
+
+          <div class="pcard">
+            <div class="pchead"><div class="ic ic-plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M17.5 14v7M14 17.5h7"/></svg></div><div><h4 data-i18n="pa_n">Platform Admin</h4><div class="mand" data-i18n="pa_m">Kustodian teknis platform</div></div></div>
+            <div class="blk"><div class="bl own"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="owns">Memegang</span></div><ul><li class="own" data-i18n="pa_o1">Integrasi, channel, dan kredensial konektor</li><li class="own" data-i18n="pa_o2">SSO dan konfigurasi sistem</li><li class="own" data-i18n="pa_o3">Kesehatan sistem dan lingkungan</li></ul></div>
+            <div class="blk"><div class="bl no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="cannot">Tidak boleh</span></div><ul><li class="no" data-i18n="pa_n1">Menyetel kebijakan fairness AI atau hiring</li><li class="no" data-i18n="pa_n2">Mengubah residency atau consent sendirian</li><li class="no" data-i18n="pa_n3">Memberi peran governance atau menutup audit</li></ul></div>
+          </div>
+
+          <div class="pcard">
+            <div class="pchead"><div class="ic ic-gov"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg></div><div><h4 data-i18n="gv_n">TA Governance &amp; Compliance</h4><div class="mand" data-i18n="gv_m">Otoritas kebijakan dan keadilan</div></div></div>
+            <div class="blk"><div class="bl own"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="owns">Memegang</span></div><ul><li class="own" data-i18n="gv_o1">Guardrail HC AI, workflow, dan approval</li><li class="own" data-i18n="gv_o2">Pipeline, asesmen, kit, dan kartu skor</li><li class="own" data-i18n="gv_o3">Kebijakan BGC dan adjudikasi, template</li></ul></div>
+            <div class="blk"><div class="bl no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="cannot">Tidak boleh</span></div><ul><li class="no" data-i18n="gv_n1">Mengubah residency atau consent sendirian</li><li class="no" data-i18n="gv_n2">Memegang kredensial integrasi teknis</li><li class="no" data-i18n="gv_n3">Memberi peran kepada diri sendiri</li></ul></div>
+          </div>
+
+          <div class="pcard">
+            <div class="pchead"><div class="ic ic-dpo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg></div><div><h4 data-i18n="dp_n">Data Protection Officer</h4><div class="mand" data-i18n="dp_m">Otoritas data dan privasi</div></div></div>
+            <div class="blk"><div class="bl own"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="owns">Memegang</span></div><ul><li class="own" data-i18n="dp_o1">Zona residency, isolasi zona China</li><li class="own" data-i18n="dp_o2">Consent, retensi, hak subjek data</li><li class="own" data-i18n="dp_o3">Ambang k-anonimitas analitik</li></ul></div>
+            <div class="blk"><div class="bl co"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg><span data-i18n="cosign">Tanda tangan ganda</span></div><ul><li class="co" data-i18n="dp_c1">Fitur AI yang memproses data sensitif</li><li class="co" data-i18n="dp_c2">Ekspor PII kandidat dalam jumlah besar</li></ul></div>
+          </div>
+
+          <div class="pcard">
+            <div class="pchead"><div class="ic ic-reg"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5 8 12 8 12s8-7 8-12a8 8 0 0 0-8-8Z"/></svg></div><div><h4 data-i18n="rg_n">Regional / Entity Admin</h4><div class="mand" data-i18n="rg_m">Tata kelola lokal, terbatas entitas</div></div></div>
+            <div class="blk"><div class="bl own"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="owns_local">Memegang, lokal saja</span></div><ul><li class="own" data-i18n="rg_o1">Channel, template, dan terjemahan lokal</li><li class="own" data-i18n="rg_o2">Paket BGC lokal dalam kebijakan global</li><li class="own" data-i18n="rg_o3">Routing approval dan peran recruiter lokal</li></ul></div>
+            <div class="blk"><div class="bl no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="cannot">Tidak boleh</span></div><ul><li class="no" data-i18n="rg_n1">Menembus kunci global fairness atau residency</li><li class="no" data-i18n="rg_n2">Mengatur di luar negaranya, China di dalam region</li></ul></div>
+          </div>
+
+          <div class="pcard">
+            <div class="pchead"><div class="ic ic-aud"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><h4 data-i18n="au_n">Security &amp; Audit</h4><div class="mand" data-i18n="au_m">Pengawasan independen</div></div></div>
+            <div class="blk"><div class="bl own"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="owns">Memegang</span></div><ul><li class="own" data-i18n="au_o1">Tinjauan audit dan pemantauan anomali</li><li class="own" data-i18n="au_o2">Resertifikasi akses berkala</li><li class="own" data-i18n="au_o3">Integritas log imutable</li></ul></div>
+            <div class="blk"><div class="bl no"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="cannot">Tidak boleh</span></div><ul><li class="no" data-i18n="au_n1">Mengonfigurasi kebijakan apa pun</li><li class="no" data-i18n="au_n2">Pengawas bukan pelaku, agar tetap netral</li></ul></div>
+          </div>
+
+          <div class="pcard glass">
+            <div class="pchead"><div class="ic ic-glass"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6M5 22l7-12 7 12z"/><path d="M12 16v3"/></svg></div><div><h4 data-i18n="bg_n">Super Admin, break-glass</h4><div class="mand" data-i18n="bg_m">Hanya darurat, bukan persona harian</div></div></div>
+            <div class="blk"><div class="bl own"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="owns">Memegang</span></div><ul><li class="own" data-i18n="bg_o1">Elevasi sementara untuk pemulihan kritis</li></ul></div>
+            <div class="blk"><div class="bl co"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/></svg><span data-i18n="controls">Kendali</span></div><ul><li class="co" data-i18n="bg_c1">Dua approver untuk aktivasi, time-boxed</li><li class="co" data-i18n="bg_c2">Tercatat penuh dan dicabut otomatis</li></ul></div>
+          </div>
+
+        </div>
+        <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="pa_map">Pemetaan transisi: akun Master Admin lama, Adi Nugroho, kini menjadi Platform Admin. Kewenangan kebijakan pindah ke TA Governance, kewenangan privasi ke DPO. Tidak ada lagi satu akun yang memegang semuanya.</span></div>
+      </div>
+
+      <!-- ===== MATRIKS ===== -->
+      <div class="subview" data-sv="matrix">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="mx_h">Matriks kewenangan, domain terhadap persona</h4></div>
+          <p class="pdesc" data-i18n="mx_d">Siapa boleh mengonfigurasi apa. Sel kontrol ganda berarti butuh dua peran, sel lokal berarti dalam batas negara dan kebijakan global.</p>
+          <div style="overflow-x:auto">
+          <table class="mtx">
+            <thead><tr>
+              <th class="dom" data-i18n="mx_dom">Domain tata kelola</th>
+              <th data-i18n="col_plat">Platform</th><th data-i18n="col_gov">TA Gov</th><th data-i18n="col_dpo">DPO</th><th data-i18n="col_reg">Regional</th><th data-i18n="col_aud">Audit</th>
+            </tr></thead>
+            <tbody>
+              <tr><td class="dom" data-i18n="d_rbac">Peran &amp; akses</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td></tr>
+              <tr><td class="dom" data-i18n="d_flow">Workflow &amp; approval</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_ai">Model HC AI</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_asmt">Asesmen &amp; validasi</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_kit">Kit &amp; kartu skor</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_pipe">Tahap pipeline</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_bgc">Background check</td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_grow">Referral, brand, pool</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_tpl">Template &amp; komunikasi</td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-none">&mdash;</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_intg">Integrasi &amp; channel</td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_data">Data &amp; residency</td><td><span class="cell c-dual" data-i18n="v_dual">Ganda</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td><td><span class="cell c-local" data-i18n="v_local">Lokal</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td></tr>
+              <tr><td class="dom" data-i18n="d_audit">Audit &amp; keamanan</td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-read" data-i18n="v_read">Baca</span></td><td><span class="cell c-own" data-i18n="v_own">Pemilik</span></td></tr>
+            </tbody>
+          </table>
+          </div>
+          <div class="legend">
+            <span><span class="cell c-own" data-i18n="v_own">Pemilik</span> <span data-i18n="lg_own">menyetel penuh</span></span>
+            <span><span class="cell c-dual" data-i18n="v_dual">Ganda</span> <span data-i18n="lg_dual">butuh dua peran</span></span>
+            <span><span class="cell c-local" data-i18n="v_local">Lokal</span> <span data-i18n="lg_local">dalam batas negara</span></span>
+            <span><span class="cell c-read" data-i18n="v_read">Baca</span> <span data-i18n="lg_read">lihat saja</span></span>
+            <span><span class="cell c-none">&mdash;</span> <span data-i18n="lg_none">tanpa akses</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== SOD ===== -->
+      <div class="subview" data-sv="sod">
+        <div class="grid2">
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="dc_h">Aksi berkunci ganda</h4></div>
+            <p class="pdesc" data-i18n="dc_d">Aksi paling sensitif butuh dua peran berbeda menyetujui, agar tidak ada satu titik kuasa tunggal.</p>
+            <div class="dctrl"><div class="da" data-i18n="dc1">Ubah kunci fairness AI</div><div class="keys"><span class="keytag kt-gov">TA Gov</span><span class="plus">+</span><span class="keytag kt-dpo">DPO</span></div></div>
+            <div class="dctrl"><div class="da" data-i18n="dc2">Ubah zona residency atau k-anonimitas</div><div class="keys"><span class="keytag kt-dpo">DPO</span><span class="plus">+</span><span class="keytag kt-plat">Platform</span></div></div>
+            <div class="dctrl"><div class="da" data-i18n="dc3">Beri peran governance</div><div class="keys"><span class="keytag kt-aud">Audit</span><span class="plus">+</span><span class="keytag kt-gov">TA Gov</span></div></div>
+            <div class="dctrl"><div class="da" data-i18n="dc4">Ekspor PII kandidat massal</div><div class="keys"><span class="keytag kt-dpo">DPO</span><span class="plus">+</span><span class="keytag kt-gov">TA Gov</span></div></div>
+            <div class="dctrl"><div class="da" data-i18n="dc5">Aktifkan super admin break-glass</div><div class="keys"><span class="keytag kt-aud">Audit</span><span class="plus">+</span><span class="keytag kt-plat">Platform</span></div></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="pr_h">Prinsip SoD terkunci</h4></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="pr1">Tidak ada satu persona memegang kebijakan, peran, dan audit sekaligus <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="pr2">Kunci sensitif butuh kontrol ganda <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b><span data-i18n="pr2s">fairness AI, residency, peran governance</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="pr3">Auditor tidak mengonfigurasi, konfigurator tidak mengaudit dirinya <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="pr4">Pemberian peran governance butuh persetujuan ganda &amp; resertifikasi berkala</b></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="pr5">Zona China dikelola admin regional di dalam region</b></div><button class="switch lockon" disabled></button></div>
+            <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="pr_n">Prinsip ini melindungi dari penyalahgunaan internal dan dari satu akun yang dibajak. Tidak ada satu kunci yang membuka semua pintu.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Master Admin · Persona Governance &amp; SoD · prototipe, mengacu Design System v3</div>
+
+      <div class="savebar">
+        <span class="sn" data-i18n="save_note">Model persona dan prinsip SoD memengaruhi matriks RBAC di seluruh modul. Perubahan butuh persetujuan ganda.</span>
+        <span class="sp2"></span>
+        <button class="btn btn-ghost" data-i18n="btn_rbac">Buka matriks RBAC</button>
+        <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="btn_save">Simpan model</span></button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Konsol Master Admin",en:"Master Admin Console"},
+  search:{id:"Cari persona, domain, kontrol",en:"Search persona, domain, control"},
+  navhead:{id:"Tata Kelola TA",en:"TA Governance"},
+  n_gov:{id:"Ringkasan tata kelola",en:"Governance overview"},n_rbac:{id:"Peran & Akses",en:"Roles & Access"},
+  n_persona:{id:"Persona Governance & SoD",en:"Governance Personas & SoD"},new:{id:"BARU",en:"NEW"},
+  n_flow:{id:"Workflow & Approval",en:"Workflow & Approval"},n_ai:{id:"Model HC AI",en:"HC AI Model"},n_asmt:{id:"Asesmen & Validasi",en:"Assessment & Validation"},n_stage:{id:"Tahap Pipeline",en:"Pipeline Stages"},n_bgc:{id:"Background Check & Adjudikasi",en:"Background Check & Adjudication"},n_grow:{id:"Referral, Brand & Talent Pool",en:"Referral, Brand & Talent Pool"},n_tpl:{id:"Template & Komunikasi",en:"Templates & Communication"},n_intg:{id:"Integrasi & Channel",en:"Integrations & Channels"},n_data:{id:"Data & Residency",en:"Data & Residency"},n_audit:{id:"Audit & Keamanan",en:"Audit & Security"},
+
+  ptitle:{id:"Persona Governance & SoD",en:"Governance Personas & SoD"},
+  psub:{id:"Memecah satu Master Admin jadi peran yang saling membatasi",en:"Splitting one Master Admin into mutually bounding roles"},
+  scope:{id:"Untuk grup 32.000 orang di 15+ negara, satu admin yang bisa segalanya adalah risiko, bukan kekuatan. Kuasa dipecah jadi peran yang saling mengawasi, dengan kontrol ganda untuk kunci paling sensitif.",en:"For a group of 32,000 across 15+ countries, one admin who can do everything is a risk, not a strength. Authority is split into mutually checking roles, with dual control for the most sensitive keys."},
+  tr_from:{id:"Sebelum, 1 Master Admin penuh kuasa",en:"Before, 1 all-powerful Master Admin"},
+  tr_to:{id:"Sesudah, 5 peran governance + break-glass darurat",en:"After, 5 governance roles + emergency break-glass"},
+  t1:{id:"Persona",en:"Personas"},t2:{id:"Matriks kewenangan",en:"Authority matrix"},t3:{id:"Kontrol ganda & SoD",en:"Dual control & SoD"},
+  owns:{id:"Memegang",en:"Owns"},owns_local:{id:"Memegang, lokal saja",en:"Owns, local only"},cannot:{id:"Tidak boleh",en:"Cannot"},cosign:{id:"Tanda tangan ganda",en:"Dual sign-off"},controls:{id:"Kendali",en:"Controls"},locked:{id:"Terkunci",en:"Locked"},
+
+  pa_n:{id:"Platform Admin",en:"Platform Admin"},pa_m:{id:"Kustodian teknis platform",en:"Technical platform custodian"},
+  pa_o1:{id:"Integrasi, channel, dan kredensial konektor",en:"Integrations, channels, and connector credentials"},pa_o2:{id:"SSO dan konfigurasi sistem",en:"SSO and system configuration"},pa_o3:{id:"Kesehatan sistem dan lingkungan",en:"System health and environments"},
+  pa_n1:{id:"Menyetel kebijakan fairness AI atau hiring",en:"Set AI fairness or hiring policy"},pa_n2:{id:"Mengubah residency atau consent sendirian",en:"Change residency or consent alone"},pa_n3:{id:"Memberi peran governance atau menutup audit",en:"Grant governance roles or close audit"},
+
+  gv_n:{id:"TA Governance & Compliance",en:"TA Governance & Compliance"},gv_m:{id:"Otoritas kebijakan dan keadilan",en:"Policy and fairness authority"},
+  gv_o1:{id:"Guardrail HC AI, workflow, dan approval",en:"HC AI guardrails, workflow, and approval"},gv_o2:{id:"Pipeline, asesmen, kit, dan kartu skor",en:"Pipeline, assessment, kits, and scorecards"},gv_o3:{id:"Kebijakan BGC dan adjudikasi, template",en:"BGC and adjudication policy, templates"},
+  gv_n1:{id:"Mengubah residency atau consent sendirian",en:"Change residency or consent alone"},gv_n2:{id:"Memegang kredensial integrasi teknis",en:"Hold technical integration credentials"},gv_n3:{id:"Memberi peran kepada diri sendiri",en:"Grant roles to itself"},
+
+  dp_n:{id:"Data Protection Officer",en:"Data Protection Officer"},dp_m:{id:"Otoritas data dan privasi",en:"Data and privacy authority"},
+  dp_o1:{id:"Zona residency, isolasi zona China",en:"Residency zones, China zone isolation"},dp_o2:{id:"Consent, retensi, hak subjek data",en:"Consent, retention, data subject rights"},dp_o3:{id:"Ambang k-anonimitas analitik",en:"Analytics k-anonymity thresholds"},
+  dp_c1:{id:"Fitur AI yang memproses data sensitif",en:"AI features processing sensitive data"},dp_c2:{id:"Ekspor PII kandidat dalam jumlah besar",en:"Bulk export of candidate PII"},
+
+  rg_n:{id:"Regional / Entity Admin",en:"Regional / Entity Admin"},rg_m:{id:"Tata kelola lokal, terbatas entitas",en:"Local governance, entity-scoped"},
+  rg_o1:{id:"Channel, template, dan terjemahan lokal",en:"Local channels, templates, and translations"},rg_o2:{id:"Paket BGC lokal dalam kebijakan global",en:"Local BGC packages within global policy"},rg_o3:{id:"Routing approval dan peran recruiter lokal",en:"Local approval routing and recruiter roles"},
+  rg_n1:{id:"Menembus kunci global fairness atau residency",en:"Override global fairness or residency locks"},rg_n2:{id:"Mengatur di luar negaranya, China di dalam region",en:"Manage outside its country, China stays in-region"},
+
+  au_n:{id:"Security & Audit",en:"Security & Audit"},au_m:{id:"Pengawasan independen",en:"Independent oversight"},
+  au_o1:{id:"Tinjauan audit dan pemantauan anomali",en:"Audit review and anomaly monitoring"},au_o2:{id:"Resertifikasi akses berkala",en:"Periodic access recertification"},au_o3:{id:"Integritas log imutable",en:"Immutable log integrity"},
+  au_n1:{id:"Mengonfigurasi kebijakan apa pun",en:"Configure any policy"},au_n2:{id:"Pengawas bukan pelaku, agar tetap netral",en:"The watcher is not the actor, to stay neutral"},
+
+  bg_n:{id:"Super Admin, break-glass",en:"Super Admin, break-glass"},bg_m:{id:"Hanya darurat, bukan persona harian",en:"Emergency only, not a daily persona"},
+  bg_o1:{id:"Elevasi sementara untuk pemulihan kritis",en:"Temporary elevation for critical recovery"},
+  bg_c1:{id:"Dua approver untuk aktivasi, time-boxed",en:"Two approvers to activate, time-boxed"},bg_c2:{id:"Tercatat penuh dan dicabut otomatis",en:"Fully logged and auto-revoked"},
+
+  pa_map:{id:"Pemetaan transisi: akun Master Admin lama, Adi Nugroho, kini menjadi Platform Admin. Kewenangan kebijakan pindah ke TA Governance, kewenangan privasi ke DPO. Tidak ada lagi satu akun yang memegang semuanya.",en:"Transition mapping: the old Master Admin account, Adi Nugroho, becomes Platform Admin. Policy authority moves to TA Governance, privacy authority to the DPO. No single account holds everything anymore."},
+
+  mx_h:{id:"Matriks kewenangan, domain terhadap persona",en:"Authority matrix, domain against persona"},
+  mx_d:{id:"Siapa boleh mengonfigurasi apa. Sel kontrol ganda berarti butuh dua peran, sel lokal berarti dalam batas negara dan kebijakan global.",en:"Who may configure what. A dual-control cell needs two roles, a local cell means within country bounds and global policy."},
+  mx_dom:{id:"Domain tata kelola",en:"Governance domain"},
+  col_plat:{id:"Platform",en:"Platform"},col_gov:{id:"TA Gov",en:"TA Gov"},col_dpo:{id:"DPO",en:"DPO"},col_reg:{id:"Regional",en:"Regional"},col_aud:{id:"Audit",en:"Audit"},
+  d_rbac:{id:"Peran & akses",en:"Roles & access"},d_flow:{id:"Workflow & approval",en:"Workflow & approval"},d_ai:{id:"Model HC AI",en:"HC AI model"},d_asmt:{id:"Asesmen & validasi",en:"Assessment & validation"},d_kit:{id:"Kit & kartu skor",en:"Kits & scorecards"},d_pipe:{id:"Tahap pipeline",en:"Pipeline stages"},d_bgc:{id:"Background check",en:"Background check"},d_grow:{id:"Referral, brand, pool",en:"Referral, brand, pool"},d_tpl:{id:"Template & komunikasi",en:"Templates & comms"},d_intg:{id:"Integrasi & channel",en:"Integrations & channels"},d_data:{id:"Data & residency",en:"Data & residency"},d_audit:{id:"Audit & keamanan",en:"Audit & security"},
+  v_own:{id:"Pemilik",en:"Owner"},v_dual:{id:"Ganda",en:"Dual"},v_local:{id:"Lokal",en:"Local"},v_read:{id:"Baca",en:"Read"},
+  lg_own:{id:"menyetel penuh",en:"full configure"},lg_dual:{id:"butuh dua peran",en:"needs two roles"},lg_local:{id:"dalam batas negara",en:"within country bounds"},lg_read:{id:"lihat saja",en:"view only"},lg_none:{id:"tanpa akses",en:"no access"},
+
+  dc_h:{id:"Aksi berkunci ganda",en:"Dual-key actions"},
+  dc_d:{id:"Aksi paling sensitif butuh dua peran berbeda menyetujui, agar tidak ada satu titik kuasa tunggal.",en:"The most sensitive actions need two different roles to approve, so there is no single point of power."},
+  dc1:{id:"Ubah kunci fairness AI",en:"Change AI fairness lock"},dc2:{id:"Ubah zona residency atau k-anonimitas",en:"Change residency zone or k-anonymity"},dc3:{id:"Beri peran governance",en:"Grant a governance role"},dc4:{id:"Ekspor PII kandidat massal",en:"Bulk export candidate PII"},dc5:{id:"Aktifkan super admin break-glass",en:"Activate break-glass super admin"},
+  pr_h:{id:"Prinsip SoD terkunci",en:"Locked SoD principles"},
+  pr1:{id:"Tidak ada satu persona memegang kebijakan, peran, dan audit sekaligus",en:"No single persona holds policy, roles, and audit at once"},
+  pr2:{id:"Kunci sensitif butuh kontrol ganda",en:"Sensitive keys require dual control"},pr2s:{id:"fairness AI, residency, peran governance",en:"AI fairness, residency, governance roles"},
+  pr3:{id:"Auditor tidak mengonfigurasi, konfigurator tidak mengaudit dirinya",en:"The auditor does not configure, the configurer does not audit itself"},
+  pr4:{id:"Pemberian peran governance butuh persetujuan ganda & resertifikasi berkala",en:"Governance role grants need dual approval & periodic recertification"},
+  pr5:{id:"Zona China dikelola admin regional di dalam region",en:"China zone is managed by a regional admin in-region"},
+  pr_n:{id:"Prinsip ini melindungi dari penyalahgunaan internal dan dari satu akun yang dibajak. Tidak ada satu kunci yang membuka semua pintu.",en:"These principles protect against internal misuse and a single hijacked account. No one key opens every door."},
+
+  foot:{id:"One HCMS · Talent Acquisition · Master Admin · Persona Governance & SoD · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Master Admin · Governance Personas & SoD · prototype, per Design System v3"},
+  save_note:{id:"Model persona dan prinsip SoD memengaruhi matriks RBAC di seluruh modul. Perubahan butuh persetujuan ganda.",en:"The persona model and SoD principles affect the RBAC matrix across the module. Changes need dual approval."},
+  btn_rbac:{id:"Buka matriks RBAC",en:"Open RBAC matrix"},btn_save:{id:"Simpan model",en:"Save model"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.subtab');if(!b)return;
+  document.querySelectorAll('#tabs .subtab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('on',v.dataset.sv===b.dataset.st));
+});
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · Talent Acquisition · TA Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--surface:#ffffff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-300:#f08a85;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+  --e3:0 12px 28px -10px rgba(23,26,31,.18);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+/* topbar */
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:14px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:230px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 14px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;font-weight:700;font-size:12.5px;border:1px solid var(--primary-tint-2)}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.layout{flex:1;display:flex;min-height:0}
+/* side nav modul */
+.side{width:228px;flex:0 0 auto;border-right:1px solid var(--border);overflow-y:auto;padding:14px 10px;background:var(--surface)}
+.sidehead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding:4px 10px 8px}
+.side nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:12.5px;margin-bottom:1px}
+.side nav a svg{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+.side nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side nav a.active{background:var(--primary-tint);color:var(--primary);font-weight:600}
+.side nav a.active svg{color:var(--primary)}
+.side nav a .cnt{margin-left:auto;font-family:var(--font-num);font-size:10.5px;color:var(--ink-3);background:var(--surface-3);border-radius:20px;padding:1px 7px}
+.side nav a.active .cnt{background:#fff;color:var(--primary)}
+.side .sep{height:1px;background:var(--border);margin:10px 4px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 60px;min-width:0}
+.phead{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.phead .mt{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.5px}
+.phead .mt small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.rolebadge{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 13px;font-weight:600;box-shadow:var(--e1)}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#b8456e}
+.scope{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin:12px 0 4px}
+.scope svg{width:15px;height:15px;color:var(--primary);flex:none}
+.scope b{font-weight:600;color:var(--ink)}
+.scope .asof{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-num);font-size:11.5px;color:var(--ink-3)}
+.scope .asof svg{color:var(--ink-3)}
+
+/* HC AI banner */
+.aiband{display:flex;gap:13px;align-items:flex-start;background:linear-gradient(180deg,#fff,var(--primary-tint));border:1px solid var(--primary-tint-2);border-radius:var(--r-md);padding:13px 15px;margin:14px 0 16px;box-shadow:var(--e1)}
+.aiband .ic{width:34px;height:34px;border-radius:9px;background:var(--primary);display:grid;place-items:center;flex:0 0 auto}
+.aiband .ic svg{width:19px;height:19px;color:#fff}
+.aiband .tx{flex:1;font-size:13px;color:var(--ink)}
+.aiband .tx b{font-weight:700}
+.aiband .tx .lab{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--primary-700);margin-bottom:2px}
+.aiband .act{display:flex;gap:8px;flex-wrap:wrap;margin-top:9px}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:7px 13px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn-quiet{background:transparent;color:var(--ink-2)}.btn-quiet:hover{background:var(--surface-2)}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:11px;margin-bottom:16px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:12px 14px;box-shadow:var(--e1);position:relative;overflow:hidden}
+.kpi::after{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--primary)}
+.kpi.ok::after{background:var(--success)}.kpi.warn::after{background:var(--warning)}.kpi.info::after{background:var(--info)}
+.kpi .l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.kpi .v{font-family:var(--font-num);font-size:23px;font-weight:600;letter-spacing:-.5px;margin-top:4px}
+.kpi .s{font-size:11px;color:var(--ink-3);display:flex;align-items:center;gap:5px;margin-top:2px}
+.trend{display:inline-flex;align-items:center;gap:2px;font-weight:600;font-family:var(--font-num);font-size:11px}
+.trend.up{color:var(--success)}.trend.down{color:var(--success)}.trend.bad{color:var(--danger)}
+.trend svg{width:12px;height:12px}
+.kpi .tgt{font-family:var(--font-num);color:var(--ink-3)}
+
+.cols{display:grid;grid-template-columns:1.55fr 1fr;gap:16px;align-items:start}
+@media(max-width:1080px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:15px;margin-bottom:14px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;margin:0 0 13px;gap:10px}
+.panel .ph h4{margin:0;font-size:14px}
+.panel .ph .sub{font-size:11.5px;color:var(--ink-3)}
+.panel .ph .act{margin-left:auto}
+
+/* funnel */
+.funnel{display:flex;flex-direction:column;gap:9px}
+.fstage{display:grid;grid-template-columns:140px 1fr auto;align-items:center;gap:12px}
+.fstage .fl{font-size:12.5px;font-weight:600;display:flex;align-items:center;gap:7px}
+.fstage .fl .ai{font-size:9px;font-weight:700;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:5px;padding:1px 5px}
+.ftrack{height:26px;background:var(--surface-3);border-radius:7px;overflow:hidden;position:relative}
+.ffill{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-600));border-radius:7px;display:flex;align-items:center;padding-left:10px;color:#fff;font-family:var(--font-num);font-size:12px;font-weight:600}
+.fstage .conv{font-family:var(--font-num);font-size:11.5px;color:var(--ink-2);min-width:84px;text-align:right}
+.fstage .conv b{color:var(--ink)}
+
+/* table */
+table.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+table.tbl th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);padding:7px 9px;border-bottom:1px solid var(--border);font-weight:700}
+table.tbl td{padding:9px 9px;border-bottom:1px solid var(--surface-3)}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl tr:hover td{background:var(--surface-2)}
+.pos{font-weight:600;color:var(--ink)}.pos small{display:block;color:var(--ink-3);font-weight:400;font-size:11px}
+.age{font-family:var(--font-num)}.age.hot{color:var(--danger);font-weight:600}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;border-radius:999px;padding:2px 9px;border:1px solid}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-act{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.b-rev{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.b-hold{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.b-risk{color:var(--danger);background:var(--danger-tint);border-color:#eec6c1}
+
+/* recruiter rows */
+.recrow{display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid var(--surface-3)}
+.recrow:last-child{border-bottom:none}
+.recrow .av{width:32px;height:32px;border-radius:50%;background:var(--surface-3);color:var(--ink-2);display:grid;place-items:center;font-weight:700;font-size:11.5px;flex:0 0 auto}
+.recrow .info{flex:1;min-width:0}
+.recrow .info .nm{font-weight:600;font-size:12.5px}
+.recrow .info .meta{font-size:11px;color:var(--ink-3)}
+.recrow .load{width:84px;text-align:right}
+.loadbar{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin-top:4px}
+.loadbar i{display:block;height:100%;background:var(--primary);border-radius:99px}
+.loadbar i.over{background:var(--danger)}
+.recrow .load .cap{font-family:var(--font-num);font-size:10.5px;color:var(--ink-3)}
+
+/* mini lists */
+.kv{display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--surface-3);font-size:12.5px}
+.kv:last-child{border-bottom:none}
+.kv .k{color:var(--ink-2);display:flex;align-items:center;gap:8px}
+.kv .k .bar{width:5px;height:26px;border-radius:3px;background:var(--n300)}
+.kv .v{font-family:var(--font-num);font-weight:600}
+.kv .v small{color:var(--ink-3);font-weight:400}
+
+.alert{display:flex;gap:10px;align-items:flex-start;border:1px solid;border-radius:10px;padding:11px 13px;font-size:12.5px;margin-top:2px}
+.alert svg{width:17px;height:17px;flex:none;margin-top:1px}
+.al-warn{background:var(--warning-tint);border-color:#ecd9a8;color:#8a5808}.al-warn svg{color:var(--warning)}
+.al-warn b{color:#7a4e07}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:18px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+
+.foot{margin-top:14px;font-size:11px;color:var(--ink-3);text-align:center}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px;margin-right:2px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num);cursor:pointer}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Recruitment &amp; ATS</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari requisition, kandidat, recruiter"></div>
+<div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">RS</div><div class="nm">Rangga S.<small data-i18n="role">TA Manager</small></div></div>
+  </div>
+
+  <div class="layout">
+    <!-- SIDE NAV -->
+    <aside class="side">
+      <div class="sidehead" data-i18n="navhead">Talent Acquisition</div>
+      <nav>
+        <a class="active" href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="n_overview">Ringkasan</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg><span data-i18n="n_req">Requisition</span><span class="cnt">142</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 3.5a3 3 0 0 1 0 9M21 20a6 6 0 0 0-4-5.7"/></svg><span data-i18n="n_cand">Kandidat &amp; Pipeline</span><span class="cnt">4.8k</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"/></svg><span data-i18n="n_int">Wawancara</span><span class="cnt">61</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 1.7 3 .2.9 2.9 2 2.2-1 2.8.4 3-2.6 1.5-1.5 2.6-3-.4-2.7 1.3-2.7-1.3-3 .4-1.5-2.6L3.3 16l.4-3-1-2.8 2-2.2.9-2.9 3-.2Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_off">Penawaran</span><span class="cnt">18</span></a>
+        <div class="sep"></div>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><span data-i18n="n_src">Sumber &amp; Channel</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 3.5a3 3 0 0 1 0 9M21 20a6 6 0 0 0-4-5.7"/></svg><span data-i18n="n_team">Tim Recruiter</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="n_anal">Analitik</span></a>
+        <a href="#"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_comp">Kepatuhan &amp; Audit</span></a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="phead">
+        <div class="mt"><span data-i18n="mt_title">Ringkasan rekrutmen</span><small data-i18n="mt_sub">Komando lintas BU, periode berjalan Juni 2026</small></div>
+        <div class="rolebadge"><i></i><span data-i18n="role">TA Manager</span></div>
+      </div>
+
+      <div class="scope">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/></svg>
+        <span data-i18n="scope">Lingkup Anda: seluruh fungsi rekrutmen, lintas business unit. Data kandidat zona China ditampilkan teragregat sesuai residency PIPL.</span>
+        <span class="asof"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="asof">Per 08 Jun 2026 09.40</span></span>
+      </div>
+
+      <!-- HC AI BANNER -->
+      <div class="aiband">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+        <div class="tx">
+          <div class="lab" data-i18n="ai_lab">HC AI · ringkasan harian</div>
+          <span data-i18n="ai_body">4 requisition kritis melewati SLA dan menunggu tindakan. Saya menyaring 247 pelamar Senior Sales Manager dalam 8 menit, 15 teratas siap ditinjau, 3 ditandai luar biasa. Pipeline engineering kurang dari target diversity, 18% kandidat perempuan dari sasaran 30%.</span>
+          <div class="act">
+            <button class="btn btn-primary sm" data-i18n="ai_b1">Tinjau 4 kritis</button>
+            <button class="btn btn-ghost sm" data-i18n="ai_b2">Lihat 3 kandidat unggulan</button>
+            <button class="btn btn-quiet sm" data-i18n="ai_b3">Tanya HC AI</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- KPI -->
+      <div class="kpis">
+        <div class="kpi warn"><div class="l" data-i18n="k1">Time to Hire</div><div class="v">27<small style="font-size:12px;color:var(--ink-3)"> hr</small></div><div class="s"><span class="trend down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>15 hr</span><span class="tgt" data-i18n="k1t">target &lt;25</span></div></div>
+        <div class="kpi ok"><div class="l" data-i18n="k2">Time to Screen</div><div class="v">28<small style="font-size:12px;color:var(--ink-3)"> mnt</small></div><div class="s"><span class="trend down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg><span data-i18n="k2k">kuat</span></span><span class="tgt" data-i18n="k2t">target &lt;30</span></div></div>
+        <div class="kpi"><div class="l" data-i18n="k3">Requisition Aktif</div><div class="v">142</div><div class="s" data-i18n="k3s">23 kritis · 14 ditahan</div></div>
+        <div class="kpi warn"><div class="l" data-i18n="k4">Offer Acceptance</div><div class="v">82<small style="font-size:12px;color:var(--ink-3)">%</small></div><div class="s"><span class="trend up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>4 pt</span><span class="tgt" data-i18n="k4t">target &gt;85</span></div></div>
+        <div class="kpi ok"><div class="l" data-i18n="k5">Quality of Hire 90hr</div><div class="v">89<small style="font-size:12px;color:var(--ink-3)">%</small></div><div class="s"><span class="trend up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>13 pt</span><span class="tgt" data-i18n="k5t">target &gt;92</span></div></div>
+        <div class="kpi"><div class="l" data-i18n="k6">Cost per Hire</div><div class="v">9,2<small style="font-size:12px;color:var(--ink-3)"> jt</small></div><div class="s"><span class="trend down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12l7 7 7-7"/></svg>5,8 jt</span><span class="tgt" data-i18n="k6t">target &lt;8 jt</span></div></div>
+        <div class="kpi info"><div class="l" data-i18n="k7">Internal Fill Rate</div><div class="v">16<small style="font-size:12px;color:var(--ink-3)">%</small></div><div class="s"><span class="trend up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 19V5M5 12l7-7 7 7"/></svg>8 pt</span><span class="tgt" data-i18n="k7t">target 20</span></div></div>
+      </div>
+
+      <div class="cols">
+        <!-- LEFT -->
+        <div>
+          <!-- FUNNEL -->
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="fp_h">Funnel pipeline</h4><span class="sub" data-i18n="fp_sub">grup, periode berjalan</span><span class="act"><button class="btn btn-ghost sm" data-i18n="fp_btn">Per BU</button></span></div>
+            <div class="funnel">
+              <div class="fstage"><div class="fl" data-i18n="f_app">Pelamar</div><div class="ftrack"><div class="ffill" style="width:100%">4.820</div></div><div class="conv"><b>100%</b></div></div>
+              <div class="fstage"><div class="fl"><span data-i18n="f_screen">Tersaring</span> <span class="ai">HC AI</span></div><div class="ftrack"><div class="ffill" style="width:74%">3.580</div></div><div class="conv"><span data-i18n="f_pass">lolos</span> <b>34%</b></div></div>
+              <div class="fstage"><div class="fl" data-i18n="f_int">Wawancara</div><div class="ftrack"><div class="ffill" style="width:42%">612</div></div><div class="conv"><span data-i18n="f_pass">lolos</span> <b>37%</b></div></div>
+              <div class="fstage"><div class="fl" data-i18n="f_off">Penawaran</div><div class="ftrack"><div class="ffill" style="width:22%">184</div></div><div class="conv"><span data-i18n="f_pass">lolos</span> <b>30%</b></div></div>
+              <div class="fstage"><div class="fl" data-i18n="f_hire">Diterima</div><div class="ftrack"><div class="ffill" style="width:18%">151</div></div><div class="conv"><span data-i18n="f_acc">terima</span> <b>82%</b></div></div>
+            </div>
+          </div>
+
+          <!-- REQUISITION TABLE -->
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="rq_h">Requisition prioritas</h4><span class="sub" data-i18n="rq_sub">termuat berdasar umur &amp; urgensi</span><span class="act"><button class="btn btn-quiet sm" data-i18n="rq_btn">Lihat semua 142</button></span></div>
+            <table class="tbl">
+              <thead><tr><th data-i18n="th_pos">Posisi</th><th data-i18n="th_bu">BU</th><th data-i18n="th_rec">Recruiter</th><th data-i18n="th_age">Umur</th><th data-i18n="th_status">Status</th><th data-i18n="th_bn">Bottleneck</th></tr></thead>
+              <tbody>
+                <tr><td class="pos">Senior Sales Manager<small data-i18n="r1_loc">Jakarta · 1 lowongan</small></td><td>Sales ID</td><td>Dewi A.</td><td class="age hot">41 hr</td><td><span class="badge b-act"><span class="dot"></span><span data-i18n="st_act">Aktif</span></span></td><td data-i18n="bn1">Feedback panel</td></tr>
+                <tr><td class="pos">Plant QA Supervisor<small data-i18n="r2_loc">Cikarang · 2 lowongan</small></td><td>Manufacturing</td><td>Bayu P.</td><td class="age hot">38 hr</td><td><span class="badge b-rev"><span class="dot"></span><span data-i18n="st_rev">Review</span></span></td><td data-i18n="bn2">Approval offer</td></tr>
+                <tr><td class="pos">Distribution Lead<small data-i18n="r3_loc">Surabaya · 3 lowongan</small></td><td>Distribution</td><td>Sinta R.</td><td class="age">22 hr</td><td><span class="badge b-act"><span class="dot"></span><span data-i18n="st_act">Aktif</span></span></td><td data-i18n="bn3">Sourcing</td></tr>
+                <tr><td class="pos">Software Engineer<small data-i18n="r4_loc">Bandung · 4 lowongan</small></td><td>Corporate</td><td>Dewi A.</td><td class="age">19 hr</td><td><span class="badge b-risk"><span class="dot"></span><span data-i18n="st_div">Diversity</span></span></td><td data-i18n="bn4">Slate kurang</td></tr>
+                <tr><td class="pos">Regional Finance Mgr<small data-i18n="r5_loc">Singapura · EOR</small></td><td>Corporate</td><td>Bayu P.</td><td class="age">14 hr</td><td><span class="badge b-hold"><span class="dot"></span><span data-i18n="st_hold">Ditahan</span></span></td><td data-i18n="bn5">Budget freeze</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RIGHT -->
+        <div>
+          <!-- DIVERSITY ALERT -->
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="da_h">Perlu perhatian</h4></div>
+            <div class="alert al-warn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg>
+              <div><span data-i18n="da_body">Diversity slate engineering belum terpenuhi. 18% kandidat perempuan dari sasaran 30%. HC AI menyarankan tiga channel sourcing tambahan sebelum tahap final.</span></div>
+            </div>
+          </div>
+
+          <!-- RECRUITER LOAD -->
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="rl_h">Beban tim recruiter</h4><span class="sub" data-i18n="rl_sub">aktif / kapasitas</span></div>
+            <div class="recrow"><div class="av">DA</div><div class="info"><div class="nm">Dewi Anggraini</div><div class="meta" data-i18n="rl1_m">12 hire bulan ini · TTF 24 hr</div></div><div class="load"><div class="cap">38 / 35</div><div class="loadbar"><i class="over" style="width:100%"></i></div></div></div>
+            <div class="recrow"><div class="av">BP</div><div class="info"><div class="nm">Bayu Pratama</div><div class="meta" data-i18n="rl2_m">9 hire bulan ini · TTF 29 hr</div></div><div class="load"><div class="cap">31 / 35</div><div class="loadbar"><i style="width:88%"></i></div></div></div>
+            <div class="recrow"><div class="av">SR</div><div class="info"><div class="nm">Sinta Rahmawati</div><div class="meta" data-i18n="rl3_m">11 hire bulan ini · TTF 23 hr</div></div><div class="load"><div class="cap">27 / 35</div><div class="loadbar"><i style="width:77%"></i></div></div></div>
+            <div class="recrow"><div class="av">FH</div><div class="info"><div class="nm">Fajar Hidayat</div><div class="meta" data-i18n="rl4_m">7 hire bulan ini · TTF 31 hr</div></div><div class="load"><div class="cap">19 / 35</div><div class="loadbar"><i style="width:54%"></i></div></div></div>
+            <div style="margin-top:11px"><button class="btn btn-ghost sm" style="width:100%;justify-content:center" data-i18n="rl_btn">Seimbangkan beban via HC AI</button></div>
+          </div>
+
+          <!-- APPROVAL BOTTLENECK -->
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="ab_h">Bottleneck approval</h4><span class="sub" data-i18n="ab_sub">rata-rata hari per tahap</span></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--danger)"></span><span data-i18n="ab1">Finance, cek budget</span></div><div class="v">3,8 <small>hr</small></div></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--warning)"></span><span data-i18n="ab2">Department head</span></div><div class="v">2,4 <small>hr</small></div></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--n300)"></span><span data-i18n="ab3">HCBP, alignment</span></div><div class="v">1,1 <small>hr</small></div></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--n300)"></span><span data-i18n="ab4">Hiring manager</span></div><div class="v">0,7 <small>hr</small></div></div>
+          </div>
+
+          <!-- SOURCING ROI -->
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="sr_h">Efektivitas sumber</h4><span class="sub" data-i18n="sr_sub">hire / biaya per hire</span></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--success)"></span><span data-i18n="sr1">Referral karyawan</span></div><div class="v">42 <small>· 4,1 jt</small></div></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--info)"></span><span data-i18n="sr2">Mobilitas internal</span></div><div class="v">24 <small>· 2,8 jt</small></div></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--primary)"></span><span data-i18n="sr3">Job board</span></div><div class="v">58 <small>· 11,3 jt</small></div></div>
+            <div class="kv"><div class="k"><span class="bar" style="background:var(--warning)"></span><span data-i18n="sr4">Agensi</span></div><div class="v">17 <small>· 21,0 jt</small></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16v-4M12 8h.01"/></svg>
+        <span data-i18n="note">Angka di layar ini contoh untuk validasi pola. HC AI berperan sebagai pendamping yang menyaring, meringkas, dan menyarankan. Keputusan tetap pada manusia dengan jejak audit penuh.</span>
+      </div>
+
+      <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · TA Manager · prototipe layar, mengacu Design System v3</div>
+    </main>
+  </div>
+</div>
+<script>
+const I18N={
+  topsub:{id:"Recruitment & ATS",en:"Recruitment & ATS"},
+  search:{id:"Cari requisition, kandidat, recruiter",en:"Search requisitions, candidates, recruiters"},
+  role:{id:"TA Manager",en:"TA Manager"},
+  navhead:{id:"Talent Acquisition",en:"Talent Acquisition"},
+  n_overview:{id:"Ringkasan",en:"Overview"},
+  n_req:{id:"Requisition",en:"Requisitions"},
+  n_cand:{id:"Kandidat & Pipeline",en:"Candidates & Pipeline"},
+  n_int:{id:"Wawancara",en:"Interviews"},
+  n_off:{id:"Penawaran",en:"Offers"},
+  n_src:{id:"Sumber & Channel",en:"Sources & Channels"},
+  n_team:{id:"Tim Recruiter",en:"Recruiter Team"},
+  n_anal:{id:"Analitik",en:"Analytics"},
+  n_comp:{id:"Kepatuhan & Audit",en:"Compliance & Audit"},
+  mt_title:{id:"Ringkasan rekrutmen",en:"Recruitment overview"},
+  mt_sub:{id:"Komando lintas BU, periode berjalan Juni 2026",en:"Cross-BU command, current period June 2026"},
+  scope:{id:"Lingkup Anda: seluruh fungsi rekrutmen, lintas business unit. Data kandidat zona China ditampilkan teragregat sesuai residency PIPL.",en:"Your scope: the entire recruitment function, across business units. China-zone candidate data is shown aggregated per PIPL residency."},
+  asof:{id:"Per 08 Jun 2026 09.40",en:"As of 08 Jun 2026 09:40"},
+  ai_lab:{id:"HC AI · ringkasan harian",en:"HC AI · daily summary"},
+  ai_body:{id:"4 requisition kritis melewati SLA dan menunggu tindakan. Saya menyaring 247 pelamar Senior Sales Manager dalam 8 menit, 15 teratas siap ditinjau, 3 ditandai luar biasa. Pipeline engineering kurang dari target diversity, 18% kandidat perempuan dari sasaran 30%.",en:"4 critical requisitions have breached SLA and await action. I screened 247 Senior Sales Manager applicants in 8 minutes, the top 15 are ready to review, 3 flagged as exceptional. The engineering pipeline is below the diversity target, 18% female candidates against a 30% goal."},
+  ai_b1:{id:"Tinjau 4 kritis",en:"Review 4 critical"},
+  ai_b2:{id:"Lihat 3 kandidat unggulan",en:"View 3 top candidates"},
+  ai_b3:{id:"Tanya HC AI",en:"Ask HC AI"},
+  k1:{id:"Time to Hire",en:"Time to Hire"},
+  k1t:{id:"target <25",en:"target <25"},
+  k2:{id:"Time to Screen",en:"Time to Screen"},
+  k2k:{id:"kuat",en:"strong"},
+  k2t:{id:"target <30",en:"target <30"},
+  k3:{id:"Requisition Aktif",en:"Active Requisitions"},
+  k3s:{id:"23 kritis · 14 ditahan",en:"23 critical · 14 on hold"},
+  k4:{id:"Offer Acceptance",en:"Offer Acceptance"},
+  k4t:{id:"target >85",en:"target >85"},
+  k5:{id:"Quality of Hire 90hr",en:"Quality of Hire 90d"},
+  k5t:{id:"target >92",en:"target >92"},
+  k6:{id:"Cost per Hire",en:"Cost per Hire"},
+  k6t:{id:"target <8 jt",en:"target <8M"},
+  k7:{id:"Internal Fill Rate",en:"Internal Fill Rate"},
+  k7t:{id:"target 20",en:"target 20"},
+  fp_h:{id:"Funnel pipeline",en:"Pipeline funnel"},
+  fp_sub:{id:"grup, periode berjalan",en:"group, current period"},
+  fp_btn:{id:"Per BU",en:"By BU"},
+  f_app:{id:"Pelamar",en:"Applicants"},
+  f_screen:{id:"Tersaring",en:"Screened"},
+  f_int:{id:"Wawancara",en:"Interview"},
+  f_off:{id:"Penawaran",en:"Offer"},
+  f_hire:{id:"Diterima",en:"Hired"},
+  f_pass:{id:"lolos",en:"pass"},
+  f_acc:{id:"terima",en:"accept"},
+  rq_h:{id:"Requisition prioritas",en:"Priority requisitions"},
+  rq_sub:{id:"termuat berdasar umur & urgensi",en:"sorted by age & urgency"},
+  rq_btn:{id:"Lihat semua 142",en:"View all 142"},
+  th_pos:{id:"Posisi",en:"Position"},
+  th_bu:{id:"BU",en:"BU"},
+  th_rec:{id:"Recruiter",en:"Recruiter"},
+  th_age:{id:"Umur",en:"Age"},
+  th_status:{id:"Status",en:"Status"},
+  th_bn:{id:"Bottleneck",en:"Bottleneck"},
+  r1_loc:{id:"Jakarta · 1 lowongan",en:"Jakarta · 1 opening"},
+  r2_loc:{id:"Cikarang · 2 lowongan",en:"Cikarang · 2 openings"},
+  r3_loc:{id:"Surabaya · 3 lowongan",en:"Surabaya · 3 openings"},
+  r4_loc:{id:"Bandung · 4 lowongan",en:"Bandung · 4 openings"},
+  r5_loc:{id:"Singapura · EOR",en:"Singapore · EOR"},
+  st_act:{id:"Aktif",en:"Active"},
+  st_rev:{id:"Review",en:"Review"},
+  st_div:{id:"Diversity",en:"Diversity"},
+  st_hold:{id:"Ditahan",en:"On hold"},
+  bn1:{id:"Feedback panel",en:"Panel feedback"},
+  bn2:{id:"Approval offer",en:"Offer approval"},
+  bn3:{id:"Sourcing",en:"Sourcing"},
+  bn4:{id:"Slate kurang",en:"Slate short"},
+  bn5:{id:"Budget freeze",en:"Budget freeze"},
+  da_h:{id:"Perlu perhatian",en:"Needs attention"},
+  da_body:{id:"Diversity slate engineering belum terpenuhi. 18% kandidat perempuan dari sasaran 30%. HC AI menyarankan tiga channel sourcing tambahan sebelum tahap final.",en:"The engineering diversity slate is not yet met. 18% female candidates against a 30% goal. HC AI suggests three additional sourcing channels before the final stage."},
+  rl_h:{id:"Beban tim recruiter",en:"Recruiter team load"},
+  rl_sub:{id:"aktif / kapasitas",en:"active / capacity"},
+  rl1_m:{id:"12 hire bulan ini · TTF 24 hr",en:"12 hires this month · TTF 24d"},
+  rl2_m:{id:"9 hire bulan ini · TTF 29 hr",en:"9 hires this month · TTF 29d"},
+  rl3_m:{id:"11 hire bulan ini · TTF 23 hr",en:"11 hires this month · TTF 23d"},
+  rl4_m:{id:"7 hire bulan ini · TTF 31 hr",en:"7 hires this month · TTF 31d"},
+  rl_btn:{id:"Seimbangkan beban via HC AI",en:"Balance load via HC AI"},
+  ab_h:{id:"Bottleneck approval",en:"Approval bottleneck"},
+  ab_sub:{id:"rata-rata hari per tahap",en:"average days per stage"},
+  ab1:{id:"Finance, cek budget",en:"Finance, budget check"},
+  ab2:{id:"Department head",en:"Department head"},
+  ab3:{id:"HCBP, alignment",en:"HCBP, alignment"},
+  ab4:{id:"Hiring manager",en:"Hiring manager"},
+  sr_h:{id:"Efektivitas sumber",en:"Source effectiveness"},
+  sr_sub:{id:"hire / biaya per hire",en:"hires / cost per hire"},
+  sr1:{id:"Referral karyawan",en:"Employee referral"},
+  sr2:{id:"Mobilitas internal",en:"Internal mobility"},
+  sr3:{id:"Job board",en:"Job board"},
+  sr4:{id:"Agensi",en:"Agency"},
+  note:{id:"Angka di layar ini contoh untuk validasi pola. HC AI berperan sebagai pendamping yang menyaring, meringkas, dan menyarankan. Keputusan tetap pada manusia dengan jejak audit penuh.",en:"The figures on this screen are examples for pattern validation. HC AI acts as an assistant that screens, summarizes, and suggests. Decisions stay with humans, with a full audit trail."},
+  foot:{id:"One HCMS · Talent Acquisition · TA Manager · prototipe layar, mengacu Design System v3",en:"One HCMS · Talent Acquisition · TA Manager · screen prototype, per Design System v3"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(!I18N[k])return;el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

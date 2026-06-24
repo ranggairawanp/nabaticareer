@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · Kandidat · Tugas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n300:#d4dae3;--n400:#aeb6c2;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 6px 18px -6px rgba(23,26,31,.18),0 2px 8px rgba(23,26,31,.06);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:radial-gradient(120% 80% at 50% 0%,#fbe9e7 0%,#f2f3f6 42%,#eceef2 100%);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+::selection{background:var(--primary);color:#fff}
+
+.caption{font-size:11.5px;color:var(--ink-3);margin-bottom:12px;text-align:center;font-weight:500}
+
+.phone{width:392px;max-width:96vw;height:min(824px,92vh);background:var(--surface);border-radius:42px;box-shadow:var(--e2),0 0 0 10px #11151c,0 0 0 12px #2a2f38;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.statusbar{flex:0 0 auto;display:flex;align-items:center;justify-content:space-between;padding:11px 24px 4px;font-family:var(--font-num);font-size:12px;font-weight:600;color:var(--ink)}
+.statusbar .dots{display:flex;gap:4px;align-items:center}
+.statusbar .dots i{width:6px;height:6px;border-radius:50%;background:var(--ink);display:inline-block;opacity:.85}
+.statusbar .dots .bat{width:20px;height:11px;border:1.5px solid var(--ink);border-radius:3px;position:relative;opacity:.85}
+.statusbar .dots .bat::after{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:12px;background:var(--ink);border-radius:1px}
+
+.appbar{flex:0 0 auto;display:flex;align-items:center;gap:10px;padding:8px 18px 12px;border-bottom:1px solid var(--border)}
+.appbar .lg{height:24px;width:auto;display:block}
+.appbar .hi{font-size:12px;color:var(--ink-3);line-height:1.1}
+.appbar .hi b{display:block;font-size:13.5px;color:var(--ink);font-weight:700}
+.appbar .lang{margin-left:auto;display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:2px}
+.appbar .lang button{border:none;background:transparent;padding:4px 9px;border-radius:6px;font-size:10.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.appbar .lang button.active{background:#fff;color:var(--primary);box-shadow:var(--e1)}
+
+.screen{flex:1;overflow-y:auto;padding:16px 16px 22px}
+.subview{display:none}.subview.on{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:15px;margin-bottom:13px;box-shadow:var(--e1)}
+.eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--primary-700)}
+.role{font-size:13px;color:var(--ink-2);font-weight:500}
+.muted{font-size:11.5px;color:var(--ink-3)}
+
+.appl{display:flex;align-items:center;gap:11px}
+.appl .av{width:42px;height:42px;border-radius:50%;background:var(--primary-tint);color:var(--primary-700);display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+.appl .ai b{font-size:14px;font-weight:700}.appl .ai span{font-size:11.5px;color:var(--ink-3);display:block}
+
+.step{display:flex;flex-direction:column;gap:0;margin:6px 0 2px}
+.st{display:flex;gap:11px;align-items:flex-start}
+.st .col{display:flex;flex-direction:column;align-items:center;flex:none}
+.st .nd{width:20px;height:20px;border-radius:50%;border:2px solid var(--n300);background:#fff;display:grid;place-items:center}
+.st .nd svg{width:11px;height:11px;color:#fff}
+.st .ln{width:2px;flex:1;min-height:14px;background:var(--surface-3)}
+.st:last-child .ln{display:none}
+.st.done .nd{border-color:var(--success);background:var(--success)}
+.st.done .ln{background:var(--success)}
+.st.now .nd{border-color:var(--primary);background:var(--primary);box-shadow:0 0 0 4px var(--primary-tint)}
+.st .lab{padding-bottom:12px}
+.st .lab b{font-size:13px;font-weight:600;display:block}
+.st .lab span{font-size:11px;color:var(--ink-3)}
+.st.now .lab b{color:var(--primary-700)}
+
+.task{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:11px;box-shadow:var(--e1);width:100%;text-align:left}
+.task.go{cursor:pointer}.task.go:active{transform:translateY(1px)}
+.task .ti{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex:none}
+.ti-a{background:var(--primary-tint);color:var(--primary-700)}.ti-b{background:var(--info-tint);color:var(--info)}
+.task .ti svg{width:19px;height:19px}
+.task .tc{flex:1}.task .tc b{font-size:13.5px;font-weight:700;display:block}.task .tc span{font-size:11.5px;color:var(--ink-3)}
+.task .tg{font-size:9px;font-weight:700;border-radius:5px;padding:2px 7px;border:1px solid;text-transform:uppercase;letter-spacing:.02em;white-space:nowrap}
+.tg-due{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.tg-wait{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.task .arr{align-self:center;color:var(--n400)}.task .arr svg{width:16px;height:16px}
+
+.sectt{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin:4px 2px 9px}
+.kv{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface-3);font-size:12.5px}
+.kv:last-child{border-bottom:none}.kv .k{color:var(--ink-2)}.kv .v{font-weight:600;text-align:right}.kv .v.mono{font-family:var(--font-num)}
+
+.progrow{display:flex;align-items:center;justify-content:space-between;font-size:11.5px;font-weight:600;color:var(--ink-2);margin-bottom:7px}
+.progrow .tm{font-family:var(--font-num);color:var(--warning)}
+.pbar{height:7px;border-radius:999px;background:var(--surface-3);overflow:hidden;margin-bottom:14px}
+.pbar i{display:block;height:100%;border-radius:999px;background:var(--primary)}
+.qtext{font-size:13.5px;font-weight:600;line-height:1.45;margin-bottom:12px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--border-strong);border-radius:12px;padding:11px 12px;margin-bottom:9px;cursor:pointer;font-size:12.5px;background:var(--surface)}
+.opt:active{transform:translateY(1px)}
+.opt .rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--n300);flex:none;margin-top:1px;position:relative}
+.opt.sel{border-color:var(--primary);background:var(--primary-tint)}
+.opt.sel .rd{border-color:var(--primary)}.opt.sel .rd::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--primary)}
+
+.slot{display:flex;align-items:center;gap:11px;border:1px solid var(--border-strong);border-radius:12px;padding:12px;margin-bottom:9px;cursor:pointer;background:var(--surface)}
+.slot:active{transform:translateY(1px)}
+.slot .rd{width:18px;height:18px;border-radius:50%;border:2px solid var(--n300);flex:none;position:relative}
+.slot.sel{border-color:var(--primary);background:var(--primary-tint)}
+.slot.sel .rd{border-color:var(--primary)}.slot.sel .rd::after{content:"";position:absolute;inset:3px;border-radius:50%;background:var(--primary)}
+.slot .sd b{font-size:13px;font-weight:600;display:block}.slot .sd span{font-size:11px;color:var(--ink-3)}
+.slot .stag{margin-left:auto;font-size:10px;font-weight:700;color:var(--success);background:var(--success-tint);border:1px solid #bce6cd;border-radius:5px;padding:2px 7px}
+
+.btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;border-radius:11px;padding:13px;font-weight:700;font-size:13.5px;border:1px solid transparent;margin-top:6px}
+.btn svg{width:16px;height:16px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}
+.btn-row{display:flex;gap:9px}.btn-row .btn{margin-top:0}
+.btn-link{background:none;border:none;color:var(--primary-700);font-size:12px;font-weight:700;width:100%;padding:11px;margin-top:2px}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:11px 12px;font-size:11.5px;color:var(--ink-2);margin-top:12px}
+.note svg{width:15px;height:15px;color:var(--primary);flex:none;margin-top:1px}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.note.lock{background:var(--slate-tint);border-color:#d8dee7;color:var(--slate)}.note.lock svg{color:var(--slate)}
+
+.tabbar{flex:0 0 auto;display:flex;border-top:1px solid var(--border);background:rgba(255,255,255,.96);backdrop-filter:blur(8px);padding:7px 6px 14px}
+.tabbar button{flex:1;border:none;background:none;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;color:var(--ink-3);font-size:10px;font-weight:600}
+.tabbar button svg{width:21px;height:21px}
+.tabbar button.active{color:var(--primary)}
+.tabbar .badge{position:relative}
+.tabbar .badge::after{content:"";position:absolute;top:-2px;right:10px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+</style>
+</head>
+<body>
+
+<div class="caption" data-i18n="caption">Tugas kandidat di ponsel, tahap awal</div>
+
+<div class="phone">
+  <div class="statusbar"><span>09.41</span><span class="dots"><i></i><i></i><i style="opacity:.4"></i><span class="bat"></span></span></div>
+
+  <div class="appbar">
+    <img class="lg" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGgAAABACAYAAAD24zL6AAAcTUlEQVR42u2cfZxdVXX3v2vtfe65985MJsnkPeEdobxEgYooPjCBggJWocoE2z7WUn1qa7XFWu2bNRmk8mhprdYqilaKr2QqFYtWqZikVSwoVIMiYgmEvL9PZu7M3HvO2Xs9f5w7kwkkIYTwlj7785nk3nvOPfec/dtr7bV+67e3cPg1WQIC6KLeXhYtWhRdf3+M+z6/46w0nfmqaXNqWZEv7PG1BV2SL5huoavLp90hC0dG52epl1mdWEdnjFTFUTWjiuFRZPKPA0EgJ9KKkTGUhjpG1JGRFxbC9misnyL+Z9sLGuskbs3z8JOtIusezIoNA0MjW2HnrsnXe94D0gf6VnplUd8scwMDYS9g6BG12py3dM6a1aP+hFpFT50RiyMT1aNrZkd1GjOn4ZKKk0odw4lDTXAWAcNMMISAEQATwAJiAUOxx3TjxDsRRMCZ4az8noiUkIoRRckRsmiMEBiy0BxRv62Vx/U7KX62OsQH5flqIYvo1UUsikL/4/B4ZVfPiRcnnSd31eIZNeTM+eaP6lA9Ypq6jhkIHRjOIgYUCIVBDgRCjGKmMSImRIEoSNnnIkb5Rs2wcSRM2p/uCZAABpgpJkYUQwzADDFTw7R9zFREDU0QPAbOSH2FW1v2/LCgJaDQq0uZZcpAsD2OTp/yxzPqp51SSRbWvPQeEfzJnRZPnJWon2KCimDRyC1QWDSQGMDKkW/jfSkTKIx37ERHy8Tr8SMlUAIGJrbXezYZv4YhEyBa+yrj14wT1lfaqFlLPBULoelU/7418iZ5LoNSWsnKIONPVrb0qjlHLFxoesEcb4tmqX/RLPycHjVSU6IZeYzkWDDDIoiJjIMgB/PA9gzMBWoQNIJp6HZO78jzH160cfWL/XMYlNjPygjwv2bNOva1VC84meS86ZXkpTOMo+f4gBOhCEJm0Yqc0KSYBIY4kd3u5in51Gfg2YNCxFG3nO2Wyh154z2lh30OzCnLQPuwKOz2F2+efcQpZ0Lf8T69YIZLzlggVptmgTwao0QiFAERH0QVJPdtV2LPz0gnipEULtSr5r5RyH+8Zt2D59qSJSrPprUspU+EgTD+Wd/06SefU+3sO9WlF803zpzvvKtYJBQFLbEiR9pxkbRvPLZ9vaImQHzehqImkEYNO9S5jzY2LrpucHDlzeDk2bGWJTYp+prx/vnzLz7Nkt880uk5R2s16SgCO3wGhRYSVQo1dYdHSrBvgIwwNRE3kIVlv7px9RVGnxMGgjyTwLweCbE93y/unnvGKztqv3mi6q+drElPFzljEXKTwshVUImiUkZAdjhjQwTrFLGfqIy+b9eahV/Z1VqzFKQfon9mgCEshgAmfzhj3uJzq11vPEbtol8QJEZoFc2wi4SoURMLPmgFMQOJu8Oow81ixqM3wBuhlYr/16HG3926q/XICnp9PyuLpzNAmQCm3cXV62Ye+/rTq8lbT1LOnBWFESsIMRZB1IlE0ahEKTPs8bt39hwJY54WhBTTiFkRp2iH/ktsPHT5+jVnGEsaQv94KsYht6Bl4HZbDNXr5h7zv89wvGOhq548LUaGQxYHTQzEiajX8ZuVMlmbbC3xcJ51JOCCM+eJa6QldzSa/0dgaIB+NznaOZQAidGn7aiseu384xafLf6PX6RycncR2UEz7IomkKppRC3yP7mZQOGK0Ckd/jvFyIc+vmvz8uX0+vParu2Q5mDLwF0BwYA/mLbglRd0pB88y1deODXmNEIImSRSiaamJcd1mE4rB5DwCkEMtUiMPnYnJt8J8ZHz1zcWWt+5TRkYiI/tGv+UraavT2VgIHR2zpl5U3d67cKk8qajg2cky8IuREScSyy2GWD5HwnMbrbA8IWjcMGqLsT10ft/Hh78HWHryMDAgNvbuNWD/bG+MokyGRgI/XPmvG759Cl3v9rX3jSzyONgCDGIOhVU+P9tvLlYEFURcyHx3v9raFz3d0Nbb499fa49Zx8ammmSr5z5xbnHfeA876+cKjnDQQtn3gcX0GjPMffy7LpVA7wJo87CTJz7htkPX73uwZdYX1/cm2s7WBcny+l157GyeH1Pz/lvqc341P9ycsxQzEOjcKISvEiGmHtSHRfbphZNkGiHpCvHCf1cHIkJ5g2iIiEnqKD2zM6EItBCbCo5D5i2BhqDb1TIF+/DtR0MQGIsEaG/+MD8I9/wKqo3HuNUB8NYoeY8WobLEcok84DTAUGKDMYyJPXENEXDU7eWQpRKEFItiCGnaIxRoUrR7fGFEMU9wyYkVC0vRl0l+frQ2DtvGtyyagn4fij26xYPlNhcgSGcZzfOnX/N67XrQ1N8pBlaVg3qrKwDPnl/KYJlOfnUHpovPgOi4bfthCR5ygBFUUQhCxmtOUeQXPpq8p6ZyMNrkaRdf34mXazFotPXky+H1j++bfOaP13e2+uvXLOmOJBneUJw3icSo1nlxjnH39yXVi4jHwkj4rViIpkqShk67lmgLSGTdm14PBEtS7+CqULWgrlHUL35M1ROOB7bsoltV76d9K67kHodi7HM2cQQ07bjsnZkU7LX7V8homVuJeU5IhBjQVGfSudXPk/tlJOJGDt/74+wL96M6+qAGNHYFnro7ts+VNCNV1FzLE7XRL9Nfv8r1z70YmNJazJbsL+mTwTOUjOLZvWb5h371V+tpZcVVuS70qpL1UtWSfA41GwvWb9QOCEmDhIFDzFRzHkERUTIWwFbeAIdJxyP5jmVWXOonvkiJLRwHtQLooKY4kwIaoiUkBQKQZWYOGIiOAckSvBC0BJMzSIyo5vqC45F8oBHSH5xIT7mVNSDU8CTO0Wcw6tgXg8hAxYp0DhFlR9bGPlkY9NihbGl9B/wBLi/OUiWgoiIXzb3qGWvS2uvHGqM5NlYK1FXMIrDBcGqIPUuJDDBUBgg6uho5Yw2d5FbQHFEU2rqkc4qYx5qIdIKEWIsu8SMODRKa3AYcSkub6HVhCTtJiPgYwY4Ci1woiStQDbaJBcIYsSoVHxBUu8gc1WkNCNo5YTOFA9YERlptPDJMNVWwHXVyEOg2DVChpIkDqtXkahP2X5yDXQGF3eY918d3fzGL+8c+cmBzDsHAtAEbfPFecd/9rVp+qrBnVvz5nHHJukrXoGecBKFRGTdOsZWfg/3g+9Tq1UpVJFoqFdseIjB7h7S116GnnEqUklJtmxl5M7vIt+5l5pFmqngUFAFKyUclbPPwmZfjRw5F3loHfm/fRt+tAo3pQOxlNwVVFDCUMa2WVPpuvQS/OlnQFcnbtt2ijvvZnTlv9MZR3cHAlKKRwJG7fxeKp//BEW1SvNHPyZefwPJtNnE37scP7OHcOttJHf/CEsF7OCjPMOoxKSIFfG3NBvvWbJjx5eXgz/vSYCz3zwH4JNzj75u5NhTbcv02fmG3/8zy7ftsGi7WzCz0Mps20c+YuvnHGeDc4+zLUefYNunzrP1l15hoz+5zx7bgplt//rXbdOJZ9rWzjm27devNDOzGKKFGPc4N5pZa3TMNl/zIdswY77tWHCCbTvqBNs0fa6tefUV1rj/AYvt8yZ/Z/Br37D1J51uO6cusM1nnWvF8LCZmRUhWHjM/ay96DLbef2nJt6PbVxrG19wuu2Ye6xtX/AC2z7/+Cf9t3XB8bZj3vF5POoku2neUV8BsN5efzC+0+8rCX3fvGOvfE21/s58+44iu+QiP/fD15RcUitHXOnCrAiYE3re/na24WkuvZakgNbLz2bG5z+FdnRC1iKKJzqDwnBOmH7xxezyNUYvW0x1Up4gIsQQSlbPK2QFSVph5p9fxdaK0PrAdVQV8pecxbzP3YCb0kXIcpwohROkyBFVui95JbEjZeTyN5IyHjiAIsTYZskLg0Tw03tw9Q4IgQh4SdGKYtEOMMbd026CKi7E0FHx/tZm/vPf2LTmzbZkiS7t748Hk3jpY+mb81lZvLl75mm/4tOPTmvlYaSz6qb+2bvLSCnP8GmCKYQs4CoJZkYWAtPf+mb09BfSip5pH7yaSkcnNpZTVFLMO2Ioz4+ihDyn48JFyIUvJQw39yhhqXNQ8cSihVQrxGiEokXPu/4APfdsRovA9OuuwU3posjG8JWEInFIq4WrpJhTYpYztXcR/sJfIjQa4NyEJFeKgjC8jdgYpPXDVfDdu6Dmy3OcA4sH7doEsEjs1pq7J8seee+uHecrbFva30//QQomdM8iWx8GXYvrU790glIfbjREX/ZSqZ96MrEI4CsM/dcP2XTR5Ww655fY8Y+fw7uEJATUJbhLzqc4/VQqJ59EDBmu4hj56QNsuvRytp57CbuWLy/nmxjwZqTnv4JoeTvgKWtB2aYNbL3yLaw75xIGP3czOMW3Q+Hq4svg9BfjTjkFihzvqow++jBbrngj68/5ZXbcehsqDgiYGR0X9hJjKBl0M5wIje/+J1tedgnbL3wVjde+gbhzPZake6b8BwlOjsRuFbmHZuOjg41fuW9sx7ovget/CmoW3W2cZVDwqVlHvP+cNDlxJMQiWqFu3vxSWxZznEDj+k9TX7GcztU/Y+yDf0toDCNJpcxP5swmPfGYklRoRdQpzQ9fT/Vb36T2wE8Z+8sPY0VRWokITJtO4dv6nFgmII1PfQ656Qt0P/wgI3+6lGL9BqikKOCmz6RyzNEYEIoccULjo5/Af/WrdKx5kPh//4ai1UScR0Vg2jRME0QMG89vGruoPPIQ1fUbcWEM9VX0KVQGI4oSyPFWd/Bzs/iFoQ2Xf2F06w+XgN8XCfqkAOoDpwyE3+uZ8+JzK/W3tuJIEHNOzCYGlExMWhHp6IT6VBLvIM/bSbngceT3P0I21kTrVVqb1+HuvAerdqOFYWsfIgwPI77NFFjYndy2/9NWC7o60HonSaKQZbvvNvGMPfggNIZx1TrZrp3IijupVBMsZMR1a2HnIOZKZsOCPf76CLFSIaY1wLW5v4MvHjqMlorV3WjcFqt609jolR8eGv3mcnqfVDi93yBhWSmDkgvT+t8cJ6Y7goSQBklMeGzBwIwyt4ihfD3p+WNXHXf3nQxe1kc+exbxP+9Bigb+7LNoTptO7OnCuQQsgDhsb+5kPHeJ7RrSpHN8WkXuu48dr74CWzAbu+d+8myI5OXnErqnYVO60LRCiIZXaavoZI/YyWJ7jhmv6O5x3CYptQ+sZWrWFZIw7BN/Y2vw7X+1ff1n91YZPWiAloET+sMf98x+9ZlJcs5QQXCWOl8EcgUn+lhOaZ98kQQP1RrpXT8gVmvU/vAq6q9/DckRRxDF4duuLMa8dHOTff4BzMsxQqVSIVl1L42f1qhf9XamvmExMm8uFXFtaXvA5ZF9KunMnjAIeKJbMQFnQiZmdSM0E+e/2Gz+Sf/WdR9d3tvrz1t5aMAB8H1Llhj9/fKyeu1PZkW1XZajAoYrV0rI7psqQXgMzzgZL6ckY02GTjye6Z/5GB0vOq2sJBYRjUXJw6mbmPqE9gjfa7fIeMa8u2OSCpq1aM6by7SbPk3nL54BQF7kxGAENdQnKGHiaiZ7UINtcHSfiIg6zO2vAmBEEVzA6mqh8FV/cz629B2bV3/Aenu9HEJwALz098d39iw48zSrnz1mzYios8ldZPthVs32eHYnTcZCQdfVS6i/6DTysQxNPc7rRKcEDC0OMkP3SpZnTLv6z6n94hnk2Sje1Uh8gvkybbE2Iav74oKfwHpEZL/ZpKAkBWaekGvV/3M+tuStG1ZfvZxDD87EHHRmVa9coMbOSFTbPbwEIRRhYiTb5FqPPN5dhLEce+FCui+6gCIUuMST5Tk7v7SMsH4D1tXD9Ct/Da1XJ+iQfQ9Ue/yoGG0QTjqFymteAyGgrkoeMkY+ewth/Vqyrg56rrwC39GzOwqSxyxeifvLFwXb71FoqVm3EVpS95+35tK3bVh9tdHrhZWBp6H56TBljrjLWkQM1b0Fko/vqT0XdYy/ClnEn3oy4h2SFWhFGf7o9YR3XU2SCsNzZxOu+GUqnfXdrmVC5ROABBGHiCMKKH7C8gyI+RjpC05EkwohG8VV6uz81D/QvOo91HwF19WJvvZVaNeM9vgx8raPtPGlKDGWbDqKEdsL3p5o3hEgkAk2NWgY9Ym/uRhc+rYNj/a33Vp4usqz/rdmLjj7aEnnFEU0J6YTvn98hI//rujuUc+eo3LcxflQ4DrrmBnaxjXe/WOk05N21skqnZBUJr7gitjO3nfPNaEYRYscXEoIY6BxdzEwCrHu251aBhnhB/dTd4LM6AJXBV+ZGFYWwRdgIkiE6NoGFFqgBYoSVSnE70ezYJgGYqhYl1kcTtR/oTWy9KpNTz84APpCrV4wJ4pkB6gk3F85WyRhdPOmkvtyRgGkV15BNmc+jaZir30Vle5urFlQmOEaQ7gdOwkCQcuOdYvOo9kzg7B5E+FlL8PPnkURAtEMsUi+eXNpDZoQDdI3LGbkiKPIdzXJXnMxOmMm5CWTYGMj+CwjWgAtB4E/8USac+czmmU0G2Okozmynxq7mFLExDq1aTt9xd042njXMwUOgO9S3ysSiO1FN09k7rafD2JnDXfn9wlbtuFm9RCLgqkXXkC64muwbYjqKSdANIKLiAgjd/4AfvYg2dYtpD0ziTGn+8LzSe/4CtlDjzD17JdDtY62Mkgd2Y8fIH7vHvJH1pAefTSxyOg+9xyq376FsHkn0xcuBHHEmOPE0frWv1M0tlNsGcQdUYOQ404/mRnfuhXZMkjYsJ7BP7maqXm2j4cScgmxS5xskJre0hz67XdvXXfD0xGt7dOC6lqc3pSIj6hMEhZO3KKNM8wFFiJJUDIHlRgoNMFiKJO/ELFKSnXjJgav+8i4dIPYzKjOnkv1lBOxViTEkjQdGrgFW/5dZGSE4ev/AVUhRKHIx0hf8AtMuegiXGcHIRvDpRWybRtpfn4Z9VaT7e//q5Jacgm0WlTmHkXttNMQCyUIPmHn175JvP0O3FiLsW8vL606L/CZUT/qGKpnnk7npb+Me/2lhF0tLEQIpcBExTARzCRMc6I/I8SPN0auePeWR294uqK1fQI0z3AlIyCPK1tHMVwRMOeQag1xilDgo5F5IckzpKaoKjjFIcTuDsJnbmTz+68Fl6LVym7/njrUJ+xYNsDYO99L6guqnTWyj3+SLZ/+DN57fFLbnfiq4io1mo+uZfObrkLXPEx1+nT48m1sfPdfUBQtJE3LpfGA8xU0SRj8yldpvf33qYjhal0Uf/13NO//GdRqaMXtMQDToFDV8tmcR7tSQkyJ5EWPw30fv/6Do8MX//XOtcsOJUNwwFTSX3T1LK0YFCKIxD3W/Kv3ZJu3EafPICTC8O0raH5pgGpRoJoQR4YZ2boL5swi//l/0/jbT+A3bSCpV+COu2l97y4y5whRCFu30Pz2Cna+7wOEv7+BmhbkiaJR8Qp62+3s+tG9FFkgZoF821bGHvg5o8uWMfSn76V71Y/RzimEUJCmDvve9xld8R3C6CiZFoTtu2is+A7D117L2Ec+RjVIqX31Hh3czsht36QYGyFEKBpjhK07GPnBvYx9/OPYIw/DMUcRBocYvOELVFesyOv1WrIyZ1X/1o0X39bY8YNnAxwA2bbg+HJbBvM48kmaGSGKIMUosSnkXVVsbJS6poSKaxfACmy4RVHrIFpOWmRQ6wSD6AUdGiYzI3Z1oqa4oRG8FlhXJxrL2kvQiOBAAzI0SisadNbBeWJzDNcsSGsJVq20i22lmzUv2EiDLCvJW/VK0RjGqVCtddBSRyUU5M7wllDEMazRpEjrSC1BTJHGKJIKLjcyn2DOWTo2FGtdPe6fs+yOX9/0368Ddj1ZHcGhBWj+cSVnaQli+R4EppRiTFQFighOibZnJCelJJQyQBdi3C2+MldKsiSENmi+DEJiZJxwsYl0qFTwKECIiFlZfFMtK6wWd1933GeqoqIQAmIR865kr0PEJKKTxfrt62NxYiGmqivDcVHM8lAX3Oa0xleGhz/2js2PXqWQvw7cwFMsGTwlgNbMOz5OxaQQD1LsW9An+xNRPJHyWSbxYAcuanx6zp/EXpuNK2GLbq9+lRSjt4yG3/nLrY9+tgwT5IDlUU9bmL1RRaaZIhYIsh+hnD2p4Pvxx5/sYz7ZsvMBn28TVYUCzBNDmlb8yiLe98ltzd9cNrrx3uX0eimFZM/6CgC/M4QNUtF5lovJM62HfQabGhQquAhKJBNiTdERX/Pfao1+dvGGh38fGCylUSuL58x9F4Q7HEKuEg/ndW9BS7MJomTqiqne6drom58dG/vdxRse/g2FwT5w5z1LwcA+Abo/6orR6EgIooepAZUzpIcYQoe0rO68/3YWV107vO2cd21afb3R5yLIsxkM7DMPyq1740vq9uYFJrVmqX+RwwkYMCJiioVu5/zD5sM3LOtfvOGhN61qja1ZTq8/hq+H5+oz6MrRNZvWxOz2ivOABHu+W4rs/gsomIZUkCQR/50Y7vpAY/v5b1q3+mpFRpeAPpfmm70CBPBvWeUj60ypWqHPZ4CsHQy4CBItquZxqkvcf+NbN+Wjf37euofOvnFw238s7+31EZP+58HuS2pLlugntq7+7t0xvyNNUhWz8LwFqEyFDCx0eKcFXr8ZRr72vsb2s962fv37DawPXFvU8bwYi+6UlSv1n8B8tbrqBO9/Z45hTaQtitLnvM1EEdSUUppI6FRcTLzeE/L7v1Q0f/ctG9f+xQPN0c3lXLMm3v88C1XdANgy+tx7R+/aeFxarZ9R6zzH51nR8uKcPRObQR6cKwNwpkTM0CLURFzFV/U+C1tuL8aWXr7+0d/+98bwKivduFzJmuelZ5DdtFufCgN8ft5x//Jribt4V57lmfOJfw5lR+PDRUsyIIJZ6qNTSfipyY77iuYNfzQ4+rdbR7duEuBmcIufg6HzwQBUgmSGiKT/NO+4r16SVi7MW3meiXk9WEX5IW4RTMxiBZHEq2aqPJTbptWt+I8fajQ+9t3mxkfbQDppyxIOj1Sh3ZaAXiPEYKSfnnfMzVck6aWxKGLLzERwIgamE4tjn46n1/ZKu3HlUMQIEmISJTrxvuZgV3T8lPyBB0P2sTcP7/gSjcbWEpg+JwwcFsDsFaBxkN5Xil/c38w+5r0XpdX3nBQz3YGG3Jyk0dQ0tDcFejoMS2k6NR9jrEQzEedqiqDG6lAUa3D/en829uk/3LL2G0ALykVne9m++fAEaPxzbcvL3zlnwZkXpV3XnGb2iqkWGSKLRBcxpybxKe/F064HGZipEVWieMHVScgcrLWCLbmuWl24W28rBpct27n5x+MJXDiMXNmTBQgmbfsC8J4Zs3/r3LTrLSd4/5IjYykIzEIgh9jeQFzLLXnLvREeb1w26V+JYpiW+xloIiIpDnPCqMHaGPNt6L0PkX39+6ON26/fseWu8a8aS3SAfll8mANzIABNuLylu3e65x1T5/S+tFq9bHZFLugxd9I8EleVUF4qRDI1LLZVm0Qc5b4F2t6M3+PwKIULFCbsEGFnDI2s4P71Lty7KeqKO0aGv3/Lri2rJ9MdgT63lAHrfz7vvfx0ADQJKH8NFJNi1uTXZxy58PQkeflxIT+7oumLU2fHTJfgeszRhRClICI0TMgtMqzKNvO5WfajUQ0/WR3j+u0tueu/Gtmqb7Y2P7KnvZms6F3kPrZypQ38D7GWvbX/B7D9witEuU8QAAAAAElFTkSuQmCC" alt="Nabati">
+    <div class="hi"><span data-i18n="hello">Halo,</span><b>Putri Handayani</b></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+  </div>
+
+  <div class="screen" id="screen">
+
+    <!-- ===== STATUS ===== -->
+    <div class="subview on" data-sv="status">
+      <div class="card">
+        <div class="appl">
+          <div class="av">PH</div>
+          <div class="ai"><b>Senior Sales Manager</b><span>Commercial Sales · Jakarta</span></div>
+        </div>
+        <div class="muted" style="margin-top:8px"><span data-i18n="applied">Dilamar</span> 28 Mei 2026 · REQ-2026-0142</div>
+        <div class="step" style="margin-top:14px">
+          <div class="st done"><div class="col"><div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ln"></div></div><div class="lab"><b data-i18n="s1">Lamaran diterima</b></div></div>
+          <div class="st done"><div class="col"><div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ln"></div></div><div class="lab"><b data-i18n="s2">Penyaringan</b><span data-i18n="s2d">selesai</span></div></div>
+          <div class="st now"><div class="col"><div class="nd"></div><div class="ln"></div></div><div class="lab"><b data-i18n="s3">Asesmen &amp; wawancara</b><span data-i18n="s3d">2 tugas menunggu Anda</span></div></div>
+          <div class="st"><div class="col"><div class="nd"></div><div class="ln"></div></div><div class="lab"><b data-i18n="s4">Keputusan panel</b><span data-i18n="s4d">setelah wawancara</span></div></div>
+          <div class="st"><div class="col"><div class="nd"></div></div><div class="lab"><b data-i18n="s5">Penawaran</b></div></div>
+        </div>
+      </div>
+
+      <div class="sectt" data-i18n="tasks_t">Yang perlu Anda lakukan</div>
+      <button class="task go" data-go="asesmen">
+        <div class="ti ti-a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="tc"><b data-i18n="task1">Penilaian situasional</b><span data-i18n="task1s">15 soal · sekitar 25 menit</span></div>
+        <span class="tg tg-due" data-i18n="due12">Tenggat 12 Jun</span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></span>
+      </button>
+      <button class="task go" data-go="jadwal">
+        <div class="ti ti-b"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+        <div class="tc"><b data-i18n="task2">Jadwalkan wawancara</b><span data-i18n="task2s">panel 3 pewawancara · 60 menit</span></div>
+        <span class="tg tg-wait" data-i18n="anytime">Kapan saja</span>
+        <span class="arr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="m9 18 6-6-6-6"/></svg></span>
+      </button>
+
+      <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="status_n">Hasil asesmen hanya salah satu masukan, bukan penentu tunggal. Keputusan penting selalu ditinjau oleh manusia. Butuh akomodasi? Anda bisa memintanya tanpa memengaruhi penilaian.</span></div>
+    </div>
+
+    <!-- ===== ASESMEN ===== -->
+    <div class="subview" data-sv="asesmen">
+      <div class="card">
+        <div class="eyebrow" data-i18n="a_eye">Penilaian situasional</div>
+        <h3 style="margin:5px 0 3px;font-size:18px;letter-spacing:-.3px" data-i18n="a_title">Penilaian Situasional Sales</h3>
+        <div class="muted" data-i18n="a_meta">15 soal · sekitar 25 menit · sekali pengerjaan</div>
+        <button class="btn-link" data-i18n="a_accom">Minta akomodasi, waktu tambahan atau format lain</button>
+      </div>
+
+      <div class="card">
+        <div class="progrow"><span data-i18n="a_prog">Soal 3 dari 15</span><span class="tm">18:24</span></div>
+        <div class="pbar"><i style="width:20%"></i></div>
+        <div class="qtext" data-i18n="a_q">Seorang anggota tim sales Anda konsisten di bawah target tiga bulan berturut-turut, padahal sebelumnya berkinerja baik. Apa langkah pertama Anda?</div>
+        <div class="opt" data-grp="q"><span class="rd"></span><span data-i18n="a_o1">Langsung memberi surat peringatan formal.</span></div>
+        <div class="opt sel" data-grp="q"><span class="rd"></span><span data-i18n="a_o2">Mengajak bicara empat mata untuk memahami akar masalahnya lebih dulu.</span></div>
+        <div class="opt" data-grp="q"><span class="rd"></span><span data-i18n="a_o3">Memindahkan wilayahnya ke anggota lain.</span></div>
+        <div class="opt" data-grp="q"><span class="rd"></span><span data-i18n="a_o4">Menunggu kuartal berikutnya untuk melihat perkembangan.</span></div>
+        <div class="btn-row" style="margin-top:6px">
+          <button class="btn btn-ghost" style="flex:0 0 38%" data-i18n="a_prev">Sebelumnya</button>
+          <button class="btn btn-primary"><span data-i18n="a_next">Simpan &amp; lanjut</span></button>
+        </div>
+      </div>
+
+      <div class="note lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="a_lock">Tidak ada perekaman wajah atau pengawasan biometrik. Hasil dinilai bersama wawancara dan bukti lain, bukan oleh sistem saja. Jawaban disimpan terbatas di wilayah Indonesia dengan retensi yang dibatasi.</span></div>
+    </div>
+
+    <!-- ===== JADWAL ===== -->
+    <div class="subview" data-sv="jadwal">
+      <div class="card">
+        <div class="eyebrow" data-i18n="j_eye">Jadwalkan wawancara</div>
+        <h3 style="margin:5px 0 8px;font-size:18px;letter-spacing:-.3px" data-i18n="j_title">Wawancara panel</h3>
+        <div class="kv"><span class="k" data-i18n="j_panel">Pewawancara</span><span class="v" data-i18n="j_panel_v">Panel 3 orang</span></div>
+        <div class="kv"><span class="k" data-i18n="j_dur">Durasi</span><span class="v mono">60 <span style="font-weight:500;color:var(--ink-3)" data-i18n="min">menit</span></span></div>
+        <div class="kv"><span class="k" data-i18n="j_fmt">Format</span><span class="v" data-i18n="j_fmt_v">Online atau di kantor Jakarta</span></div>
+        <div class="kv"><span class="k" data-i18n="j_tz">Zona waktu</span><span class="v mono">WIB</span></div>
+      </div>
+
+      <div class="sectt" data-i18n="j_slots">Pilih waktu yang cocok untuk Anda</div>
+      <div class="slot" data-grp="slot"><span class="rd"></span><div class="sd"><b data-i18n="sl1">Selasa, 16 Jun</b><span>09.00 &ndash; 10.00 WIB</span></div></div>
+      <div class="slot sel" data-grp="slot"><span class="rd"></span><div class="sd"><b data-i18n="sl2">Rabu, 17 Jun</b><span>13.30 &ndash; 14.30 WIB</span></div><span class="stag" data-i18n="popular">disarankan</span></div>
+      <div class="slot" data-grp="slot"><span class="rd"></span><div class="sd"><b data-i18n="sl3">Kamis, 18 Jun</b><span>15.00 &ndash; 16.00 WIB</span></div></div>
+      <div class="slot" data-grp="slot"><span class="rd"></span><div class="sd"><b data-i18n="sl4">Jumat, 19 Jun</b><span>10.00 &ndash; 11.00 WIB</span></div></div>
+
+      <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="j_confirm">Konfirmasi jadwal</span></button>
+      <button class="btn-link" data-i18n="j_other">Tidak ada yang cocok? Minta waktu lain atau akomodasi</button>
+
+      <div class="note lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="j_lock">Slot ditawarkan dari kalender pewawancara, Anda bebas memilih mana pun tanpa penalti. Setelah dikonfirmasi, undangan dikirim ke Anda dan panel. Anda masih bisa mengajukan penjadwalan ulang bila perlu.</span></div>
+    </div>
+
+  </div>
+
+  <div class="tabbar" id="tabs">
+    <button data-st="status" class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span data-i18n="t_status">Status</span></button>
+    <button data-st="asesmen" class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 8-8"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span data-i18n="t_asmt">Asesmen</span></button>
+    <button data-st="jadwal" class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span data-i18n="t_sched">Jadwal</span></button>
+  </div>
+</div>
+
+<script>
+const I18N={
+  caption:{id:"Tugas kandidat di ponsel, tahap awal",en:"Candidate tasks on mobile, early stage"},
+  hello:{id:"Halo,",en:"Hello,"},applied:{id:"Dilamar",en:"Applied"},
+  s1:{id:"Lamaran diterima",en:"Application received"},
+  s2:{id:"Penyaringan",en:"Screening"},s2d:{id:"selesai",en:"completed"},
+  s3:{id:"Asesmen & wawancara",en:"Assessment & interview"},s3d:{id:"2 tugas menunggu Anda",en:"2 tasks await you"},
+  s4:{id:"Keputusan panel",en:"Panel decision"},s4d:{id:"setelah wawancara",en:"after the interview"},
+  s5:{id:"Penawaran",en:"Offer"},
+  tasks_t:{id:"Yang perlu Anda lakukan",en:"What you need to do"},
+  task1:{id:"Penilaian situasional",en:"Situational assessment"},task1s:{id:"15 soal · sekitar 25 menit",en:"15 questions · about 25 minutes"},due12:{id:"Tenggat 12 Jun",en:"Due 12 Jun"},
+  task2:{id:"Jadwalkan wawancara",en:"Schedule interview"},task2s:{id:"panel 3 pewawancara · 60 menit",en:"panel of 3 · 60 minutes"},anytime:{id:"Kapan saja",en:"Anytime"},
+  status_n:{id:"Hasil asesmen hanya salah satu masukan, bukan penentu tunggal. Keputusan penting selalu ditinjau oleh manusia. Butuh akomodasi? Anda bisa memintanya tanpa memengaruhi penilaian.",en:"Assessment results are only one input, not the sole determinant. Important decisions are always reviewed by a person. Need an accommodation? You can request one without affecting your evaluation."},
+
+  a_eye:{id:"Penilaian situasional",en:"Situational assessment"},a_title:{id:"Penilaian Situasional Sales",en:"Sales Situational Assessment"},
+  a_meta:{id:"15 soal · sekitar 25 menit · sekali pengerjaan",en:"15 questions · about 25 minutes · single attempt"},
+  a_accom:{id:"Minta akomodasi, waktu tambahan atau format lain",en:"Request an accommodation, extra time or another format"},
+  a_prog:{id:"Soal 3 dari 15",en:"Question 3 of 15"},
+  a_q:{id:"Seorang anggota tim sales Anda konsisten di bawah target tiga bulan berturut-turut, padahal sebelumnya berkinerja baik. Apa langkah pertama Anda?",en:"A member of your sales team has been consistently below target for three months, though previously a strong performer. What is your first step?"},
+  a_o1:{id:"Langsung memberi surat peringatan formal.",en:"Immediately issue a formal warning letter."},
+  a_o2:{id:"Mengajak bicara empat mata untuk memahami akar masalahnya lebih dulu.",en:"Have a one-on-one conversation to understand the root cause first."},
+  a_o3:{id:"Memindahkan wilayahnya ke anggota lain.",en:"Reassign their territory to another member."},
+  a_o4:{id:"Menunggu kuartal berikutnya untuk melihat perkembangan.",en:"Wait for the next quarter to see if it improves."},
+  a_prev:{id:"Sebelumnya",en:"Previous"},a_next:{id:"Simpan & lanjut",en:"Save & continue"},
+  a_lock:{id:"Tidak ada perekaman wajah atau pengawasan biometrik. Hasil dinilai bersama wawancara dan bukti lain, bukan oleh sistem saja. Jawaban disimpan terbatas di wilayah Indonesia dengan retensi yang dibatasi.",en:"No face recording or biometric monitoring. Results are weighed alongside the interview and other evidence, not by the system alone. Answers are stored within the Indonesia region with limited retention."},
+
+  j_eye:{id:"Jadwalkan wawancara",en:"Schedule interview"},j_title:{id:"Wawancara panel",en:"Panel interview"},
+  j_panel:{id:"Pewawancara",en:"Interviewers"},j_panel_v:{id:"Panel 3 orang",en:"Panel of 3"},
+  j_dur:{id:"Durasi",en:"Duration"},min:{id:"menit",en:"minutes"},
+  j_fmt:{id:"Format",en:"Format"},j_fmt_v:{id:"Online atau di kantor Jakarta",en:"Online or at the Jakarta office"},
+  j_tz:{id:"Zona waktu",en:"Time zone"},
+  j_slots:{id:"Pilih waktu yang cocok untuk Anda",en:"Pick a time that works for you"},
+  sl1:{id:"Selasa, 16 Jun",en:"Tuesday, 16 Jun"},sl2:{id:"Rabu, 17 Jun",en:"Wednesday, 17 Jun"},sl3:{id:"Kamis, 18 Jun",en:"Thursday, 18 Jun"},sl4:{id:"Jumat, 19 Jun",en:"Friday, 19 Jun"},popular:{id:"disarankan",en:"suggested"},
+  j_confirm:{id:"Konfirmasi jadwal",en:"Confirm schedule"},
+  j_other:{id:"Tidak ada yang cocok? Minta waktu lain atau akomodasi",en:"None work? Request another time or an accommodation"},
+  j_lock:{id:"Slot ditawarkan dari kalender pewawancara, Anda bebas memilih mana pun tanpa penalti. Setelah dikonfirmasi, undangan dikirim ke Anda dan panel. Anda masih bisa mengajukan penjadwalan ulang bila perlu.",en:"Slots are offered from the interviewers' calendars, you are free to choose any without penalty. Once confirmed, invitations are sent to you and the panel. You can still request a reschedule if needed."},
+
+  t_status:{id:"Status",en:"Status"},t_asmt:{id:"Asesmen",en:"Assessment"},t_sched:{id:"Jadwal",en:"Schedule"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+function showTab(st){
+  document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('active',x.dataset.st===st));
+  document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('on',v.dataset.sv===st));
+  document.getElementById('screen').scrollTop=0;
+}
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('button[data-st]');if(!b)return;showTab(b.dataset.st);});
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>showTab(b.dataset.go)));
+document.querySelectorAll('[data-grp]').forEach(el=>el.addEventListener('click',()=>{
+  const g=el.dataset.grp;document.querySelectorAll('[data-grp="'+g+'"]').forEach(x=>x.classList.toggle('sel',x===el));
+}));
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

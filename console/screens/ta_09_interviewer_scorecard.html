@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Kartu Skor Wawancara</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n300:#d4dae3;--n400:#aeb6c2;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:140px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 70px;min-width:0;max-width:1080px;margin:0 auto;width:100%}
+
+.chead{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px;box-shadow:var(--e1);margin-bottom:14px}
+.chead .top{display:flex;align-items:flex-start;gap:13px;flex-wrap:wrap}
+.chead .cav{width:44px;height:44px;border-radius:50%;background:var(--primary-tint);color:var(--primary-700);display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+.chead h1{font-family:var(--font-display);font-weight:800;font-size:19px;letter-spacing:-.4px;margin:0}
+.chead .subr{font-size:12.5px;color:var(--ink-2);margin-top:2px}
+.chead .rolebadge{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;background:var(--dark);color:#fff;border-radius:999px;padding:6px 13px;font-weight:600}
+.chead .rolebadge i{width:9px;height:9px;border-radius:3px;background:#fff}
+.sessrow{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.schip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--border);border-radius:8px;padding:5px 11px}
+.schip svg{width:13px;height:13px;color:var(--ink-3)}
+.schip.focus{color:var(--primary-700);background:var(--primary-tint);border-color:var(--primary-tint-2)}.schip.focus svg{color:var(--primary)}
+
+.banner{display:flex;gap:11px;align-items:flex-start;background:var(--success-tint);border:1px solid #bce6cd;border-radius:11px;padding:12px 14px;margin-bottom:16px}
+.banner .ic{width:30px;height:30px;border-radius:8px;background:#fff;border:1px solid #bce6cd;display:grid;place-items:center;color:var(--success);flex:none}
+.banner .ic svg{width:16px;height:16px}
+.banner .tx{font-size:12px;color:#176b3d}.banner .tx b{display:flex;align-items:center;gap:8px;font-size:12.5px;margin-bottom:1px}
+.lockpill{font-size:9px;font-weight:700;color:var(--slate);background:#fff;border:1px solid #d8dee7;border-radius:5px;padding:1px 6px;text-transform:uppercase;letter-spacing:.03em}
+
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:2px}
+.subtab{border:none;background:transparent;padding:8px 13px;border-radius:8px 8px 0 0;font-size:12.5px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-3px;display:inline-flex;align-items:center;gap:7px}
+.subtab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.subtab .lk{width:12px;height:12px;color:var(--n400)}
+.subview{display:none}.subview.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:15px;margin-bottom:14px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;margin:0 0 6px;gap:10px}
+.panel .ph h4{margin:0;font-size:14px}
+.panel .ph .frtag{font-family:var(--font-num);font-size:10px;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;padding:2px 7px}
+.panel .pdesc{font-size:11.5px;color:var(--ink-3);margin:0 0 13px}
+
+.comp{padding:13px 0;border-bottom:1px solid var(--surface-3)}
+.comp:last-child{border-bottom:none}
+.comp .cn{font-size:13.5px;font-weight:700}
+.comp .cm{font-size:11.5px;color:var(--ink-3);margin:1px 0 10px}
+.rate{display:flex;gap:7px;flex-wrap:wrap}
+.rpill{border:1px solid var(--border-strong);background:var(--surface);border-radius:9px;padding:7px 12px;font-size:12px;font-weight:600;color:var(--ink-2);display:flex;flex-direction:column;align-items:flex-start;gap:1px;min-width:96px}
+.rpill .lv{font-family:var(--font-num);font-size:9.5px;color:var(--ink-3)}
+.rpill:hover{background:var(--surface-2)}
+.rpill.sel{border-color:var(--primary);background:var(--primary-tint);color:var(--primary-700)}
+.rpill.sel .lv{color:var(--primary-700)}
+.ev{width:100%;border:1px solid var(--border-strong);border-radius:9px;padding:10px 12px;font-family:inherit;font-size:12.5px;resize:vertical;min-height:60px;margin-top:10px;background:var(--surface-2)}
+.ev:focus{outline:none;border-color:var(--primary);background:#fff}
+.evlab{font-size:11px;font-weight:600;color:var(--ink-2);margin-top:11px;display:flex;align-items:center;gap:6px}
+.req{color:var(--primary);font-weight:700}
+
+.recs{display:flex;gap:8px;flex-wrap:wrap}
+.recpill{border:1px solid var(--border-strong);background:var(--surface);border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:700;color:var(--ink-2)}
+.recpill:hover{background:var(--surface-2)}
+.recpill.sel.sh{border-color:var(--success);background:var(--success-tint);color:#176b3d}
+.recpill.sel.h{border-color:var(--success);background:var(--success-tint);color:#176b3d}
+.recpill.sel.n{border-color:var(--warning);background:var(--warning-tint);color:var(--warning)}
+.recpill.sel.sn{border-color:var(--danger);background:var(--danger-tint);color:var(--danger)}
+
+.qz{margin-bottom:14px}
+.qz .qh{font-size:12.5px;font-weight:700;color:var(--primary-700);margin-bottom:7px}
+.qz ul{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:7px}
+.qz li{font-size:12.5px;color:var(--ink-2);display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 11px}
+.qz li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--primary);margin-top:7px;flex:none}
+
+.banlist{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.bchip{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:600;color:var(--danger);background:var(--danger-tint);border:1px solid #e6b3ae;border-radius:8px;padding:5px 10px}
+.bchip svg{width:12px;height:12px}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:12px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.note.lock{background:var(--slate-tint);border-color:#d8dee7;color:var(--slate)}.note.lock svg{color:var(--slate)}
+
+/* consensus */
+.locked-state .after{display:none}
+.unlocked-state .before{display:none}
+.panelm{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--surface-3)}
+.panelm:last-child{border-bottom:none}
+.panelm .pa{width:30px;height:30px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-size:11px;font-weight:700;flex:none}
+.panelm .pi{flex:1}.panelm .pi b{font-size:12.5px;font-weight:600;display:block}.panelm .pi span{font-size:11px;color:var(--ink-3)}
+.pstat{font-size:10px;font-weight:700;border-radius:6px;padding:3px 9px;border:1px solid;white-space:nowrap}
+.ps-done{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.ps-prog{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.hiddenscore{font-family:var(--font-num);font-size:11px;color:var(--n400);letter-spacing:2px}
+
+.savebar{position:sticky;bottom:0;margin:14px -26px -70px;padding:12px 26px;background:rgba(255,255,255,.93);backdrop-filter:blur(8px);border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.savebar .sn{font-size:11.5px;color:var(--ink-3)}.savebar .sp2{flex:1}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:9px;padding:10px 16px;font-weight:700;font-size:13px;border:1px solid transparent}
+.btn svg{width:16px;height:16px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.foot{margin-top:14px;font-size:11px;color:var(--ink-3);text-align:center}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Kartu Skor Wawancara</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari kandidat"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">BS</div><div class="nm">Budi Santoso<small data-i18n="role">Pewawancara</small></div></div>
+  </div>
+
+  <main class="main">
+    <div class="chead">
+      <div class="top">
+        <div class="cav">AF</div>
+        <div>
+          <h1>Ahmad Fauzi</h1>
+          <div class="subr">Senior Sales Manager · REQ-2026-0142 · Commercial Sales · Jakarta</div>
+        </div>
+        <div class="rolebadge"><i></i><span data-i18n="badge">Pewawancara, Sales Director</span></div>
+      </div>
+      <div class="sessrow">
+        <span class="schip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span data-i18n="sess">Sesi 2 dari 3 · 05 Jun 2026</span></span>
+        <span class="schip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="3"/><path d="M22 21v-2a4 4 0 0 0-3-3.9"/></svg><span data-i18n="panel">Panel 3 pewawancara</span></span>
+        <span class="schip focus"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-2M12 12v4"/></svg><span data-i18n="myfocus">Fokus Anda, kepemimpinan &amp; strategi penjualan</span></span>
+      </div>
+    </div>
+
+    <div class="banner">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+      <div class="tx"><b><span data-i18n="b_t">Penilaian independen</span> <span class="lockpill" data-i18n="locked">Terkunci</span></b><span data-i18n="b_d">Skor panelis lain disembunyikan sampai semua mengirim. Anda menilai dari bukti yang Anda lihat sendiri, tanpa terpengaruh. Skor HC AI juga tidak ditampilkan saat Anda menilai.</span></div>
+    </div>
+
+    <div class="subtabs" id="tabs">
+      <button class="subtab active" data-st="score" data-i18n="t1">Kartu skor saya</button>
+      <button class="subtab" data-st="kit" data-i18n="t2">Kit wawancara</button>
+      <button class="subtab" data-st="cons"><span data-i18n="t3">Konsensus</span><svg class="lk" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></button>
+    </div>
+
+    <!-- ===== KARTU SKOR ===== -->
+    <div class="subview on" data-sv="score">
+      <div class="panel">
+        <div class="ph"><h4 data-i18n="sc_h">Kompetensi yang Anda nilai</h4><span class="frtag">FR-INT-003</span></div>
+        <p class="pdesc" data-i18n="sc_d">Panel membagi kompetensi agar setiap pewawancara fokus. Setiap skor wajib disertai bukti dari jawaban kandidat.</p>
+
+        <div class="comp">
+          <div class="cn" data-i18n="c1">Kepemimpinan penjualan</div>
+          <div class="cm" data-i18n="c1m">memimpin tim, membangun budaya target, mengembangkan orang</div>
+          <div class="rate" data-group="c1">
+            <button class="rpill"><span class="lv">1</span><span data-i18n="lv1">Tidak memenuhi</span></button>
+            <button class="rpill"><span class="lv">2</span><span data-i18n="lv2">Sebagian</span></button>
+            <button class="rpill sel"><span class="lv">3</span><span data-i18n="lv3">Memenuhi</span></button>
+            <button class="rpill"><span class="lv">4</span><span data-i18n="lv4">Melebihi</span></button>
+          </div>
+          <div class="evlab"><span data-i18n="evidence">Bukti</span> <span class="req">*</span></div>
+          <textarea class="ev" data-i18n-ph="ev_ph" placeholder="Catat contoh konkret dari jawaban kandidat">Memimpin tim 12 sales, menaikkan pencapaian target dari 86 ke 104 persen dalam setahun lewat coaching mingguan. Memberi contoh spesifik.</textarea>
+        </div>
+
+        <div class="comp">
+          <div class="cn" data-i18n="c2">Pemikiran strategis</div>
+          <div class="cm" data-i18n="c2m">membaca pasar, menyusun rencana, memprioritaskan sumber daya</div>
+          <div class="rate" data-group="c2">
+            <button class="rpill"><span class="lv">1</span><span data-i18n="lv1">Tidak memenuhi</span></button>
+            <button class="rpill"><span class="lv">2</span><span data-i18n="lv2">Sebagian</span></button>
+            <button class="rpill"><span class="lv">3</span><span data-i18n="lv3">Memenuhi</span></button>
+            <button class="rpill sel"><span class="lv">4</span><span data-i18n="lv4">Melebihi</span></button>
+          </div>
+          <div class="evlab"><span data-i18n="evidence">Bukti</span> <span class="req">*</span></div>
+          <textarea class="ev" data-i18n-ph="ev_ph" placeholder="Catat contoh konkret dari jawaban kandidat">Menjelaskan strategi masuk pasar tier 2 dengan analisis distribusi yang matang dan trade-off yang jelas. Pemikiran di atas level peran.</textarea>
+        </div>
+
+        <div class="comp">
+          <div class="cn" data-i18n="c3">Manajemen pemangku kepentingan</div>
+          <div class="cm" data-i18n="c3m">menyelaraskan lintas fungsi, menangani konflik, memengaruhi tanpa otoritas</div>
+          <div class="rate" data-group="c3">
+            <button class="rpill"><span class="lv">1</span><span data-i18n="lv1">Tidak memenuhi</span></button>
+            <button class="rpill sel"><span class="lv">2</span><span data-i18n="lv2">Sebagian</span></button>
+            <button class="rpill"><span class="lv">3</span><span data-i18n="lv3">Memenuhi</span></button>
+            <button class="rpill"><span class="lv">4</span><span data-i18n="lv4">Melebihi</span></button>
+          </div>
+          <div class="evlab"><span data-i18n="evidence">Bukti</span> <span class="req">*</span></div>
+          <textarea class="ev" data-i18n-ph="ev_ph" placeholder="Catat contoh konkret dari jawaban kandidat">Contoh kolaborasi dengan Trade Marketing baik, tetapi penanganan konflik dengan Finance kurang detail. Perlu digali di sesi berikutnya.</textarea>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="ph"><h4 data-i18n="rec_h">Rekomendasi keseluruhan</h4></div>
+        <div class="recs" data-group="rec">
+          <button class="recpill sn" data-rec="sn" data-i18n="rec_sn">Strong No</button>
+          <button class="recpill n" data-rec="n" data-i18n="rec_n">No Hire</button>
+          <button class="recpill h sel" data-rec="h" data-i18n="rec_h2">Hire</button>
+          <button class="recpill sh" data-rec="sh" data-i18n="rec_sh">Strong Hire</button>
+        </div>
+        <div class="evlab"><span data-i18n="rec_just">Justifikasi rekomendasi</span> <span class="req">*</span></div>
+        <textarea class="ev" data-i18n-ph="rec_ph" placeholder="Ringkas alasan rekomendasi Anda berdasar bukti di atas">Kuat di kepemimpinan dan strategi, sesuai kebutuhan peran. Manajemen pemangku kepentingan perlu pendalaman, tapi tidak menghalangi. Rekomendasi Hire.</textarea>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="rec_n_note">Setiap skor wajib punya bukti dan rekomendasi wajib punya justifikasi. Tanpa itu, kartu skor tidak bisa dikirim.</span></div>
+      </div>
+
+      <div class="savebar">
+        <span class="sn" data-i18n="save_note">Setelah dikirim, kartu skor Anda terkunci dan tab Konsensus terbuka. Skor panel tetap tersembunyi sampai semua selesai.</span>
+        <span class="sp2"></span>
+        <button class="btn btn-ghost" data-i18n="save_draft">Simpan draf</button>
+        <button class="btn btn-primary" id="submitBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4Z"/></svg><span data-i18n="submit">Kirim kartu skor</span></button>
+      </div>
+    </div>
+
+    <!-- ===== KIT ===== -->
+    <div class="subview" data-sv="kit">
+      <div class="panel">
+        <div class="ph"><h4 data-i18n="k_h">Pertanyaan terstruktur untuk fokus Anda</h4><span class="frtag">FR-INT-002</span></div>
+        <p class="pdesc" data-i18n="k_d">Pertanyaan disusun konsisten untuk semua kandidat di peran ini, agar penilaian adil dan dapat dibandingkan.</p>
+        <div class="qz">
+          <div class="qh" data-i18n="c1">Kepemimpinan penjualan</div>
+          <ul>
+            <li data-i18n="kq1">Ceritakan saat Anda membalikkan tim sales yang berkinerja rendah. Apa langkah konkretnya?</li>
+            <li data-i18n="kq2">Bagaimana cara Anda mengembangkan sales yang potensial tapi belum konsisten?</li>
+          </ul>
+        </div>
+        <div class="qz">
+          <div class="qh" data-i18n="c2">Pemikiran strategis</div>
+          <ul>
+            <li data-i18n="kq3">Bila diberi wilayah baru dengan sumber daya terbatas, bagaimana Anda memprioritaskan?</li>
+            <li data-i18n="kq4">Keputusan strategis tersulit yang pernah Anda ambil, dan bagaimana hasilnya?</li>
+          </ul>
+        </div>
+        <div class="qz">
+          <div class="qh" data-i18n="c3">Manajemen pemangku kepentingan</div>
+          <ul>
+            <li data-i18n="kq5">Ceritakan konflik dengan fungsi lain dan bagaimana Anda menyelesaikannya.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="ph"><h4 data-i18n="ban_h">Pertanyaan yang dilarang</h4><span class="lockpill" data-i18n="locked">Terkunci</span></div>
+        <p class="pdesc" data-i18n="ban_d">Hal-hal berikut tidak boleh ditanyakan karena tidak relevan dengan pekerjaan dan berisiko diskriminatif. Sistem menandainya bila muncul di catatan.</p>
+        <div class="banlist">
+          <span class="bchip" data-i18n="ban1">Status pernikahan</span>
+          <span class="bchip" data-i18n="ban2">Usia</span>
+          <span class="bchip" data-i18n="ban3">Agama</span>
+          <span class="bchip" data-i18n="ban4">Suku &amp; etnis</span>
+          <span class="bchip" data-i18n="ban5">Rencana punya anak</span>
+          <span class="bchip" data-i18n="ban6">Kondisi kesehatan</span>
+        </div>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="ban_note">Nilailah dari kompetensi dan bukti, bukan dari atribut pribadi. Ini melindungi kandidat dan keputusan Anda.</span></div>
+      </div>
+    </div>
+
+    <!-- ===== KONSENSUS ===== -->
+    <div class="subview" data-sv="cons">
+      <div class="panel locked-state" id="consWrap">
+        <div class="ph"><h4 data-i18n="cs_h">Konsensus panel</h4></div>
+
+        <div class="before">
+          <div class="note lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="cs_locked">Kirim kartu skor Anda dulu. Skor panelis lain tetap tersembunyi sampai semua selesai, untuk mencegah saling memengaruhi.</span></div>
+        </div>
+        <div class="after">
+          <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="cs_submitted">Kartu skor Anda terkirim dan terkunci. Menunggu 1 panelis lagi. Skor dibuka untuk semua setelah panel lengkap, lalu fasilitator membuka sesi konsensus.</span></div>
+        </div>
+
+        <div style="margin-top:13px">
+          <div class="panelm"><div class="pa">RN</div><div class="pi"><b data-i18n="pm1">Rina N., HCBP</b><span data-i18n="pm1f">fokus, kecocokan budaya</span></div><span class="pstat ps-done" data-i18n="submitted_st">Terkirim</span></div>
+          <div class="panelm"><div class="pa">BS</div><div class="pi"><b data-i18n="pm2">Budi S., Sales Director, Anda</b><span data-i18n="pm2f">fokus, kepemimpinan &amp; strategi</span></div><span class="pstat ps-prog" id="myStat" data-i18n="prog_st">Berjalan</span></div>
+          <div class="panelm"><div class="pa">DW</div><div class="pi"><b data-i18n="pm3">Dani W., Sales Manager</b><span data-i18n="pm3f">fokus, eksekusi &amp; hasil</span></div><span class="pstat ps-prog" data-i18n="prog_st">Berjalan</span></div>
+        </div>
+        <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="cs_note">Konsensus bukan rata-rata otomatis. Fasilitator memandu diskusi, perbedaan skor justru menjadi bahan dialog, dan keputusan akhir tetap ditinjau manusia.</span></div>
+      </div>
+    </div>
+
+    <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Kartu Skor Wawancara · prototipe, mengacu Design System v3</div>
+  </main>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Kartu Skor Wawancara",en:"Interview Scorecard"},
+  search:{id:"Cari kandidat",en:"Search candidate"},role:{id:"Pewawancara",en:"Interviewer"},
+  badge:{id:"Pewawancara, Sales Director",en:"Interviewer, Sales Director"},
+  sess:{id:"Sesi 2 dari 3 · 05 Jun 2026",en:"Session 2 of 3 · 05 Jun 2026"},
+  panel:{id:"Panel 3 pewawancara",en:"Panel of 3 interviewers"},
+  myfocus:{id:"Fokus Anda, kepemimpinan & strategi penjualan",en:"Your focus, sales leadership & strategy"},
+  b_t:{id:"Penilaian independen",en:"Independent assessment"},locked:{id:"Terkunci",en:"Locked"},
+  b_d:{id:"Skor panelis lain disembunyikan sampai semua mengirim. Anda menilai dari bukti yang Anda lihat sendiri, tanpa terpengaruh. Skor HC AI juga tidak ditampilkan saat Anda menilai.",en:"Other panelists' scores are hidden until everyone submits. You assess from the evidence you saw yourself, uninfluenced. The HC AI score is also hidden while you score."},
+  t1:{id:"Kartu skor saya",en:"My scorecard"},t2:{id:"Kit wawancara",en:"Interview kit"},t3:{id:"Konsensus",en:"Consensus"},
+
+  sc_h:{id:"Kompetensi yang Anda nilai",en:"Competencies you assess"},
+  sc_d:{id:"Panel membagi kompetensi agar setiap pewawancara fokus. Setiap skor wajib disertai bukti dari jawaban kandidat.",en:"The panel divides competencies so each interviewer focuses. Every rating must be backed by evidence from the candidate's answers."},
+  c1:{id:"Kepemimpinan penjualan",en:"Sales leadership"},c1m:{id:"memimpin tim, membangun budaya target, mengembangkan orang",en:"leading teams, building a target culture, developing people"},
+  c2:{id:"Pemikiran strategis",en:"Strategic thinking"},c2m:{id:"membaca pasar, menyusun rencana, memprioritaskan sumber daya",en:"reading the market, building plans, prioritizing resources"},
+  c3:{id:"Manajemen pemangku kepentingan",en:"Stakeholder management"},c3m:{id:"menyelaraskan lintas fungsi, menangani konflik, memengaruhi tanpa otoritas",en:"aligning cross-functionally, handling conflict, influencing without authority"},
+  lv1:{id:"Tidak memenuhi",en:"Below"},lv2:{id:"Sebagian",en:"Partial"},lv3:{id:"Memenuhi",en:"Meets"},lv4:{id:"Melebihi",en:"Exceeds"},
+  evidence:{id:"Bukti",en:"Evidence"},ev_ph:{id:"Catat contoh konkret dari jawaban kandidat",en:"Note concrete examples from the candidate's answers"},
+  rec_h:{id:"Rekomendasi keseluruhan",en:"Overall recommendation"},
+  rec_sn:{id:"Strong No",en:"Strong No"},rec_n:{id:"No Hire",en:"No Hire"},rec_h2:{id:"Hire",en:"Hire"},rec_sh:{id:"Strong Hire",en:"Strong Hire"},
+  rec_just:{id:"Justifikasi rekomendasi",en:"Recommendation justification"},rec_ph:{id:"Ringkas alasan rekomendasi Anda berdasar bukti di atas",en:"Summarize your recommendation based on the evidence above"},
+  rec_n_note:{id:"Setiap skor wajib punya bukti dan rekomendasi wajib punya justifikasi. Tanpa itu, kartu skor tidak bisa dikirim.",en:"Every rating needs evidence and the recommendation needs a justification. Without them, the scorecard cannot be submitted."},
+  save_note:{id:"Setelah dikirim, kartu skor Anda terkunci dan tab Konsensus terbuka. Skor panel tetap tersembunyi sampai semua selesai.",en:"Once submitted, your scorecard locks and the Consensus tab opens. Panel scores stay hidden until everyone is done."},
+  save_draft:{id:"Simpan draf",en:"Save draft"},submit:{id:"Kirim kartu skor",en:"Submit scorecard"},
+
+  k_h:{id:"Pertanyaan terstruktur untuk fokus Anda",en:"Structured questions for your focus"},
+  k_d:{id:"Pertanyaan disusun konsisten untuk semua kandidat di peran ini, agar penilaian adil dan dapat dibandingkan.",en:"Questions are kept consistent for all candidates in this role, so assessment is fair and comparable."},
+  kq1:{id:"Ceritakan saat Anda membalikkan tim sales yang berkinerja rendah. Apa langkah konkretnya?",en:"Tell us about turning around an underperforming sales team. What were the concrete steps?"},
+  kq2:{id:"Bagaimana cara Anda mengembangkan sales yang potensial tapi belum konsisten?",en:"How do you develop a salesperson with potential but inconsistent results?"},
+  kq3:{id:"Bila diberi wilayah baru dengan sumber daya terbatas, bagaimana Anda memprioritaskan?",en:"Given a new territory with limited resources, how would you prioritize?"},
+  kq4:{id:"Keputusan strategis tersulit yang pernah Anda ambil, dan bagaimana hasilnya?",en:"The hardest strategic decision you have made, and how it turned out?"},
+  kq5:{id:"Ceritakan konflik dengan fungsi lain dan bagaimana Anda menyelesaikannya.",en:"Tell us about a conflict with another function and how you resolved it."},
+  ban_h:{id:"Pertanyaan yang dilarang",en:"Prohibited questions"},
+  ban_d:{id:"Hal-hal berikut tidak boleh ditanyakan karena tidak relevan dengan pekerjaan dan berisiko diskriminatif. Sistem menandainya bila muncul di catatan.",en:"The following must not be asked, they are not job-relevant and risk discrimination. The system flags them if they appear in notes."},
+  ban1:{id:"Status pernikahan",en:"Marital status"},ban2:{id:"Usia",en:"Age"},ban3:{id:"Agama",en:"Religion"},ban4:{id:"Suku & etnis",en:"Ethnicity"},ban5:{id:"Rencana punya anak",en:"Plans for children"},ban6:{id:"Kondisi kesehatan",en:"Health condition"},
+  ban_note:{id:"Nilailah dari kompetensi dan bukti, bukan dari atribut pribadi. Ini melindungi kandidat dan keputusan Anda.",en:"Assess on competency and evidence, not personal attributes. This protects the candidate and your decision."},
+
+  cs_h:{id:"Konsensus panel",en:"Panel consensus"},
+  cs_locked:{id:"Kirim kartu skor Anda dulu. Skor panelis lain tetap tersembunyi sampai semua selesai, untuk mencegah saling memengaruhi.",en:"Submit your scorecard first. Other panelists' scores stay hidden until everyone is done, to prevent mutual influence."},
+  cs_submitted:{id:"Kartu skor Anda terkirim dan terkunci. Menunggu 1 panelis lagi. Skor dibuka untuk semua setelah panel lengkap, lalu fasilitator membuka sesi konsensus.",en:"Your scorecard is submitted and locked. Waiting on 1 more panelist. Scores open for all once the panel is complete, then the facilitator opens the consensus session."},
+  pm1:{id:"Rina N., HCBP",en:"Rina N., HCBP"},pm1f:{id:"fokus, kecocokan budaya",en:"focus, culture fit"},
+  pm2:{id:"Budi S., Sales Director, Anda",en:"Budi S., Sales Director, you"},pm2f:{id:"fokus, kepemimpinan & strategi",en:"focus, leadership & strategy"},
+  pm3:{id:"Dani W., Sales Manager",en:"Dani W., Sales Manager"},pm3f:{id:"fokus, eksekusi & hasil",en:"focus, execution & results"},
+  submitted_st:{id:"Terkirim",en:"Submitted"},prog_st:{id:"Berjalan",en:"In progress"},
+  cs_note:{id:"Konsensus bukan rata-rata otomatis. Fasilitator memandu diskusi, perbedaan skor justru menjadi bahan dialog, dan keputusan akhir tetap ditinjau manusia.",en:"Consensus is not an automatic average. The facilitator guides the discussion, score differences become material for dialogue, and the final decision is still human-reviewed."},
+
+  foot:{id:"One HCMS · Talent Acquisition · Kartu Skor Wawancara · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Interview Scorecard · prototype, per Design System v3"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.subtab');if(!b)return;
+  document.querySelectorAll('#tabs .subtab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('on',v.dataset.sv===b.dataset.st));
+});
+// rating + recommendation selection (one per group)
+document.querySelectorAll('[data-group]').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.rpill, .recpill');if(!b)return;
+  g.querySelectorAll('.rpill, .recpill').forEach(x=>x.classList.toggle('sel',x===b));
+}));
+// submit -> unlock consensus
+document.getElementById('submitBtn').addEventListener('click',()=>{
+  const w=document.getElementById('consWrap'); w.classList.remove('locked-state'); w.classList.add('unlocked-state');
+  const ms=document.getElementById('myStat'); ms.className='pstat ps-done'; ms.textContent=I18N['submitted_st'][lang];
+  document.querySelectorAll('#tabs .subtab').forEach(x=>x.classList.toggle('active',x.dataset.st==='cons'));
+  document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('on',v.dataset.sv==='cons'));
+  document.querySelector('.main').scrollTop=0;
+});
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

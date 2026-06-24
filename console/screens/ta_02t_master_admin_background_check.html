@@ -1,0 +1,441 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Background Check &amp; Adjudikasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff;--surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:150px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.layout{flex:1;display:flex;min-height:0}
+.side{width:240px;flex:0 0 auto;border-right:1px solid var(--border);overflow-y:auto;padding:14px 10px;background:var(--surface)}
+.sidehead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding:4px 10px 8px}
+.side nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:12.5px;margin-bottom:1px;cursor:pointer}
+.side nav a svg{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+.side nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side nav a.active{background:var(--primary-tint);color:var(--primary);font-weight:600}
+.side nav a.active svg{color:var(--primary)}
+.side .badge-new{margin-left:auto;font-size:9px;font-weight:700;color:var(--primary-700);background:#fff;border:1px solid var(--primary-tint-2);border-radius:5px;padding:1px 5px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 80px;min-width:0}
+.phead{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.phead .mt{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.5px}
+.phead .mt small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.rolebadge{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;background:var(--dark);color:#fff;border-radius:999px;padding:6px 13px;font-weight:600}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#fff}
+.scope{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin:12px 0 14px}
+.scope svg{width:15px;height:15px;color:var(--primary);flex:none}
+.scope .asof{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-num);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+.focusnote{font-size:11px;color:var(--ink-3);margin:0 0 14px 2px}
+.focusnote b{color:var(--primary-700);font-family:var(--font-num)}
+
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);background:var(--surface-2);border:1px dashed var(--border-strong);border-radius:9px;padding:8px 12px;margin:0 0 16px}
+.flow .lab{font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:10px;color:var(--primary-700)}
+.flow .chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--border);border-radius:20px;padding:3px 10px;color:var(--ink-2);font-weight:600}
+.flow .arr{color:var(--n400)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:7px 13px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+
+.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;border-bottom:1px solid var(--border);padding-bottom:2px}
+.subtab{border:none;background:transparent;padding:8px 13px;border-radius:8px 8px 0 0;font-size:12.5px;font-weight:600;color:var(--ink-3);border-bottom:2px solid transparent;margin-bottom:-3px}
+.subtab.active{color:var(--primary);border-bottom-color:var(--primary)}
+.subview{display:none}.subview.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:15px;margin-bottom:14px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;margin:0 0 6px;gap:10px}
+.panel .ph h4{margin:0;font-size:14px}
+.panel .ph .frtag{font-family:var(--font-num);font-size:10px;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;padding:2px 7px}
+.panel .ph .act{margin-left:auto;display:flex;gap:8px}
+.panel .pdesc{font-size:11.5px;color:var(--ink-3);margin:0 0 13px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+.subt{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin:16px 0 9px}
+.subt:first-child{margin-top:0}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+table.tbl th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);padding:8px 8px;border-bottom:1px solid var(--border);font-weight:700}
+table.tbl td{padding:9px 8px;border-bottom:1px solid var(--surface-3);vertical-align:top}
+table.tbl tr:last-child td{border-bottom:none}
+.cn{font-weight:600;color:var(--ink)}.mono{font-family:var(--font-num)}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--surface-3)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-row .tl{min-width:0}
+.toggle-row .tl b{display:flex;align-items:center;gap:8px;font-weight:600;font-size:12.5px;flex-wrap:wrap}
+.toggle-row .tl span{font-size:11px;color:var(--ink-3);display:block;margin-top:2px}
+.switch{position:relative;width:38px;height:22px;border-radius:999px;background:var(--n300);transition:.2s;flex:0 0 auto;border:none}
+.switch.on{background:var(--primary)}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:var(--e1);transition:.2s}
+.switch.on::after{left:18px}
+.switch[disabled]{opacity:.55;cursor:not-allowed}.switch.lockon{background:var(--success)}
+.rbadge{font-size:9.5px;font-weight:700;border-radius:5px;padding:1px 6px;border:1px solid;text-transform:uppercase;letter-spacing:.03em;white-space:nowrap}
+.rb-lock{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.rb-ctry{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.rb-ok{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+
+.kv{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface-3);font-size:12.5px}
+.kv:last-child{border-bottom:none}
+.kv .k{display:flex;align-items:center;gap:8px;color:var(--ink-2)}
+.kv .v{font-family:var(--font-num);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.cchip{display:inline-flex;align-items:center;gap:6px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--ink-2)}
+
+/* adjudication matrix */
+.adj{border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.adjrow{display:flex;align-items:flex-start;gap:12px;padding:11px 13px;border-bottom:1px solid var(--surface-3)}
+.adjrow:last-child{border-bottom:none}
+.adjrow .lvl{width:104px;flex:none;display:flex;align-items:center;gap:7px;font-weight:700;font-size:12px}
+.adjrow .lvl .d{width:9px;height:9px;border-radius:3px;flex:none}
+.adjrow .fnd{flex:1;font-size:12px;color:var(--ink-2)}.adjrow .fnd small{display:block;color:var(--ink-3);font-size:10.5px}
+.adjrow .rte{flex:1.2;font-size:12px;color:var(--ink);font-weight:500}
+.lv-min .d{background:var(--success)}.lv-mod .d{background:var(--info)}.lv-ser .d{background:var(--warning)}.lv-dis .d{background:var(--danger)}
+
+.resolve{border:1.5px solid var(--primary-tint-2);background:var(--primary-tint);border-radius:11px;padding:13px 14px;margin-bottom:14px}
+.resolve .rt{display:flex;align-items:center;gap:8px;font-weight:800;font-size:13px;color:var(--primary-700);font-family:var(--font-display)}
+.resolve .rt svg{width:16px;height:16px}
+.resolve p{margin:8px 0 0;font-size:12px;color:var(--primary-700);line-height:1.5}
+
+.flowline{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-top:10px}
+.fl-step{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1px solid var(--primary-tint-2);border-radius:8px;padding:5px 10px;font-size:11.5px;font-weight:600;color:var(--primary-700)}
+.fl-step .n{font-family:var(--font-num);font-size:10px;background:var(--primary);color:#fff;border-radius:5px;width:16px;height:16px;display:grid;place-items:center}
+.fl-arr{color:var(--primary);font-weight:700}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:12px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.note.ai{background:var(--primary-tint);border-color:var(--primary-tint-2);color:var(--primary-700)}.note.ai svg{color:var(--primary)}
+.foot{margin-top:14px;font-size:11px;color:var(--ink-3);text-align:center}
+.savebar{position:sticky;bottom:0;margin:14px -26px -80px;padding:12px 26px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.savebar .sn{font-size:11.5px;color:var(--ink-3)}.savebar .sp2{flex:1}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Konsol Master Admin</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari paket, aturan, vendor"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">AN</div><div class="nm">Adi Nugroho<small>Master Admin</small></div></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <div class="sidehead" data-i18n="navhead">Tata Kelola TA</div>
+      <nav>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="n_gov">Ringkasan tata kelola</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_rbac">Peran &amp; Akses</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 1.7 3 .2.9 2.9 2 2.2-1 2.8.4 3-2.6 1.5-1.5 2.6-3-.4-2.7 1.3-2.7-1.3-3 .4-1.5-2.6L3.3 16l.4-3-1-2.8 2-2.2.9-2.9 3-.2Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_flow">Workflow &amp; Approval</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="n_ai">Model HC AI</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3 6-6"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg><span data-i18n="n_asmt">Asesmen &amp; Validasi</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 14l2 2 4-4"/></svg><span data-i18n="n_kit">Kit Wawancara &amp; Kartu Skor</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12l-3-3M20 15H8l3 3"/></svg><span data-i18n="n_stage">Tahap Pipeline</span></a>
+        <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg><span data-i18n="n_bgc">Background Check &amp; Adjudikasi</span><span class="badge-new" data-i18n="new">BARU</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 3.5a3 3 0 0 1 0 9M21 20a6 6 0 0 0-4-5.7"/></svg><span data-i18n="n_grow">Referral, Brand &amp; Talent Pool</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg><span data-i18n="n_tpl">Template &amp; Komunikasi</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg><span data-i18n="n_intg">Integrasi &amp; Channel</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span data-i18n="n_data">Data &amp; Residency</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="n_audit">Audit &amp; Keamanan</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="phead">
+        <div class="mt"><span data-i18n="ptitle">Background Check &amp; Adjudikasi</span><small data-i18n="psub">Pemeriksaan latar, adjudikasi adil, dan referensi</small></div>
+        <div class="rolebadge"><i></i>Master Admin</div>
+      </div>
+      <div class="scope">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg>
+        <span data-i18n="scope">Mengatur cek latar apa yang dijalankan, bagaimana temuan dinilai, dan bagaimana keputusan diambil secara adil dan sah. Prinsip kuncinya, temuan tidak pernah menolak kandidat secara diam-diam.</span>
+        <span class="asof"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>08 Jun 2026 09.40</span>
+      </div>
+      <p class="focusnote"><span data-i18n="focus">Fokus layar ini</span>: <b>FR-BGC-001</b>, <b>FR-BGC-002</b> <span data-i18n="and">dan</span> <b>FR-BGC-003</b></p>
+
+      <div class="flow">
+        <span class="lab" data-i18n="flow_lab">Menyambung ke</span>
+        <span class="chip" data-i18n="flow_c1">Dipicu saat offer diterima</span><span class="arr">&middot;</span>
+        <span class="chip" data-i18n="flow_c2">Tahap BGC di Pipeline</span><span class="arr">&middot;</span>
+        <span class="chip" data-i18n="flow_c3">Aturan negara di Data</span><span class="arr">&middot;</span>
+        <span class="chip" data-i18n="flow_c4">Keputusan tercatat di Audit</span>
+      </div>
+
+      <div class="subtabs" id="tabs">
+        <button class="subtab active" data-st="pkg" data-i18n="t1">Paket &amp; inisiasi</button>
+        <button class="subtab" data-st="adj" data-i18n="t2">Adjudikasi &amp; adverse action</button>
+        <button class="subtab" data-st="ref" data-i18n="t3">Reference check</button>
+      </div>
+
+      <!-- ===== PAKET & INISIASI ===== -->
+      <div class="subview on" data-sv="pkg">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="p_h">Paket pemeriksaan per level role</h4><span class="frtag">FR-BGC-001</span></div>
+          <p class="pdesc" data-i18n="p_d">Cakupan cek meningkat sesuai risiko role. Tiap paket dapat disetel dan dibatasi aturan negara.</p>
+          <table class="tbl">
+            <thead><tr><th data-i18n="p_t1">Level role</th><th data-i18n="p_t2">Cakupan pemeriksaan</th></tr></thead>
+            <tbody>
+              <tr><td class="cn" data-i18n="p_l1">Entry</td><td data-i18n="p_v1">verifikasi identitas, riwayat kerja 2 terakhir, verifikasi pendidikan</td></tr>
+              <tr><td class="cn" data-i18n="p_l2">Mid</td><td data-i18n="p_v2">tambah reference check dan catatan kriminal</td></tr>
+              <tr><td class="cn" data-i18n="p_l3">Senior &amp; eksekutif</td><td data-i18n="p_v3">tambah cek kredit bila terkait keuangan, screening sosial, catatan mengemudi bila relevan</td></tr>
+              <tr><td class="cn" data-i18n="p_l4">Peran sensitif, keuangan &amp; keamanan</td><td data-i18n="p_v4">enhanced due diligence dan cek sanksi global</td></tr>
+            </tbody>
+          </table>
+          <div class="toggle-row" style="margin-top:6px"><div class="tl"><b data-i18n="p_sw1">Paket dibatasi aturan negara <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b><span data-i18n="p_sw1s">hanya cek yang diizinkan hukum lokal, beda per negara dari 15+ negara</span></div><button class="switch lockon" disabled></button></div>
+          <div class="toggle-row"><div class="tl"><b data-i18n="p_sw2">Paket kustom per requisition</b></div><button class="switch on"></button></div>
+        </div>
+        <div class="grid2">
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="v_h">Vendor &amp; inisiasi</h4></div>
+            <div class="subt" data-i18n="v_vend">Vendor terintegrasi</div>
+            <div class="chips">
+              <span class="cchip">Checkr</span><span class="cchip">Sterling</span><span class="cchip">HireRight</span><span class="cchip">First Advantage</span><span class="cchip" data-i18n="v_local">Vendor lokal per negara</span>
+            </div>
+            <div class="subt" data-i18n="v_init">Inisiasi</div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="v1">Picu otomatis setelah offer diterima</b><span data-i18n="v1s">atau tahap lain yang dapat disetel, atau manual oleh recruiter</span></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="v2">Estimasi waktu selesai diberitahukan ke kandidat</b></div><button class="switch on"></button></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="cs_h">Consent &amp; status</h4></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="cs1">Consent kandidat wajib sebelum cek apa pun <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b><span data-i18n="cs1s">tanda tangan elektronik pada formulir persetujuan</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="cs2">Pelacakan status</b><span data-i18n="cs2s">dipesan, berjalan, selesai, ditandai</span></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="cs3">Hasil &amp; data cek ikut residency zona</b><span data-i18n="cs3s">zona China terisolasi, akses terbatas legal &amp; HRBP</span></div><button class="switch on"></button></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== ADJUDIKASI & ADVERSE ACTION ===== -->
+      <div class="subview" data-sv="adj">
+        <div class="resolve">
+          <div class="rt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="M9.5 12.5 11 14l3.5-3.5"/></svg><span data-i18n="rs_t">Resolusi konflik auto-reject</span></div>
+          <p data-i18n="rs_d">PRD menyebut temuan diskualifikasi langsung menolak otomatis. Itu bertentangan dengan prinsip seluruh modul, auto-reject wajib lewat tinjauan manusia. Resolusinya, temuan diskualifikasi pun tidak menolak diam-diam. Sistem boleh menandainya, tapi keputusan menolak masuk proses adverse action dengan tinjauan manusia dan hak sengketa kandidat.</p>
+          <div class="flowline">
+            <span class="fl-step"><span class="n">1</span><span data-i18n="rs_1">Temuan ditandai</span></span><span class="fl-arr">&rarr;</span>
+            <span class="fl-step"><span class="n">2</span><span data-i18n="rs_2">Pra-adverse, kandidat diberi tahu</span></span><span class="fl-arr">&rarr;</span>
+            <span class="fl-step"><span class="n">3</span><span data-i18n="rs_3">Jendela sengketa</span></span><span class="fl-arr">&rarr;</span>
+            <span class="fl-step"><span class="n">4</span><span data-i18n="rs_4">Keputusan manusia</span></span><span class="fl-arr">&rarr;</span>
+            <span class="fl-step"><span class="n">5</span><span data-i18n="rs_5">Adverse final</span></span>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="m_h">Matriks adjudikasi</h4><span class="frtag">FR-BGC-002</span></div>
+          <p class="pdesc" data-i18n="m_d">Pohon keputusan berbasis temuan. Setiap keputusan wajib didokumentasikan alasannya.</p>
+          <div class="adj">
+            <div class="adjrow lv-min"><div class="lvl"><span class="d"></span><span data-i18n="m_l1">Minor</span></div><div class="fnd" data-i18n="m_f1">jeda kerja, beda kecil tanggal<small data-i18n="m_f1s">discrepancy ringan</small></div><div class="rte" data-i18n="m_r1">Lanjutkan setelah penjelasan kandidat</div></div>
+            <div class="adjrow lv-mod"><div class="lvl"><span class="d"></span><span data-i18n="m_l2">Moderat</span></div><div class="fnd" data-i18n="m_f2">beda gelar atau jabatan, catatan lama tak relevan</div><div class="rte" data-i18n="m_r2">Tinjauan hiring manager &amp; HRBP</div></div>
+            <div class="adjrow lv-ser"><div class="lvl"><span class="d"></span><span data-i18n="m_l3">Serius</span></div><div class="fnd" data-i18n="m_f3">temuan berbobot yang relevan dengan peran</div><div class="rte" data-i18n="m_r3">Tinjauan legal &amp; approval eksekutif</div></div>
+            <div class="adjrow lv-dis"><div class="lvl"><span class="d"></span><span data-i18n="m_l4">Diskualifikasi</span></div><div class="fnd" data-i18n="m_f4">terkait peran, contoh kekerasan untuk peran pengasuhan</div><div class="rte" data-i18n="m_r4">Masuk proses adverse action, bukan tolak otomatis</div></div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="aa_h">Pengaman adverse action</h4></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="aa1">Tidak ada penolakan otomatis diam-diam <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b><span data-i18n="aa1s">setiap penolakan berbasis temuan butuh keputusan manusia</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="aa2">Notifikasi pra-adverse &amp; adverse final <span class="rbadge rb-ctry" data-i18n="ctry">Per negara</span></b><span data-i18n="aa2s">FCRA bila berlaku, atau setara lokal, plus salinan laporan</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="aa3">Hak sengketa kandidat, keputusan ditahan <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b><span data-i18n="aa3s">vendor investigasi ulang, hiring ditahan sampai selesai</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="aa4">Dokumentasi alasan tiap keputusan</b></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="aa5">Notifikasi HRBP &amp; legal untuk hasil adverse</b></div><button class="switch on"></button></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="fc_h">Relevansi &amp; kesempatan adil</h4></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="fc1">Temuan harus relevan dengan pekerjaan <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b><span data-i18n="fc1s">terkait jabatan dan necessity bisnis, bukan larangan menyeluruh</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="fc2">Ban-the-Box, riwayat kriminal tak ditanya terlalu dini <span class="rbadge rb-ctry" data-i18n="ctry">Per negara</span></b></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="fc3">Penilaian individual, fair chance hiring</b><span data-i18n="fc3s">pertimbangkan konteks, waktu, dan rehabilitasi</span></div><button class="switch on"></button></div>
+            <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="fc_n">Cek latar menyaring risiko nyata yang relevan dengan peran, bukan menghukum masa lalu yang tak terkait. Inilah batas antara due diligence dan diskriminasi.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== REFERENCE CHECK ===== -->
+      <div class="subview" data-sv="ref">
+        <div class="grid2">
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="r_h">Pengumpulan &amp; pertanyaan</h4><span class="frtag">FR-BGC-003</span></div>
+            <p class="pdesc" data-i18n="r_d">Kandidat memberi 3 sampai 5 referensi. Permintaan otomatis, dengan pertanyaan terstruktur.</p>
+            <div class="subt" data-i18n="r_q">Pertanyaan terstruktur</div>
+            <div class="chips">
+              <span class="cchip" data-i18n="rq1">Kualitas &amp; kinerja kerja</span>
+              <span class="cchip" data-i18n="rq2">Kekuatan &amp; area pengembangan</span>
+              <span class="cchip" data-i18n="rq3">Etos &amp; keandalan</span>
+              <span class="cchip" data-i18n="rq4">Kolaborasi tim</span>
+              <span class="cchip" data-i18n="rq5">Kelayakan rehire</span>
+            </div>
+            <div class="toggle-row" style="margin-top:10px"><div class="tl"><b data-i18n="r1">Verifikasi keaslian referensi</b><span data-i18n="r1s">tandai email generik, telepon mati, cek silang LinkedIn</span></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="r2">Rekaman audio referensi telepon hanya dengan consent <span class="rbadge rb-lock" data-i18n="locked">Terkunci</span></b></div><button class="switch lockon" disabled></button></div>
+          </div>
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="an_h">Analisis &amp; dokumentasi</h4></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="an1">Agregasi umpan balik untuk pandangan holistik</b></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="an2">Tandai red flag yang konsisten di beberapa referensi</b><span data-i18n="an2s">kekhawatiran berulang, rekomendasi rehire suam</span></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="an3">Bandingkan referensi dengan asesmen wawancara</b></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="an4">Kerahasiaan, referensi hanya untuk pihak berwenang</b></div><button class="switch on"></button></div>
+            <div class="note ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="an_ai">Ringkasan HC AI: referensi mengonfirmasi kepemimpinan dan komunikasi yang kuat, namun mencatat kandidat bisa kurang sabar dengan rekan yang berkinerja rendah. Rangkuman, bukan vonis.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Master Admin · Background Check &amp; Adjudikasi · prototipe, mengacu Design System v3</div>
+
+      <div class="savebar">
+        <span class="sn" data-i18n="save_note">Pengaman keadilan dan kepatuhan dikunci di tingkat sistem. Paket dan vendor dapat disetel per role dan negara.</span>
+        <span class="sp2"></span>
+        <button class="btn btn-ghost" data-i18n="btn_report">Laporan adjudikasi</button>
+        <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="btn_save">Simpan pengaturan</span></button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Konsol Master Admin",en:"Master Admin Console"},
+  search:{id:"Cari paket, aturan, vendor",en:"Search packages, rules, vendors"},
+  navhead:{id:"Tata Kelola TA",en:"TA Governance"},
+  n_gov:{id:"Ringkasan tata kelola",en:"Governance overview"},n_rbac:{id:"Peran & Akses",en:"Roles & Access"},n_flow:{id:"Workflow & Approval",en:"Workflow & Approval"},n_ai:{id:"Model HC AI",en:"HC AI Model"},n_asmt:{id:"Asesmen & Validasi",en:"Assessment & Validation"},n_kit:{id:"Kit Wawancara & Kartu Skor",en:"Interview Kit & Scorecard"},n_stage:{id:"Tahap Pipeline",en:"Pipeline Stages"},
+  n_bgc:{id:"Background Check & Adjudikasi",en:"Background Check & Adjudication"},new:{id:"BARU",en:"NEW"},
+  n_grow:{id:"Referral, Brand & Talent Pool",en:"Referral, Brand & Talent Pool"},n_tpl:{id:"Template & Komunikasi",en:"Templates & Communication"},n_intg:{id:"Integrasi & Channel",en:"Integrations & Channels"},n_data:{id:"Data & Residency",en:"Data & Residency"},n_audit:{id:"Audit & Keamanan",en:"Audit & Security"},
+  ptitle:{id:"Background Check & Adjudikasi",en:"Background Check & Adjudication"},
+  psub:{id:"Pemeriksaan latar, adjudikasi adil, dan referensi",en:"Background screening, fair adjudication, and references"},
+  scope:{id:"Mengatur cek latar apa yang dijalankan, bagaimana temuan dinilai, dan bagaimana keputusan diambil secara adil dan sah. Prinsip kuncinya, temuan tidak pernah menolak kandidat secara diam-diam.",en:"Governs which background checks run, how findings are assessed, and how decisions are made fairly and lawfully. The key principle, a finding never rejects a candidate silently."},
+  focus:{id:"Fokus layar ini",en:"This screen focuses on"},and:{id:"dan",en:"and"},
+  flow_lab:{id:"Menyambung ke",en:"Connects to"},
+  flow_c1:{id:"Dipicu saat offer diterima",en:"Triggered when an offer is accepted"},flow_c2:{id:"Tahap BGC di Pipeline",en:"BGC stage in Pipeline"},flow_c3:{id:"Aturan negara di Data",en:"Country rules in Data"},flow_c4:{id:"Keputusan tercatat di Audit",en:"Decisions logged in Audit"},
+  t1:{id:"Paket & inisiasi",en:"Packages & initiation"},t2:{id:"Adjudikasi & adverse action",en:"Adjudication & adverse action"},t3:{id:"Reference check",en:"Reference check"},
+  locked:{id:"Terkunci",en:"Locked"},ctry:{id:"Per negara",en:"Per country"},
+
+  p_h:{id:"Paket pemeriksaan per level role",en:"Check packages per role level"},
+  p_d:{id:"Cakupan cek meningkat sesuai risiko role. Tiap paket dapat disetel dan dibatasi aturan negara.",en:"Check scope scales with role risk. Each package is configurable and bounded by country rules."},
+  p_t1:{id:"Level role",en:"Role level"},p_t2:{id:"Cakupan pemeriksaan",en:"Check scope"},
+  p_l1:{id:"Entry",en:"Entry"},p_v1:{id:"verifikasi identitas, riwayat kerja 2 terakhir, verifikasi pendidikan",en:"identity verification, last 2 jobs employment history, education verification"},
+  p_l2:{id:"Mid",en:"Mid"},p_v2:{id:"tambah reference check dan catatan kriminal",en:"add reference check and criminal record check"},
+  p_l3:{id:"Senior & eksekutif",en:"Senior & executive"},p_v3:{id:"tambah cek kredit bila terkait keuangan, screening sosial, catatan mengemudi bila relevan",en:"add credit check if finance-related, social screening, driving record if relevant"},
+  p_l4:{id:"Peran sensitif, keuangan & keamanan",en:"Sensitive roles, finance & security"},p_v4:{id:"enhanced due diligence dan cek sanksi global",en:"enhanced due diligence and global sanctions check"},
+  p_sw1:{id:"Paket dibatasi aturan negara",en:"Packages bounded by country rules"},p_sw1s:{id:"hanya cek yang diizinkan hukum lokal, beda per negara dari 15+ negara",en:"only checks allowed by local law, differs across 15+ countries"},
+  p_sw2:{id:"Paket kustom per requisition",en:"Custom package per requisition"},
+
+  v_h:{id:"Vendor & inisiasi",en:"Vendors & initiation"},
+  v_vend:{id:"Vendor terintegrasi",en:"Integrated vendors"},v_local:{id:"Vendor lokal per negara",en:"Local vendor per country"},
+  v_init:{id:"Inisiasi",en:"Initiation"},
+  v1:{id:"Picu otomatis setelah offer diterima",en:"Auto-trigger after offer acceptance"},v1s:{id:"atau tahap lain yang dapat disetel, atau manual oleh recruiter",en:"or another configurable stage, or manual by the recruiter"},
+  v2:{id:"Estimasi waktu selesai diberitahukan ke kandidat",en:"Estimated completion time communicated to the candidate"},
+  cs_h:{id:"Consent & status",en:"Consent & status"},
+  cs1:{id:"Consent kandidat wajib sebelum cek apa pun",en:"Candidate consent required before any check"},cs1s:{id:"tanda tangan elektronik pada formulir persetujuan",en:"electronic signature on the consent form"},
+  cs2:{id:"Pelacakan status",en:"Status tracking"},cs2s:{id:"dipesan, berjalan, selesai, ditandai",en:"ordered, in progress, completed, flagged"},
+  cs3:{id:"Hasil & data cek ikut residency zona",en:"Results & check data follow zone residency"},cs3s:{id:"zona China terisolasi, akses terbatas legal & HRBP",en:"China zone isolated, access limited to legal & HRBP"},
+
+  rs_t:{id:"Resolusi konflik auto-reject",en:"Auto-reject conflict resolution"},
+  rs_d:{id:"PRD menyebut temuan diskualifikasi langsung menolak otomatis. Itu bertentangan dengan prinsip seluruh modul, auto-reject wajib lewat tinjauan manusia. Resolusinya, temuan diskualifikasi pun tidak menolak diam-diam. Sistem boleh menandainya, tapi keputusan menolak masuk proses adverse action dengan tinjauan manusia dan hak sengketa kandidat.",en:"The PRD says a disqualifying finding auto-rejects. That conflicts with the whole module's principle, auto-reject requires human review. The resolution, even a disqualifying finding does not reject silently. The system may flag it, but the decision to reject enters the adverse action process with human review and the candidate's right to dispute."},
+  rs_1:{id:"Temuan ditandai",en:"Finding flagged"},rs_2:{id:"Pra-adverse, kandidat diberi tahu",en:"Pre-adverse, candidate notified"},rs_3:{id:"Jendela sengketa",en:"Dispute window"},rs_4:{id:"Keputusan manusia",en:"Human decision"},rs_5:{id:"Adverse final",en:"Final adverse"},
+
+  m_h:{id:"Matriks adjudikasi",en:"Adjudication matrix"},
+  m_d:{id:"Pohon keputusan berbasis temuan. Setiap keputusan wajib didokumentasikan alasannya.",en:"A finding-based decision tree. Every decision must have a documented rationale."},
+  m_l1:{id:"Minor",en:"Minor"},m_f1:{id:"jeda kerja, beda kecil tanggal",en:"employment gap, small date discrepancy"},m_f1s:{id:"discrepancy ringan",en:"minor discrepancy"},m_r1:{id:"Lanjutkan setelah penjelasan kandidat",en:"Proceed after candidate explanation"},
+  m_l2:{id:"Moderat",en:"Moderate"},m_f2:{id:"beda gelar atau jabatan, catatan lama tak relevan",en:"degree or title discrepancy, old irrelevant record"},m_r2:{id:"Tinjauan hiring manager & HRBP",en:"Hiring manager & HRBP review"},
+  m_l3:{id:"Serius",en:"Serious"},m_f3:{id:"temuan berbobot yang relevan dengan peran",en:"a significant finding relevant to the role"},m_r3:{id:"Tinjauan legal & approval eksekutif",en:"Legal review & executive approval"},
+  m_l4:{id:"Diskualifikasi",en:"Disqualifying"},m_f4:{id:"terkait peran, contoh kekerasan untuk peran pengasuhan",en:"role-related, e.g. violence for a childcare role"},m_r4:{id:"Masuk proses adverse action, bukan tolak otomatis",en:"Enters the adverse action process, not an auto-reject"},
+
+  aa_h:{id:"Pengaman adverse action",en:"Adverse action guardrails"},
+  aa1:{id:"Tidak ada penolakan otomatis diam-diam",en:"No silent automatic rejection"},aa1s:{id:"setiap penolakan berbasis temuan butuh keputusan manusia",en:"every finding-based rejection needs a human decision"},
+  aa2:{id:"Notifikasi pra-adverse & adverse final",en:"Pre-adverse & final adverse notice"},aa2s:{id:"FCRA bila berlaku, atau setara lokal, plus salinan laporan",en:"FCRA where applicable, or local equivalent, plus a copy of the report"},
+  aa3:{id:"Hak sengketa kandidat, keputusan ditahan",en:"Candidate dispute right, decision on hold"},aa3s:{id:"vendor investigasi ulang, hiring ditahan sampai selesai",en:"vendor re-investigates, hiring held until resolved"},
+  aa4:{id:"Dokumentasi alasan tiap keputusan",en:"Documented rationale for every decision"},
+  aa5:{id:"Notifikasi HRBP & legal untuk hasil adverse",en:"HRBP & legal notified for adverse results"},
+  fc_h:{id:"Relevansi & kesempatan adil",en:"Relevance & fair chance"},
+  fc1:{id:"Temuan harus relevan dengan pekerjaan",en:"Findings must be job-related"},fc1s:{id:"terkait jabatan dan necessity bisnis, bukan larangan menyeluruh",en:"tied to the role and business necessity, not a blanket bar"},
+  fc2:{id:"Ban-the-Box, riwayat kriminal tak ditanya terlalu dini",en:"Ban-the-Box, criminal history not asked too early"},
+  fc3:{id:"Penilaian individual, fair chance hiring",en:"Individualized assessment, fair chance hiring"},fc3s:{id:"pertimbangkan konteks, waktu, dan rehabilitasi",en:"consider context, time elapsed, and rehabilitation"},
+  fc_n:{id:"Cek latar menyaring risiko nyata yang relevan dengan peran, bukan menghukum masa lalu yang tak terkait. Inilah batas antara due diligence dan diskriminasi.",en:"Background checks screen for real risks relevant to the role, not to punish an unrelated past. This is the line between due diligence and discrimination."},
+
+  r_h:{id:"Pengumpulan & pertanyaan",en:"Collection & questions"},
+  r_d:{id:"Kandidat memberi 3 sampai 5 referensi. Permintaan otomatis, dengan pertanyaan terstruktur.",en:"Candidates provide 3 to 5 references. Automated requests, with structured questions."},
+  r_q:{id:"Pertanyaan terstruktur",en:"Structured questions"},
+  rq1:{id:"Kualitas & kinerja kerja",en:"Work quality & performance"},rq2:{id:"Kekuatan & area pengembangan",en:"Strengths & development areas"},rq3:{id:"Etos & keandalan",en:"Work ethic & reliability"},rq4:{id:"Kolaborasi tim",en:"Team collaboration"},rq5:{id:"Kelayakan rehire",en:"Rehire eligibility"},
+  r1:{id:"Verifikasi keaslian referensi",en:"Verify reference authenticity"},r1s:{id:"tandai email generik, telepon mati, cek silang LinkedIn",en:"flag generic email, dead phone, cross-check LinkedIn"},
+  r2:{id:"Rekaman audio referensi telepon hanya dengan consent",en:"Phone reference audio recording only with consent"},
+  an_h:{id:"Analisis & dokumentasi",en:"Analysis & documentation"},
+  an1:{id:"Agregasi umpan balik untuk pandangan holistik",en:"Aggregate feedback for a holistic view"},
+  an2:{id:"Tandai red flag yang konsisten di beberapa referensi",en:"Flag red flags consistent across multiple references"},an2s:{id:"kekhawatiran berulang, rekomendasi rehire suam",en:"recurring concerns, lukewarm rehire recommendation"},
+  an3:{id:"Bandingkan referensi dengan asesmen wawancara",en:"Compare references against interview assessment"},
+  an4:{id:"Kerahasiaan, referensi hanya untuk pihak berwenang",en:"Confidentiality, references only for authorized parties"},
+  an_ai:{id:"Ringkasan HC AI: referensi mengonfirmasi kepemimpinan dan komunikasi yang kuat, namun mencatat kandidat bisa kurang sabar dengan rekan yang berkinerja rendah. Rangkuman, bukan vonis.",en:"HC AI summary: references confirm strong leadership and communication, but note the candidate can be impatient with underperforming peers. A summary, not a verdict."},
+
+  foot:{id:"One HCMS · Talent Acquisition · Master Admin · Background Check & Adjudikasi · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Master Admin · Background Check & Adjudication · prototype, per Design System v3"},
+  save_note:{id:"Pengaman keadilan dan kepatuhan dikunci di tingkat sistem. Paket dan vendor dapat disetel per role dan negara.",en:"Fairness and compliance guardrails are locked at the system level. Packages and vendors are configurable per role and country."},
+  btn_report:{id:"Laporan adjudikasi",en:"Adjudication report"},btn_save:{id:"Simpan pengaturan",en:"Save settings"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+document.getElementById('tabs').addEventListener('click',e=>{const b=e.target.closest('.subtab');if(!b)return;
+  document.querySelectorAll('#tabs .subtab').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.subview').forEach(v=>v.classList.toggle('on',v.dataset.sv===b.dataset.st));
+});
+document.querySelectorAll('.switch:not([disabled])').forEach(s=>s.addEventListener('click',()=>s.classList.toggle('on')));
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

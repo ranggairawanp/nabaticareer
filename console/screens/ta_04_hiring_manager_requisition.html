@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Requisition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--surface:#ffffff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+  --e3:0 16px 40px -12px rgba(23,26,31,.28);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:170px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.layout{flex:1;display:flex;min-height:0}
+.side{width:228px;flex:0 0 auto;border-right:1px solid var(--border);overflow-y:auto;padding:14px 10px;background:var(--surface)}
+.sidehead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding:4px 10px 8px}
+.flt{display:flex;align-items:center;gap:9px;padding:8px 10px;border-radius:8px;color:var(--ink-2);font-weight:500;font-size:12.5px;margin-bottom:1px;cursor:pointer;border:none;background:transparent;width:100%;text-align:left}
+.flt:hover{background:var(--surface-2)}
+.flt.active{background:var(--primary-tint);color:var(--primary);font-weight:600}
+.flt .dotc{width:9px;height:9px;border-radius:3px;flex:0 0 auto}
+.flt .cnt{margin-left:auto;font-family:var(--font-num);font-size:11px;color:var(--ink-3);background:var(--surface-2);border:1px solid var(--border);border-radius:6px;padding:1px 7px}
+.flt.active .cnt{background:#fff;color:var(--primary);border-color:var(--primary-tint-2)}
+.viewsw{margin:14px 6px 6px;border-top:1px solid var(--border);padding-top:12px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 40px;min-width:0}
+.phead{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.phead .mt{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.5px}
+.phead .mt small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.rolebadge{display:flex;align-items:center;gap:8px;font-size:12px;background:var(--dark);color:#fff;border-radius:999px;padding:6px 13px;font-weight:600}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#fff}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:8px 14px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-dark{background:var(--dark);color:#fff;border-color:var(--dark)}.btn-dark:hover{background:var(--dark-2)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:14px 0}
+@media(max-width:880px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:12px 13px;box-shadow:var(--e1)}
+.kpi .l{font-size:11px;color:var(--ink-3);font-weight:600}
+.kpi .v{font-family:var(--font-num);font-weight:700;font-size:21px;letter-spacing:-.5px;margin-top:3px}
+.kpi .v small{font-size:11px;color:var(--ink-3);font-weight:500}
+
+.toolbar{display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.toolbar .tlbl{font-size:11px;color:var(--ink-3);font-weight:600}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--surface);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--ink-2)}
+.chip.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:12.5px;background:var(--surface);border:1px solid var(--border);border-radius:11px;overflow:hidden;box-shadow:var(--e1)}
+table.tbl th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);padding:10px 12px;border-bottom:1px solid var(--border);font-weight:700;background:var(--surface-2)}
+table.tbl td{padding:11px 12px;border-bottom:1px solid var(--surface-3);vertical-align:middle}
+table.tbl tr:last-child td{border-bottom:none}
+table.tbl tbody tr{cursor:pointer}
+table.tbl tbody tr:hover{background:var(--surface-2)}
+.rid{font-family:var(--font-num);font-size:11px;color:var(--ink-3)}
+.rtitle{font-weight:600;color:var(--ink)}
+.rmeta{font-size:11px;color:var(--ink-3)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;border-radius:999px;padding:2px 9px;border:1px solid;white-space:nowrap}
+.badge .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.s-draft{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.s-pending{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.s-approved{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.s-active{color:var(--primary-700);background:var(--primary-tint);border-color:var(--primary-tint-2)}
+.s-hold{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.s-filled{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.s-cancel{color:var(--ink-3);background:var(--surface-2);border-color:var(--border)}
+.urg{font-size:10.5px;font-weight:700;border-radius:5px;padding:1px 7px;border:1px solid}
+.u-crit{color:var(--danger);background:var(--danger-tint);border-color:#eec6c1}
+.u-high{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.u-med{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.u-low{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.mono{font-family:var(--font-num)}
+
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(23,26,31,.4);opacity:0;pointer-events:none;transition:.2s;z-index:40}
+.scrim.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100%;width:560px;max-width:94vw;background:var(--surface);box-shadow:var(--e3);transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);z-index:50;display:flex;flex-direction:column}
+.drawer.open{transform:translateX(0)}
+.dh{display:flex;align-items:flex-start;gap:12px;padding:16px 20px;border-bottom:1px solid var(--border)}
+.dh .dt{flex:1;min-width:0}
+.dh .dt h3{margin:0;font-size:16px;letter-spacing:-.3px}
+.dh .dt .ds{font-size:11.5px;color:var(--ink-3);margin-top:2px}
+.dclose{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);flex:0 0 auto}
+.dclose:hover{background:var(--surface-2)}.dclose svg{width:16px;height:16px}
+.dbody{flex:1;overflow-y:auto;padding:16px 20px}
+.dfoot{flex:0 0 auto;border-top:1px solid var(--border);padding:12px 20px;display:flex;gap:8px;flex-wrap:wrap;background:var(--surface-2)}
+.sect{margin-bottom:18px}
+.sect h5{margin:0 0 10px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+
+/* approval chain */
+.chain{position:relative;padding-left:4px}
+.cstep{display:flex;gap:11px;padding-bottom:14px;position:relative}
+.cstep:last-child{padding-bottom:0}
+.cstep::before{content:"";position:absolute;left:11px;top:24px;bottom:-2px;width:2px;background:var(--surface-3)}
+.cstep:last-child::before{display:none}
+.cstep .ci{width:24px;height:24px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;z-index:1;border:2px solid #fff}
+.cstep .ci svg{width:13px;height:13px}
+.ci.done{background:var(--success);color:#fff}
+.ci.active{background:var(--warning);color:#fff}
+.ci.wait{background:var(--surface-3);color:var(--ink-3)}
+.ci.skip{background:var(--surface-2);color:var(--n400);border-color:var(--surface-3)}
+.cstep .cc{flex:1;min-width:0}
+.cstep .cc b{font-weight:600;font-size:12.5px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.cstep .cc span{font-size:11px;color:var(--ink-3)}
+.cflag{font-size:9.5px;font-weight:700;border-radius:5px;padding:1px 6px;border:1px solid;text-transform:uppercase;letter-spacing:.03em;color:var(--danger);background:var(--danger-tint);border-color:#eec6c1}
+
+/* milestone */
+.mile{display:flex;gap:10px;padding:7px 0;font-size:12px}
+.mile .md{width:16px;height:16px;border-radius:50%;flex:0 0 auto;margin-top:1px;display:grid;place-items:center}
+.mile .md.done{background:var(--success-tint)}.mile .md.done svg{width:10px;height:10px;color:var(--success)}
+.mile .md.now{background:var(--warning);box-shadow:0 0 0 3px var(--warning-tint)}
+.mile .md.todo{background:var(--surface-3)}
+.mile .ml b{font-weight:600}.mile .ml span{color:var(--ink-3);font-size:11px}
+
+/* budget */
+.bud{border:1px solid var(--border);border-radius:10px;padding:13px;background:var(--surface-2)}
+.bud .brow{display:flex;justify-content:space-between;font-size:12px;margin-bottom:8px}
+.bud .brow b{font-weight:600}
+.bbar{height:10px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin:4px 0 6px}
+.bbar i{display:block;height:100%;background:var(--success);border-radius:99px}
+.kv{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:1px solid var(--surface-3)}
+.kv:last-child{border-bottom:none}.kv .k{color:var(--ink-3)}.kv .v{font-weight:600}
+
+/* form */
+.fld{margin-bottom:13px}
+.fld label{display:block;font-size:11.5px;font-weight:600;margin-bottom:5px}
+.fld label .opt{color:var(--ink-3);font-weight:400}
+.inp,.sel,textarea.inp{width:100%;border:1px solid var(--border-strong);border-radius:8px;padding:8px 11px;font-size:13px;font-family:inherit;color:var(--ink);background:var(--surface);outline:none}
+.inp:focus,textarea.inp:focus{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-tint)}
+textarea.inp{resize:vertical;min-height:74px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+@media(max-width:560px){.frow{grid-template-columns:1fr}}
+.aifill{display:flex;align-items:center;gap:9px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:10px;padding:10px 12px;margin-bottom:15px}
+.aifill svg{width:16px;height:16px;color:var(--primary);flex:none}
+.aifill .ft{flex:1;font-size:11.5px;color:var(--ink-2)}
+.chk{display:flex;align-items:center;gap:8px;font-size:12px}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:10px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.note.warn{background:var(--warning-tint);border-color:#ecd9a8;color:#8a5808}.note.warn svg{color:var(--warning)}
+.foot{margin-top:16px;font-size:11px;color:var(--ink-3);text-align:center}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Requisition</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari requisition"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">RW</div><div class="nm">Rudi Wijaya<small data-i18n="role">Hiring Manager</small></div></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <div class="sidehead" data-i18n="filterhead">Status</div>
+      <button class="flt active" data-f="all"><span class="dotc" style="background:var(--ink-3)"></span><span data-i18n="f_all">Semua</span><span class="cnt">6</span></button>
+      <button class="flt" data-f="draft"><span class="dotc" style="background:var(--slate)"></span><span data-i18n="f_draft">Draft</span><span class="cnt">1</span></button>
+      <button class="flt" data-f="pending"><span class="dotc" style="background:var(--warning)"></span><span data-i18n="f_pending">Menunggu approval</span><span class="cnt">1</span></button>
+      <button class="flt" data-f="approved"><span class="dotc" style="background:var(--info)"></span><span data-i18n="f_approved">Disetujui</span><span class="cnt">1</span></button>
+      <button class="flt" data-f="active"><span class="dotc" style="background:var(--primary)"></span><span data-i18n="f_active">Aktif</span><span class="cnt">1</span></button>
+      <button class="flt" data-f="hold"><span class="dotc" style="background:var(--slate)"></span><span data-i18n="f_hold">Ditahan</span><span class="cnt">1</span></button>
+      <button class="flt" data-f="filled"><span class="dotc" style="background:var(--success)"></span><span data-i18n="f_filled">Terisi</span><span class="cnt">1</span></button>
+      <div class="viewsw">
+        <div class="sidehead" data-i18n="viewhead">Tampilan</div>
+        <button class="flt active" data-v="mine"><span data-i18n="v_mine">Requisition saya</span></button>
+        <button class="flt" data-v="team"><span data-i18n="v_team">Requisition tim</span></button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <div class="phead">
+        <div class="mt"><span data-i18n="ptitle">Requisition</span><small data-i18n="psub">Ajukan dan pantau permintaan hire</small></div>
+        <div class="sp"></div>
+        <div class="rolebadge"><i></i><span data-i18n="role">Hiring Manager</span></div>
+        <button class="btn btn-primary" id="newReq"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="btn_new">Buat requisition</span></button>
+      </div>
+
+      <div class="kpis">
+        <div class="kpi"><div class="l" data-i18n="k_open">Requisition terbuka</div><div class="v">5</div></div>
+        <div class="kpi"><div class="l" data-i18n="k_pending">Menunggu approval</div><div class="v">1</div></div>
+        <div class="kpi"><div class="l" data-i18n="k_ttf">Rata-rata time to fill</div><div class="v">31 <small data-i18n="u_day">hari</small></div></div>
+        <div class="kpi"><div class="l" data-i18n="k_budget">Sisa anggaran headcount</div><div class="v">12</div></div>
+      </div>
+
+      <div class="toolbar">
+        <span class="tlbl" data-i18n="t_urg">Urgensi</span>
+        <button class="chip active" data-i18n="c_allu">Semua</button>
+        <button class="chip" data-i18n="c_crit">Kritis</button>
+        <button class="chip" data-i18n="c_high">Tinggi</button>
+        <span style="flex:1"></span>
+        <button class="btn btn-ghost sm" data-i18n="t_bulk">Buat massal</button>
+      </div>
+
+      <table class="tbl" id="reqtbl">
+        <thead><tr><th data-i18n="th_req">Requisition</th><th data-i18n="th_loc">Lokasi</th><th data-i18n="th_open">Lowongan</th><th data-i18n="th_status">Status</th><th data-i18n="th_rec">Recruiter</th><th data-i18n="th_age">Hari</th><th data-i18n="th_urg">Urgensi</th></tr></thead>
+        <tbody>
+          <tr data-st="active" data-req='{"id":"REQ-2026-0142","title":"Senior Sales Manager","dept":"Commercial · Sales","loc":"Jakarta","open":"1","emp":"Permanen","status":"active","urg":"high"}'>
+            <td><div class="rtitle">Senior Sales Manager</div><div class="rid">REQ-2026-0142</div></td>
+            <td>Jakarta</td><td class="mono">1</td>
+            <td><span class="badge s-active"><span class="dot"></span><span data-i18n="st_active">Aktif</span></span></td>
+            <td>Dewi A.</td><td class="mono">18</td><td><span class="urg u-high" data-i18n="ur_high">Tinggi</span></td>
+          </tr>
+          <tr data-st="pending" data-req='{"id":"REQ-2026-0151","title":"Data Analyst","dept":"Digital · Analytics","loc":"Bandung","open":"2","emp":"Permanen","status":"pending","urg":"med"}'>
+            <td><div class="rtitle">Data Analyst</div><div class="rid">REQ-2026-0151</div></td>
+            <td>Bandung</td><td class="mono">2</td>
+            <td><span class="badge s-pending"><span class="dot"></span><span data-i18n="st_pending">Menunggu approval</span></span></td>
+            <td class="rmeta" data-i18n="unassigned">belum ditugaskan</td><td class="mono">3</td><td><span class="urg u-med" data-i18n="ur_med">Sedang</span></td>
+          </tr>
+          <tr data-st="approved" data-req='{"id":"REQ-2026-0148","title":"Store Associate","dept":"Retail Ops","loc":"Multi-lokasi","open":"50","emp":"Kontrak","status":"approved","urg":"high"}'>
+            <td><div class="rtitle">Store Associate</div><div class="rid">REQ-2026-0148 · <span data-i18n="bulk_tag">massal</span></div></td>
+            <td data-i18n="multi_loc">20 lokasi</td><td class="mono">50</td>
+            <td><span class="badge s-approved"><span class="dot"></span><span data-i18n="st_approved">Disetujui</span></span></td>
+            <td>Bima P.</td><td class="mono">9</td><td><span class="urg u-high" data-i18n="ur_high">Tinggi</span></td>
+          </tr>
+          <tr data-st="draft" data-req='{"id":"REQ-2026-0155","title":"Maintenance Technician","dept":"Manufacturing","loc":"Subang","open":"1","emp":"Permanen","status":"draft","urg":"crit"}'>
+            <td><div class="rtitle">Maintenance Technician</div><div class="rid">REQ-2026-0155</div></td>
+            <td data-i18n="loc_subang">Pabrik Subang</td><td class="mono">1</td>
+            <td><span class="badge s-draft"><span class="dot"></span><span data-i18n="st_draft">Draft</span></span></td>
+            <td class="rmeta" data-i18n="unassigned">belum ditugaskan</td><td class="mono">1</td><td><span class="urg u-crit" data-i18n="ur_crit">Kritis</span></td>
+          </tr>
+          <tr data-st="hold" data-req='{"id":"REQ-2026-0139","title":"Marketing Officer","dept":"Brand · Marketing","loc":"Jakarta","open":"1","emp":"Permanen","status":"hold","urg":"low"}'>
+            <td><div class="rtitle">Marketing Officer</div><div class="rid">REQ-2026-0139</div></td>
+            <td>Jakarta</td><td class="mono">1</td>
+            <td><span class="badge s-hold"><span class="dot"></span><span data-i18n="st_hold">Ditahan</span></span></td>
+            <td class="rmeta" data-i18n="unassigned">belum ditugaskan</td><td class="mono">24</td><td><span class="urg u-low" data-i18n="ur_low">Rendah</span></td>
+          </tr>
+          <tr data-st="filled" data-req='{"id":"REQ-2026-0130","title":"Logistics Coordinator","dept":"Supply Chain","loc":"Cikarang","open":"1","emp":"Permanen","status":"filled","urg":"med"}'>
+            <td><div class="rtitle">Logistics Coordinator</div><div class="rid">REQ-2026-0130</div></td>
+            <td>Cikarang</td><td class="mono">1</td>
+            <td><span class="badge s-filled"><span class="dot"></span><span data-i18n="st_filled">Terisi</span></span></td>
+            <td>Reza H.</td><td class="mono">41</td><td><span class="urg u-med" data-i18n="ur_med">Sedang</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Requisition · Hiring Manager · prototipe, mengacu Design System v3</p>
+    </main>
+  </div>
+</div>
+
+<!-- DETAIL DRAWER -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="detail">
+  <div class="dh">
+    <div class="dt"><h3 id="d_title">Data Analyst</h3><div class="ds"><span id="d_id">REQ-2026-0151</span> · <span id="d_meta">Digital · Analytics · Bandung</span></div></div>
+    <button class="dclose" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="dbody">
+    <div class="sect">
+      <h5 data-i18n="d_chain">Rantai approval, berbasis DOA</h5>
+      <div class="chain">
+        <div class="cstep"><div class="ci done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="cc"><b data-i18n="ap_mgr">Atasan langsung</b><span data-i18n="ap_mgr_s">Budi S. · selesai 1 hari · verifikasi headcount</span></div></div>
+        <div class="cstep"><div class="ci done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="cc"><b data-i18n="ap_hrbp">HRBP</b><span data-i18n="ap_hrbp_s">Sari M. · selesai 0,5 hari · selaras workforce plan</span></div></div>
+        <div class="cstep"><div class="ci active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div class="cc"><b data-i18n="ap_fin">Finance, cek budget <span class="cflag" data-i18n="ap_sla">Lewat SLA</span></b><span data-i18n="ap_fin_s">berjalan 3,8 hari, SLA 2 hari, eskalasi otomatis aktif</span></div></div>
+        <div class="cstep"><div class="ci wait"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/></svg></div><div class="cc"><b data-i18n="ap_dept">Kepala departemen</b><span data-i18n="ap_dept_s">menunggu giliran</span></div></div>
+        <div class="cstep"><div class="ci skip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14"/></svg></div><div class="cc"><b data-i18n="ap_ceo">Approval CEO</b><span data-i18n="ap_ceo_s">tidak diperlukan, headcount di bawah ambang</span></div></div>
+      </div>
+      <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg><span data-i18n="d_chain_n">Tahap Finance melebihi SLA 2 hari. Eskalasi ke atasan approver berjalan otomatis, dan delegasi tersedia bila approver tidak hadir.</span></div>
+    </div>
+
+    <div class="sect">
+      <h5 data-i18n="d_mile">Milestone, perkiraan vs aktual</h5>
+      <div class="mile"><div class="md done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ml"><b data-i18n="ms_create">Requisition dibuat</b> <span>· 3 hari lalu</span></div></div>
+      <div class="mile"><div class="md done"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="ml"><b data-i18n="ms_submit">Diajukan untuk approval</b> <span>· 3 hari lalu</span></div></div>
+      <div class="mile"><div class="md now"></div><div class="ml"><b data-i18n="ms_approve">Disetujui semua approver</b> <span data-i18n="ms_approve_s">· tertahan di Finance</span></div></div>
+      <div class="mile"><div class="md todo"></div><div class="ml"><b data-i18n="ms_post">Diposting ke career site</b> <span data-i18n="ms_post_s">· perkiraan molor 2 hari</span></div></div>
+      <div class="mile"><div class="md todo"></div><div class="ml"><b data-i18n="ms_apply">Kandidat pertama melamar</b></div></div>
+      <div class="mile"><div class="md todo"></div><div class="ml"><b data-i18n="ms_offer">Offer diberikan</b></div></div>
+    </div>
+
+    <div class="sect">
+      <h5 data-i18n="d_budget">Integrasi anggaran</h5>
+      <div class="bud">
+        <div class="brow"><b data-i18n="bd_cc">Cost center DATA-BDG-02</b><span class="mono">3 / 5</span></div>
+        <div class="bbar"><i style="width:40%"></i></div>
+        <div class="kv"><span class="k" data-i18n="bd_remain">Sisa anggaran headcount</span><span class="v mono">3</span></div>
+        <div class="kv"><span class="k" data-i18n="bd_thisreq">Permintaan req ini</span><span class="v mono">2</span></div>
+        <div class="kv"><span class="k" data-i18n="bd_status">Status</span><span class="v" style="color:var(--success)" data-i18n="bd_ok">Cukup</span></div>
+      </div>
+      <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="bd_note">Anggaran dicek real-time terhadap manpower planning, dicadangkan saat disetujui, dirilis bila batal atau terisi, lalu diposting ke SAP.</span></div>
+    </div>
+  </div>
+  <div class="dfoot">
+    <button class="btn btn-ghost sm" data-i18n="act_clone">Klon</button>
+    <button class="btn btn-ghost sm" data-i18n="act_hold">Tahan</button>
+    <button class="btn btn-ghost sm" data-i18n="act_cancel">Batalkan</button>
+    <span style="flex:1"></span>
+    <button class="btn btn-dark sm" data-i18n="act_remind">Ingatkan approver</button>
+  </div>
+</aside>
+
+<!-- CREATE DRAWER -->
+<aside class="drawer" id="create">
+  <div class="dh">
+    <div class="dt"><h3 data-i18n="cr_title">Buat requisition</h3><div class="ds" data-i18n="cr_sub">HC AI bisa mengisi awal dari role serupa</div></div>
+    <button class="dclose" data-close><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+  </div>
+  <div class="dbody">
+    <div class="aifill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>
+      <span class="ft" data-i18n="cr_aihint">Isi judul lalu minta HC AI menyusun deskripsi, kualifikasi, dan kisaran gaji dari role serupa. Bahasa dijaga inklusif.</span>
+      <button class="btn btn-primary sm" id="aifillbtn" data-i18n="cr_aifill">Isi dengan HC AI</button>
+    </div>
+    <div class="fld"><label data-i18n="cr_jt">Judul jabatan</label><input class="inp" id="f_title" placeholder="Sales Manager"></div>
+    <div class="frow">
+      <div class="fld"><label data-i18n="cr_dept">Departemen &amp; cost center</label><input class="inp" id="f_dept" placeholder="Commercial · SALES-JKT-01"></div>
+      <div class="fld"><label data-i18n="cr_loc">Lokasi <span class="opt" data-i18n="cr_multi">(multi)</span></label><input class="inp" id="f_loc" placeholder="Jakarta"></div>
+    </div>
+    <div class="frow">
+      <div class="fld"><label data-i18n="cr_emp">Tipe pekerjaan</label><select class="sel" id="f_emp"><option data-i18n="emp_perm">Permanen</option><option data-i18n="emp_con">Kontrak</option><option data-i18n="emp_int">Magang</option><option data-i18n="emp_pt">Paruh waktu</option></select></div>
+      <div class="fld"><label data-i18n="cr_open">Jumlah lowongan</label><input class="inp" id="f_open" type="number" value="1" min="1" max="999"></div>
+    </div>
+    <div class="fld"><label data-i18n="cr_jd">Deskripsi pekerjaan</label><textarea class="inp" id="f_jd" placeholder="Ringkasan peran, tanggung jawab utama..."></textarea></div>
+    <div class="frow">
+      <div class="fld"><label data-i18n="cr_qual">Kualifikasi wajib</label><textarea class="inp" id="f_qual" style="min-height:54px"></textarea></div>
+      <div class="fld"><label data-i18n="cr_pref">Kualifikasi disukai <span class="opt" data-i18n="cr_opt">(opsional)</span></label><textarea class="inp" id="f_pref" style="min-height:54px"></textarea></div>
+    </div>
+    <div class="frow">
+      <div class="fld"><label data-i18n="cr_sal">Kisaran gaji <span class="opt">min · mid · max</span></label><input class="inp" id="f_sal" placeholder="18 · 24 · 30 jt"></div>
+      <div class="fld"><label data-i18n="cr_just">Justifikasi hire</label><select class="sel" id="f_just"><option data-i18n="j_repl">Penggantian</option><option data-i18n="j_new">Headcount baru</option><option data-i18n="j_proj">Berbasis proyek</option></select></div>
+    </div>
+    <div class="frow">
+      <div class="fld"><label data-i18n="cr_start">Target mulai</label><input class="inp" id="f_start" type="date"></div>
+      <div class="fld"><label data-i18n="cr_urg">Urgensi</label><select class="sel" id="f_urg"><option data-i18n="ur_crit">Kritis</option><option data-i18n="ur_high">Tinggi</option><option selected data-i18n="ur_med">Sedang</option><option data-i18n="ur_low">Rendah</option></select></div>
+    </div>
+    <div class="fld"><label class="chk"><input type="checkbox" checked> <span data-i18n="cr_internal">Posting internal lebih dulu sebelum eksternal</span></label></div>
+    <div class="fld"><label class="chk"><input type="checkbox"> <span data-i18n="cr_eor">Pertimbangkan EOR atau kontraktor</span></label></div>
+    <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg><span data-i18n="cr_overnote">Bila melebihi anggaran headcount, pengajuan ditahan. Override hanya untuk kasus khusus dan selalu tercatat.</span></div>
+  </div>
+  <div class="dfoot">
+    <button class="btn btn-ghost sm" data-close data-i18n="cr_savedraft">Simpan draft</button>
+    <span style="flex:1"></span>
+    <button class="btn btn-primary" data-i18n="cr_submit">Ajukan untuk approval</button>
+  </div>
+</aside>
+
+<script>
+const I18N={
+  topsub:{id:"Requisition",en:"Requisition"},
+  search:{id:"Cari requisition",en:"Search requisitions"},
+  role:{id:"Hiring Manager",en:"Hiring Manager"},
+  filterhead:{id:"Status",en:"Status"},
+  f_all:{id:"Semua",en:"All"},f_draft:{id:"Draft",en:"Draft"},f_pending:{id:"Menunggu approval",en:"Pending approval"},f_approved:{id:"Disetujui",en:"Approved"},f_active:{id:"Aktif",en:"Active"},f_hold:{id:"Ditahan",en:"On hold"},f_filled:{id:"Terisi",en:"Filled"},
+  viewhead:{id:"Tampilan",en:"View"},v_mine:{id:"Requisition saya",en:"My requisitions"},v_team:{id:"Requisition tim",en:"Team requisitions"},
+  ptitle:{id:"Requisition",en:"Requisition"},
+  psub:{id:"Ajukan dan pantau permintaan hire",en:"Raise and track hiring requests"},
+  btn_new:{id:"Buat requisition",en:"New requisition"},
+  k_open:{id:"Requisition terbuka",en:"Open requisitions"},k_pending:{id:"Menunggu approval",en:"Pending approval"},k_ttf:{id:"Rata-rata time to fill",en:"Avg time to fill"},u_day:{id:"hari",en:"days"},k_budget:{id:"Sisa anggaran headcount",en:"Remaining headcount budget"},
+  t_urg:{id:"Urgensi",en:"Urgency"},c_allu:{id:"Semua",en:"All"},c_crit:{id:"Kritis",en:"Critical"},c_high:{id:"Tinggi",en:"High"},t_bulk:{id:"Buat massal",en:"Bulk create"},
+  th_req:{id:"Requisition",en:"Requisition"},th_loc:{id:"Lokasi",en:"Location"},th_open:{id:"Lowongan",en:"Openings"},th_status:{id:"Status",en:"Status"},th_rec:{id:"Recruiter",en:"Recruiter"},th_age:{id:"Hari",en:"Days"},th_urg:{id:"Urgensi",en:"Urgency"},
+  st_active:{id:"Aktif",en:"Active"},st_pending:{id:"Menunggu approval",en:"Pending approval"},st_approved:{id:"Disetujui",en:"Approved"},st_draft:{id:"Draft",en:"Draft"},st_hold:{id:"Ditahan",en:"On hold"},st_filled:{id:"Terisi",en:"Filled"},
+  ur_high:{id:"Tinggi",en:"High"},ur_med:{id:"Sedang",en:"Medium"},ur_crit:{id:"Kritis",en:"Critical"},ur_low:{id:"Rendah",en:"Low"},
+  unassigned:{id:"belum ditugaskan",en:"unassigned"},bulk_tag:{id:"massal",en:"bulk"},multi_loc:{id:"20 lokasi",en:"20 locations"},loc_subang:{id:"Pabrik Subang",en:"Subang plant"},
+
+  d_chain:{id:"Rantai approval, berbasis DOA",en:"Approval chain, DOA-based"},
+  ap_mgr:{id:"Atasan langsung",en:"Direct manager"},ap_mgr_s:{id:"Budi S. · selesai 1 hari · verifikasi headcount",en:"Budi S. · done 1 day · headcount verification"},
+  ap_hrbp:{id:"HRBP",en:"HRBP"},ap_hrbp_s:{id:"Sari M. · selesai 0,5 hari · selaras workforce plan",en:"Sari M. · done 0.5 day · workforce plan alignment"},
+  ap_fin:{id:"Finance, cek budget",en:"Finance, budget check"},ap_sla:{id:"Lewat SLA",en:"SLA breached"},
+  ap_fin_s:{id:"berjalan 3,8 hari, SLA 2 hari, eskalasi otomatis aktif",en:"running 3.8 days, SLA 2 days, auto-escalation active"},
+  ap_dept:{id:"Kepala departemen",en:"Department head"},ap_dept_s:{id:"menunggu giliran",en:"waiting in queue"},
+  ap_ceo:{id:"Approval CEO",en:"CEO approval"},ap_ceo_s:{id:"tidak diperlukan, headcount di bawah ambang",en:"not required, headcount below threshold"},
+  d_chain_n:{id:"Tahap Finance melebihi SLA 2 hari. Eskalasi ke atasan approver berjalan otomatis, dan delegasi tersedia bila approver tidak hadir.",en:"The Finance stage exceeds the 2-day SLA. Escalation to the approver's superior runs automatically, and delegation is available if the approver is away."},
+
+  d_mile:{id:"Milestone, perkiraan vs aktual",en:"Milestones, expected vs actual"},
+  ms_create:{id:"Requisition dibuat",en:"Requisition created"},
+  ms_submit:{id:"Diajukan untuk approval",en:"Submitted for approval"},
+  ms_approve:{id:"Disetujui semua approver",en:"Approved by all approvers"},ms_approve_s:{id:"· tertahan di Finance",en:"· held at Finance"},
+  ms_post:{id:"Diposting ke career site",en:"Posted to career site"},ms_post_s:{id:"· perkiraan molor 2 hari",en:"· estimated 2 days late"},
+  ms_apply:{id:"Kandidat pertama melamar",en:"First candidate applied"},
+  ms_offer:{id:"Offer diberikan",en:"Offer extended"},
+
+  d_budget:{id:"Integrasi anggaran",en:"Budget integration"},
+  bd_cc:{id:"Cost center DATA-BDG-02",en:"Cost center DATA-BDG-02"},
+  bd_remain:{id:"Sisa anggaran headcount",en:"Remaining headcount budget"},
+  bd_thisreq:{id:"Permintaan req ini",en:"This requisition's request"},
+  bd_status:{id:"Status",en:"Status"},bd_ok:{id:"Cukup",en:"Sufficient"},
+  bd_note:{id:"Anggaran dicek real-time terhadap manpower planning, dicadangkan saat disetujui, dirilis bila batal atau terisi, lalu diposting ke SAP.",en:"Budget is checked real-time against manpower planning, reserved on approval, released if cancelled or filled, then posted to SAP."},
+
+  act_clone:{id:"Klon",en:"Clone"},act_hold:{id:"Tahan",en:"Hold"},act_cancel:{id:"Batalkan",en:"Cancel"},act_remind:{id:"Ingatkan approver",en:"Remind approver"},
+
+  cr_title:{id:"Buat requisition",en:"New requisition"},
+  cr_sub:{id:"HC AI bisa mengisi awal dari role serupa",en:"HC AI can pre-fill from similar roles"},
+  cr_aihint:{id:"Isi judul lalu minta HC AI menyusun deskripsi, kualifikasi, dan kisaran gaji dari role serupa. Bahasa dijaga inklusif.",en:"Enter a title then ask HC AI to draft the description, qualifications, and salary range from similar roles. Language is kept inclusive."},
+  cr_aifill:{id:"Isi dengan HC AI",en:"Fill with HC AI"},
+  cr_jt:{id:"Judul jabatan",en:"Job title"},
+  cr_dept:{id:"Departemen & cost center",en:"Department & cost center"},
+  cr_loc:{id:"Lokasi",en:"Location"},cr_multi:{id:"(multi)",en:"(multi)"},
+  cr_emp:{id:"Tipe pekerjaan",en:"Employment type"},
+  emp_perm:{id:"Permanen",en:"Permanent"},emp_con:{id:"Kontrak",en:"Contract"},emp_int:{id:"Magang",en:"Internship"},emp_pt:{id:"Paruh waktu",en:"Part-time"},
+  cr_open:{id:"Jumlah lowongan",en:"Number of openings"},
+  cr_jd:{id:"Deskripsi pekerjaan",en:"Job description"},
+  cr_qual:{id:"Kualifikasi wajib",en:"Required qualifications"},
+  cr_pref:{id:"Kualifikasi disukai",en:"Preferred qualifications"},cr_opt:{id:"(opsional)",en:"(optional)"},
+  cr_sal:{id:"Kisaran gaji",en:"Salary range"},
+  cr_just:{id:"Justifikasi hire",en:"Hire justification"},
+  j_repl:{id:"Penggantian",en:"Replacement"},j_new:{id:"Headcount baru",en:"New headcount"},j_proj:{id:"Berbasis proyek",en:"Project-based"},
+  cr_start:{id:"Target mulai",en:"Target start"},
+  cr_urg:{id:"Urgensi",en:"Urgency"},
+  cr_internal:{id:"Posting internal lebih dulu sebelum eksternal",en:"Post internally first before external"},
+  cr_eor:{id:"Pertimbangkan EOR atau kontraktor",en:"Consider EOR or contractor"},
+  cr_overnote:{id:"Bila melebihi anggaran headcount, pengajuan ditahan. Override hanya untuk kasus khusus dan selalu tercatat.",en:"If over the headcount budget, submission is blocked. Override is for exceptional cases only and is always logged."},
+  cr_savedraft:{id:"Simpan draft",en:"Save draft"},
+  cr_submit:{id:"Ajukan untuk approval",en:"Submit for approval"},
+
+  foot:{id:"One HCMS · Talent Acquisition · Requisition · Hiring Manager · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Requisition · Hiring Manager · prototype, per Design System v3"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(!I18N[k])return;el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+
+/* status filter */
+document.querySelectorAll('.flt[data-f]').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.flt[data-f]').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  const f=b.dataset.f;
+  document.querySelectorAll('#reqtbl tbody tr').forEach(tr=>{tr.style.display=(f==='all'||tr.dataset.st===f)?'':'none';});
+}));
+/* view + urgency chips (cosmetic active state) */
+document.querySelectorAll('.flt[data-v]').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.flt[data-v]').forEach(x=>x.classList.remove('active'));b.classList.add('active');}));
+document.querySelectorAll('.toolbar .chip').forEach(c=>c.addEventListener('click',()=>{document.querySelectorAll('.toolbar .chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');}));
+
+/* drawers */
+const scrim=document.getElementById('scrim'), detail=document.getElementById('detail'), create=document.getElementById('create');
+function openD(el){el.classList.add('open');scrim.classList.add('show');}
+function closeAll(){detail.classList.remove('open');create.classList.remove('open');scrim.classList.remove('show');}
+scrim.addEventListener('click',closeAll);
+document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',closeAll));
+
+/* row click -> detail (the Data Analyst row shows the full chain; others reuse same demo content with header swapped) */
+document.querySelectorAll('#reqtbl tbody tr').forEach(tr=>tr.addEventListener('click',()=>{
+  const d=JSON.parse(tr.dataset.req);
+  document.getElementById('d_title').textContent=d.title;
+  document.getElementById('d_id').textContent=d.id;
+  document.getElementById('d_meta').textContent=d.dept+' · '+d.loc;
+  openD(detail);
+}));
+
+/* new requisition */
+document.getElementById('newReq').addEventListener('click',()=>openD(create));
+
+/* HC AI pre-fill demo */
+document.getElementById('aifillbtn').addEventListener('click',()=>{
+  const t=document.getElementById('f_title').value||(lang==='id'?'Sales Manager':'Sales Manager');
+  document.getElementById('f_title').value=t;
+  document.getElementById('f_dept').value='Commercial · SALES-JKT-01';
+  document.getElementById('f_loc').value='Jakarta';
+  document.getElementById('f_jd').value = lang==='id'
+    ? 'Memimpin tim penjualan regional, menumbuhkan distribusi, dan membina kemitraan. Mencari pemimpin yang tegas dan kolaboratif dengan keseimbangan kerja yang sehat.'
+    : 'Lead the regional sales team, grow distribution, and build partnerships. Seeking a decisive and collaborative leader with a healthy work balance.';
+  document.getElementById('f_qual').value = lang==='id' ? 'S1, 6+ tahun pengalaman sales FMCG, kepemimpinan tim.' : 'Bachelor, 6+ years FMCG sales experience, team leadership.';
+  document.getElementById('f_pref').value = lang==='id' ? 'Pengalaman regional, kemampuan bahasa daerah.' : 'Regional experience, local language skills.';
+  document.getElementById('f_sal').value='18 · 24 · 30 jt';
+});
+
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

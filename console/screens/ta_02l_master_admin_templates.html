@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Template</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--surface:#ffffff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:160px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.layout{flex:1;display:flex;min-height:0}
+.side{width:236px;flex:0 0 auto;border-right:1px solid var(--border);overflow-y:auto;padding:14px 10px;background:var(--surface)}
+.sidehead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding:4px 10px 8px}
+.side nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:12.5px;margin-bottom:1px;cursor:pointer}
+.side nav a svg{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+.side nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side nav a.active{background:var(--primary-tint);color:var(--primary);font-weight:600}
+.side nav a.active svg{color:var(--primary)}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 80px;min-width:0}
+.phead{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.phead .mt{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.5px}
+.phead .mt small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.rolebadge{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;background:var(--dark);color:#fff;border-radius:999px;padding:6px 13px;font-weight:600}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#fff}
+.scope{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin:12px 0 14px}
+.scope svg{width:15px;height:15px;color:var(--primary);flex:none}
+.scope .asof{margin-left:auto;display:inline-flex;align-items:center;gap:6px;font-family:var(--font-num);font-size:11.5px;color:var(--ink-3);white-space:nowrap}
+
+.subtabs{display:inline-flex;gap:4px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:4px;margin-bottom:8px;flex-wrap:wrap}
+.subtab{border:none;background:transparent;color:var(--ink-3);font-weight:600;font-size:12.5px;padding:7px 13px;border-radius:8px}
+.subtab.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.focusnote{font-size:11px;color:var(--ink-3);margin:0 0 14px 2px}
+.focusnote b{color:var(--primary-700);font-family:var(--font-num)}
+
+.flow{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:11.5px;color:var(--ink-3);background:var(--surface-2);border:1px dashed var(--border-strong);border-radius:9px;padding:8px 12px;margin:0 0 16px}
+.flow .lab{font-weight:700;text-transform:uppercase;letter-spacing:.05em;font-size:10px;color:var(--primary-700)}
+.flow .chip{display:inline-flex;align-items:center;gap:5px;background:#fff;border:1px solid var(--border);border-radius:20px;padding:3px 10px;color:var(--ink-2);font-weight:600}
+.flow .arr{color:var(--n400)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:7px 13px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+
+.view{display:none}.view.active{display:block}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:15px;margin-bottom:14px;box-shadow:var(--e1)}
+.panel .ph{display:flex;align-items:center;margin:0 0 6px;gap:10px}
+.panel .ph h4{margin:0;font-size:14px}
+.panel .ph .frtag{font-family:var(--font-num);font-size:10px;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;padding:2px 7px}
+.panel .ph .act{margin-left:auto;display:flex;gap:8px}
+.panel .pdesc{font-size:11.5px;color:var(--ink-3);margin:0 0 13px}
+.subt{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin:16px 0 9px}
+.subt:first-child{margin-top:0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:980px){.grid2{grid-template-columns:1fr}}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+table.tbl th{text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);padding:8px 9px;border-bottom:1px solid var(--border);font-weight:700}
+table.tbl td{padding:10px 9px;border-bottom:1px solid var(--surface-3);vertical-align:middle}
+table.tbl tr:last-child td{border-bottom:none}
+.tn{font-weight:600;color:var(--ink)}
+.mono{font-family:var(--font-num)}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:600;border-radius:999px;padding:2px 9px;border:1px solid;white-space:nowrap}
+.b-ok{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.b-mut{color:var(--ink-3);background:var(--surface-2);border-color:var(--border)}
+.b-info{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+
+.toggle-row{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--surface-3)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-row .tl{min-width:0}
+.toggle-row .tl b{display:flex;align-items:center;gap:8px;font-weight:600;font-size:12.5px;flex-wrap:wrap}
+.toggle-row .tl span{font-size:11px;color:var(--ink-3);display:block;margin-top:2px}
+.switch{position:relative;width:38px;height:22px;border-radius:999px;background:var(--n300);transition:.2s;flex:0 0 auto;border:none}
+.switch.on{background:var(--primary)}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:var(--e1);transition:.2s}
+.switch.on::after{left:18px}
+.switch[disabled]{opacity:.55;cursor:not-allowed}.switch.lockon{background:var(--success)}
+.switch.lockoff{background:var(--n300)}
+.rbadge{font-size:9.5px;font-weight:700;border-radius:5px;padding:1px 6px;border:1px solid;text-transform:uppercase;letter-spacing:.03em}
+.rb-lock{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.rb-bias{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.rb-legal{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+
+/* JD variant chips */
+.vargrid{display:flex;gap:9px;flex-wrap:wrap}
+.varc{flex:1;min-width:140px;border:1px solid var(--border);border-radius:10px;padding:11px;background:var(--surface-2)}
+.varc b{font-weight:700;font-size:12.5px;display:block}
+.varc span{font-size:11px;color:var(--ink-3)}
+
+/* component library */
+.comp{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--surface-3)}
+.comp:last-child{border-bottom:none}
+.comp .cn{flex:1;font-weight:600;font-size:12.5px}
+.comp .cn span{display:block;font-size:11px;color:var(--ink-3);font-weight:400}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:12px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.note.warn{background:var(--warning-tint);border-color:#ecd9a8;color:#8a5808}.note.warn svg{color:var(--warning)}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.linkrow{display:flex;align-items:center;gap:10px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:13px 15px;font-size:12.5px;color:var(--ink-2)}
+.linkrow svg{width:16px;height:16px;color:var(--primary);flex:none}
+.foot{margin-top:14px;font-size:11px;color:var(--ink-3);text-align:center}
+.savebar{position:sticky;bottom:0;margin:14px -26px -80px;padding:13px 26px;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);border-top:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.savebar .sn{font-size:11.5px;color:var(--ink-3)}.savebar .sp2{flex:1}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Konsol Master Admin</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari template"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">MA</div><div class="nm">Adi Nugroho<small>Master Admin</small></div></div>
+  </div>
+
+  <div class="layout">
+    <aside class="side">
+      <div class="sidehead" data-i18n="navhead">Tata Kelola TA</div>
+      <nav>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="n_gov">Ringkasan tata kelola</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_rbac">Peran &amp; Akses</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 1.7 3 .2.9 2.9 2 2.2-1 2.8.4 3-2.6 1.5-1.5 2.6-3-.4-2.7 1.3-2.7-1.3-3 .4-1.5-2.6L3.3 16l.4-3-1-2.8 2-2.2.9-2.9 3-.2Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_flow">Workflow &amp; Approval</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="n_ai">Model HC AI</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h12l-3-3M20 15H8l3 3"/></svg><span data-i18n="n_stage">Tahap Pipeline</span></a>
+        <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg><span data-i18n="n_tpl">Template &amp; Komunikasi</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/></svg><span data-i18n="n_intg">Integrasi &amp; Channel</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span data-i18n="n_data">Data &amp; Residency</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span data-i18n="n_audit">Audit &amp; Keamanan</span></a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="phead">
+        <div class="mt"><span data-i18n="ptitle">Template &amp; Komunikasi</span><small data-i18n="psub">Template requisition, offer, dan komunikasi</small></div>
+        <div class="rolebadge"><i></i>Master Admin</div>
+      </div>
+      <div class="scope">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg>
+        <span data-i18n="scope">Template mempercepat pembuatan requisition dan offer, menjaga bahasa inklusif, dan menghormati hukum tiap negara.</span>
+        <span class="asof"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>08 Jun 2026 09.40</span>
+      </div>
+
+      <div class="subtabs" id="subtabs">
+        <button class="subtab" data-v="komm" data-i18n="t_komm">Komunikasi Kandidat</button>
+        <button class="subtab active" data-v="req" data-i18n="t_req">Template Requisition</button>
+        <button class="subtab" data-v="offer" data-i18n="t_offer">Template Offer</button>
+      </div>
+      <p class="focusnote"><span data-i18n="focus">Fokus layar ini</span>: <b>FR-REQ-001</b> &amp; <b>FR-OFFER-001</b> <span data-i18n="focus2">Template requisition &amp; offer</span></p>
+
+      <div class="flow">
+        <span class="lab" data-i18n="flow_lab">Menyambung ke</span>
+        <span class="chip" data-i18n="flow_c1">Form requisition</span><span class="arr">&middot;</span>
+        <span class="chip" data-i18n="flow_c2">Deteksi bias bahasa</span><span class="arr">&middot;</span>
+        <span class="chip" data-i18n="flow_c3">Rentang gaji Comben</span><span class="arr">&middot;</span>
+        <span class="chip" data-i18n="flow_c4">Approval offer</span>
+      </div>
+
+      <!-- ============ KOMUNIKASI (pointer) ============ -->
+      <section class="view" data-view="komm">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="km_h">Komunikasi kandidat</h4><span class="frtag">FR-JANE-003</span></div>
+          <div class="linkrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v12H5.2L4 17.2Z"/><path d="M8 9h8M8 12h5"/></svg><span data-i18n="km_link">Channel, sekuens otomatis, personalisasi, dan chatbot HC AI dikelola di layar Komunikasi Kandidat. Tab ini hanya pintasan agar tata letak domain Template tetap utuh.</span></div>
+        </div>
+      </section>
+
+      <!-- ============ TEMPLATE REQUISITION ============ -->
+      <section class="view active" data-view="req">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="rq_h">Template peran pra-setujui</h4><span class="frtag">FR-REQ-001</span><span class="act"><button class="btn btn-ghost sm" data-i18n="rq_add">Tambah template</button></span></div>
+          <p class="pdesc" data-i18n="rq_d">Peran berulang dengan deskripsi terstandar dan jalur approval cepat. Cocok untuk hiring massal ritel dan pabrik.</p>
+          <table class="tbl">
+            <thead><tr><th data-i18n="th_tpl">Template peran</th><th data-i18n="th_emp">Tipe</th><th data-i18n="th_fast">Fast-track</th><th data-i18n="th_bulk">Bulk</th><th data-i18n="th_used">Dipakai</th></tr></thead>
+            <tbody>
+              <tr><td class="tn" data-i18n="rt1">Staf ritel</td><td data-i18n="emp_con">Kontrak</td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td class="mono">REQ-0148 (50)</td></tr>
+              <tr><td class="tn" data-i18n="rt2">Pekerja pabrik</td><td data-i18n="emp_con">Kontrak</td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td class="mono">12 req</td></tr>
+              <tr><td class="tn" data-i18n="rt3">Driver pengiriman</td><td data-i18n="emp_con">Kontrak</td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td class="mono">8 req</td></tr>
+              <tr><td class="tn" data-i18n="rt4">Entry-level umum</td><td data-i18n="emp_perm">Permanen</td><td><span class="badge b-ok" data-i18n="yes">Ya</span></td><td><span class="badge b-mut" data-i18n="no">Tidak</span></td><td class="mono">5 req</td></tr>
+            </tbody>
+          </table>
+          <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg><span data-i18n="rq_note">Fast-track tetap melewati gerbang anggaran. Yang dipangkas hanya langkah review yang berulang, bukan kontrol budget.</span></div>
+        </div>
+
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="jd_h">Generator deskripsi pekerjaan oleh HC AI</h4><span class="frtag">FR-REQ-001</span></div>
+          <p class="pdesc" data-i18n="jd_d">HC AI menyusun draf dari role serupa. Tiga gaya template, hiring manager tinggal menyunting.</p>
+          <div class="vargrid">
+            <div class="varc"><b data-i18n="jv1">Kreatif</b><span data-i18n="jv1_s">marketing, brand, desain</span></div>
+            <div class="varc"><b data-i18n="jv2">Teknis</b><span data-i18n="jv2_s">engineering, IT, data</span></div>
+            <div class="varc"><b data-i18n="jv3">Formal</b><span data-i18n="jv3_s">legal, finance, compliance</span></div>
+          </div>
+          <div class="subt" data-i18n="jd_struct">Struktur standar</div>
+          <p class="pdesc" style="margin:0" data-i18n="jd_struct_s">Ringkasan perusahaan, ringkasan peran, tanggung jawab utama, kualifikasi, benefit, dan cara melamar.</p>
+          <div style="margin-top:8px">
+            <div class="toggle-row"><div class="tl"><b data-i18n="jt_incl">Bahasa inklusif dan bebas bias <span class="rbadge rb-bias" data-i18n="rb_on">Selalu aktif</span></b><span data-i18n="jt_incl_s">memakai deteksi bias bahasa dari Model HC AI sebelum draf final</span></div><button class="switch lockon" disabled></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="jt_ver">Kontrol versi draf JD</b></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="jt_review">Hiring manager wajib meninjau sebelum posting</b></div><button class="switch on"></button></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ TEMPLATE OFFER ============ -->
+      <section class="view" data-view="offer">
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="of_h">Template surat offer</h4><span class="frtag">FR-OFFER-001</span><span class="act"><button class="btn btn-ghost sm" data-i18n="of_add">Tambah template</button></span></div>
+          <p class="pdesc" data-i18n="of_d">Template per tipe kerja dan per negara, karena syarat hukum berbeda di 15+ negara. Tersedia dalam banyak bahasa.</p>
+          <table class="tbl">
+            <thead><tr><th data-i18n="th_otpl">Template offer</th><th data-i18n="th_country">Negara</th><th data-i18n="th_lang">Bahasa</th><th data-i18n="th_atwill">At-will</th></tr></thead>
+            <tbody>
+              <tr><td class="tn" data-i18n="ot1">Permanen</td><td>Indonesia</td><td class="mono">ID, EN</td><td><span class="badge b-mut" data-i18n="atwill_off">Nonaktif</span></td></tr>
+              <tr><td class="tn" data-i18n="ot2">Kontrak (PKWT)</td><td>Indonesia</td><td class="mono">ID</td><td><span class="badge b-mut" data-i18n="atwill_off">Nonaktif</span></td></tr>
+              <tr><td class="tn" data-i18n="ot3">Magang</td><td>Indonesia</td><td class="mono">ID</td><td><span class="badge b-mut" data-i18n="atwill_off">Nonaktif</span></td></tr>
+              <tr><td class="tn" data-i18n="ot4">Permanen</td><td data-i18n="cty_intl">Lintas negara</td><td class="mono">EN +6</td><td><span class="badge b-info" data-i18n="atwill_cty">Per negara</span></td></tr>
+            </tbody>
+          </table>
+          <div class="note warn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/><path d="M12 9v4M12 17h.01"/></svg><span data-i18n="of_note">Disclaimer at-will adalah konsep Amerika dan tidak sah di Indonesia. Template Indonesia memakai ketentuan PKWT atau PKWTT sesuai UU Ketenagakerjaan, bukan at-will.</span></div>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="cl_h">Pustaka komponen offer</h4><span class="frtag">FR-OFFER-001</span></div>
+            <div class="subt" data-i18n="cl_comp">Kompensasi</div>
+            <div class="comp"><div class="cn" data-i18n="cc1">Gaji pokok<span data-i18n="cc1_s">tahunan atau bulanan, mata uang lokal</span></div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc2">Komponen variabel<span data-i18n="cc2_s">bonus, komisi, bagi hasil</span></div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc3">Ekuitas<span data-i18n="cc3_s">opsi saham atau RSU, bila berlaku</span></div><span class="badge b-mut" data-i18n="cond">Bersyarat</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc4">Signing bonus &amp; relokasi<span data-i18n="cc4_s">bila berlaku</span></div><span class="badge b-mut" data-i18n="cond">Bersyarat</span></div>
+            <div class="subt" data-i18n="cl_terms">Ketentuan kerja &amp; legal</div>
+            <div class="comp"><div class="cn" data-i18n="cc5">Jabatan, atasan, dept, lokasi</div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc6">Pengaturan kerja &amp; tanggal mulai<span data-i18n="cc6_s">remote, hybrid, kantor</span></div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc7">Kontinjensi<span data-i18n="cc7_s">background check, referensi, medis, visa</span></div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc8">Masa percobaan &amp; kerahasiaan</div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="cc9">Disclaimer at-will <span class="rbadge rb-legal" data-i18n="rb_legal">Gerbang negara</span></div><span class="badge b-mut" data-i18n="cc9_off">Nonaktif untuk ID</span></div>
+          </div>
+
+          <div class="panel">
+            <div class="ph"><h4 data-i18n="bm_h">Benchmarking &amp; internal equity</h4><span class="frtag">FR-OFFER-001</span></div>
+            <div class="subt" data-i18n="bm_src">Sumber data</div>
+            <div class="comp"><div class="cn" data-i18n="bm1">Rentang gaji internal Comben<span data-i18n="bm1_s">sumber kebenaran, dimiliki Comben</span></div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="comp"><div class="cn" data-i18n="bm2">Penyedia pasar eksternal<span data-i18n="bm2_s">Mercer, Radford, PayScale, sumber lokal</span></div><span class="badge b-ok" data-i18n="on">Aktif</span></div>
+            <div class="subt" data-i18n="bm_view">Tampilan saat menyusun offer</div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="bm_pct">Persentil pasar 25, 50, 75, 90</b></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="bm_eq">Flag kompresi &amp; inversi internal</b><span data-i18n="bm_eq_s">peringatkan bila offer merusak keadilan internal</span></div><button class="switch on"></button></div>
+            <div class="toggle-row"><div class="tl"><b data-i18n="bm_hist">Data historis penerimaan offer</b></div><button class="switch on"></button></div>
+            <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z"/><circle cx="12" cy="10" r="2.4"/></svg><span data-i18n="bm_note">Rentang gaji dimiliki Comben. TA hanya membaca untuk benchmarking, tidak mengubah angka rentang.</span></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <div class="ph"><h4 data-i18n="mg_h">Merge field, approval, dan pengiriman</h4><span class="frtag">FR-OFFER-001</span></div>
+          <div class="grid2">
+            <div>
+              <div class="toggle-row"><div class="tl"><b data-i18n="mg_merge">Merge field kandidat &amp; kompensasi</b><span data-i18n="mg_merge_s">isi otomatis nama, jabatan, paket, tanggal mulai</span></div><button class="switch on"></button></div>
+              <div class="toggle-row"><div class="tl"><b data-i18n="mg_rich">Editor rich text untuk penyesuaian</b></div><button class="switch on"></button></div>
+            </div>
+            <div>
+              <div class="toggle-row"><div class="tl"><b data-i18n="mg_appr">Approval offer wajib sebelum kirim</b><span data-i18n="mg_appr_s">dikonfigurasi di Workflow &amp; Approval, SLA 1 hari kerja</span></div><button class="switch on"></button></div>
+              <div class="toggle-row"><div class="tl"><b data-i18n="mg_esign">Pengiriman aman &amp; tanda tangan elektronik</b></div><button class="switch on"></button></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Master Admin · Template &amp; Komunikasi · prototipe, mengacu Design System v3</div>
+
+      <div class="savebar">
+        <span class="sn" data-i18n="save_note">Perubahan template berlaku untuk requisition dan offer baru, dokumen terkirim tidak berubah.</span>
+        <span class="sp2"></span>
+        <button class="btn btn-ghost" data-i18n="btn_prev">Pratinjau template</button>
+        <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="btn_save">Simpan template</span></button>
+      </div>
+    </main>
+  </div>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Konsol Master Admin",en:"Master Admin Console"},
+  search:{id:"Cari template",en:"Search templates"},
+  navhead:{id:"Tata Kelola TA",en:"TA Governance"},
+  n_gov:{id:"Ringkasan tata kelola",en:"Governance overview"},n_rbac:{id:"Peran & Akses",en:"Roles & Access"},n_flow:{id:"Workflow & Approval",en:"Workflow & Approval"},n_ai:{id:"Model HC AI",en:"HC AI Model"},n_stage:{id:"Tahap Pipeline",en:"Pipeline Stages"},n_tpl:{id:"Template & Komunikasi",en:"Templates & Communication"},n_intg:{id:"Integrasi & Channel",en:"Integrations & Channels"},n_data:{id:"Data & Residency",en:"Data & Residency"},n_audit:{id:"Audit & Keamanan",en:"Audit & Security"},
+  ptitle:{id:"Template & Komunikasi",en:"Templates & Communication"},
+  psub:{id:"Template requisition, offer, dan komunikasi",en:"Requisition, offer, and communication templates"},
+  scope:{id:"Template mempercepat pembuatan requisition dan offer, menjaga bahasa inklusif, dan menghormati hukum tiap negara.",en:"Templates speed up requisition and offer creation, keep language inclusive, and respect each country's law."},
+  t_komm:{id:"Komunikasi Kandidat",en:"Candidate Communication"},t_req:{id:"Template Requisition",en:"Requisition Templates"},t_offer:{id:"Template Offer",en:"Offer Templates"},
+  focus:{id:"Fokus layar ini",en:"This screen focuses on"},
+  focus2:{id:"Template requisition & offer",en:"Requisition & offer templates"},
+  flow_lab:{id:"Menyambung ke",en:"Connects to"},
+  flow_c1:{id:"Form requisition",en:"Requisition form"},
+  flow_c2:{id:"Deteksi bias bahasa",en:"Language bias detection"},
+  flow_c3:{id:"Rentang gaji Comben",en:"Comben salary ranges"},
+  flow_c4:{id:"Approval offer",en:"Offer approval"},
+
+  km_h:{id:"Komunikasi kandidat",en:"Candidate communication"},
+  km_link:{id:"Channel, sekuens otomatis, personalisasi, dan chatbot HC AI dikelola di layar Komunikasi Kandidat. Tab ini hanya pintasan agar tata letak domain Template tetap utuh.",en:"Channels, automated sequences, personalization, and the HC AI chatbot are managed on the Candidate Communication screen. This tab is just a shortcut so the Template domain layout stays complete."},
+
+  rq_h:{id:"Template peran pra-setujui",en:"Pre-approved role templates"},
+  rq_add:{id:"Tambah template",en:"Add template"},
+  rq_d:{id:"Peran berulang dengan deskripsi terstandar dan jalur approval cepat. Cocok untuk hiring massal ritel dan pabrik.",en:"Recurring roles with standardized descriptions and a fast-track approval path. Ideal for retail and plant bulk hiring."},
+  th_tpl:{id:"Template peran",en:"Role template"},th_emp:{id:"Tipe",en:"Type"},th_fast:{id:"Fast-track",en:"Fast-track"},th_bulk:{id:"Bulk",en:"Bulk"},th_used:{id:"Dipakai",en:"Used"},
+  rt1:{id:"Staf ritel",en:"Retail staff"},rt2:{id:"Pekerja pabrik",en:"Factory worker"},rt3:{id:"Driver pengiriman",en:"Delivery driver"},rt4:{id:"Entry-level umum",en:"General entry-level"},
+  emp_con:{id:"Kontrak",en:"Contract"},emp_perm:{id:"Permanen",en:"Permanent"},
+  yes:{id:"Ya",en:"Yes"},no:{id:"Tidak",en:"No"},
+  rq_note:{id:"Fast-track tetap melewati gerbang anggaran. Yang dipangkas hanya langkah review yang berulang, bukan kontrol budget.",en:"Fast-track still passes the budget gate. Only repetitive review steps are trimmed, not budget controls."},
+
+  jd_h:{id:"Generator deskripsi pekerjaan oleh HC AI",en:"HC AI job description generator"},
+  jd_d:{id:"HC AI menyusun draf dari role serupa. Tiga gaya template, hiring manager tinggal menyunting.",en:"HC AI drafts from similar roles. Three template styles, the hiring manager just edits."},
+  jv1:{id:"Kreatif",en:"Creative"},jv1_s:{id:"marketing, brand, desain",en:"marketing, brand, design"},
+  jv2:{id:"Teknis",en:"Technical"},jv2_s:{id:"engineering, IT, data",en:"engineering, IT, data"},
+  jv3:{id:"Formal",en:"Formal"},jv3_s:{id:"legal, finance, compliance",en:"legal, finance, compliance"},
+  jd_struct:{id:"Struktur standar",en:"Standard structure"},
+  jd_struct_s:{id:"Ringkasan perusahaan, ringkasan peran, tanggung jawab utama, kualifikasi, benefit, dan cara melamar.",en:"Company overview, role summary, key responsibilities, qualifications, benefits, and how to apply."},
+  jt_incl:{id:"Bahasa inklusif dan bebas bias",en:"Inclusive, bias-free language"},rb_on:{id:"Selalu aktif",en:"Always on"},
+  jt_incl_s:{id:"memakai deteksi bias bahasa dari Model HC AI sebelum draf final",en:"uses the HC AI language bias detection before the final draft"},
+  jt_ver:{id:"Kontrol versi draf JD",en:"JD draft version control"},
+  jt_review:{id:"Hiring manager wajib meninjau sebelum posting",en:"Hiring manager must review before posting"},
+
+  of_h:{id:"Template surat offer",en:"Offer letter templates"},
+  of_add:{id:"Tambah template",en:"Add template"},
+  of_d:{id:"Template per tipe kerja dan per negara, karena syarat hukum berbeda di 15+ negara. Tersedia dalam banyak bahasa.",en:"Templates by employment type and by country, since legal requirements differ across 15+ countries. Available in many languages."},
+  th_otpl:{id:"Template offer",en:"Offer template"},th_country:{id:"Negara",en:"Country"},th_lang:{id:"Bahasa",en:"Languages"},th_atwill:{id:"At-will",en:"At-will"},
+  ot1:{id:"Permanen",en:"Permanent"},ot2:{id:"Kontrak (PKWT)",en:"Contract (PKWT)"},ot3:{id:"Magang",en:"Internship"},ot4:{id:"Permanen",en:"Permanent"},
+  cty_intl:{id:"Lintas negara",en:"Cross-country"},
+  atwill_off:{id:"Nonaktif",en:"Off"},atwill_cty:{id:"Per negara",en:"Per country"},
+  of_note:{id:"Disclaimer at-will adalah konsep Amerika dan tidak sah di Indonesia. Template Indonesia memakai ketentuan PKWT atau PKWTT sesuai UU Ketenagakerjaan, bukan at-will.",en:"The at-will disclaimer is a US concept and is not valid in Indonesia. Indonesian templates use PKWT or PKWTT terms per labor law, not at-will."},
+
+  cl_h:{id:"Pustaka komponen offer",en:"Offer component library"},
+  cl_comp:{id:"Kompensasi",en:"Compensation"},
+  cc1:{id:"Gaji pokok",en:"Base salary"},cc1_s:{id:"tahunan atau bulanan, mata uang lokal",en:"annual or monthly, local currency"},
+  cc2:{id:"Komponen variabel",en:"Variable components"},cc2_s:{id:"bonus, komisi, bagi hasil",en:"bonus, commission, profit sharing"},
+  cc3:{id:"Ekuitas",en:"Equity"},cc3_s:{id:"opsi saham atau RSU, bila berlaku",en:"stock options or RSUs, if applicable"},
+  cc4:{id:"Signing bonus & relokasi",en:"Signing bonus & relocation"},cc4_s:{id:"bila berlaku",en:"if applicable"},
+  cl_terms:{id:"Ketentuan kerja & legal",en:"Work terms & legal"},
+  cc5:{id:"Jabatan, atasan, dept, lokasi",en:"Title, manager, dept, location"},
+  cc6:{id:"Pengaturan kerja & tanggal mulai",en:"Work arrangement & start date"},cc6_s:{id:"remote, hybrid, kantor",en:"remote, hybrid, office"},
+  cc7:{id:"Kontinjensi",en:"Contingencies"},cc7_s:{id:"background check, referensi, medis, visa",en:"background check, reference, medical, visa"},
+  cc8:{id:"Masa percobaan & kerahasiaan",en:"Probation & confidentiality"},
+  cc9:{id:"Disclaimer at-will",en:"At-will disclaimer"},rb_legal:{id:"Gerbang negara",en:"Country gate"},cc9_off:{id:"Nonaktif untuk ID",en:"Off for ID"},
+  on:{id:"Aktif",en:"On"},cond:{id:"Bersyarat",en:"Conditional"},
+
+  bm_h:{id:"Benchmarking & internal equity",en:"Benchmarking & internal equity"},
+  bm_src:{id:"Sumber data",en:"Data sources"},
+  bm1:{id:"Rentang gaji internal Comben",en:"Comben internal salary ranges"},bm1_s:{id:"sumber kebenaran, dimiliki Comben",en:"source of truth, owned by Comben"},
+  bm2:{id:"Penyedia pasar eksternal",en:"External market providers"},bm2_s:{id:"Mercer, Radford, PayScale, sumber lokal",en:"Mercer, Radford, PayScale, local sources"},
+  bm_view:{id:"Tampilan saat menyusun offer",en:"View while building an offer"},
+  bm_pct:{id:"Persentil pasar 25, 50, 75, 90",en:"Market percentiles 25, 50, 75, 90"},
+  bm_eq:{id:"Flag kompresi & inversi internal",en:"Internal compression & inversion flag"},
+  bm_eq_s:{id:"peringatkan bila offer merusak keadilan internal",en:"warn if the offer breaks internal fairness"},
+  bm_hist:{id:"Data historis penerimaan offer",en:"Historical offer acceptance data"},
+  bm_note:{id:"Rentang gaji dimiliki Comben. TA hanya membaca untuk benchmarking, tidak mengubah angka rentang.",en:"Salary ranges are owned by Comben. TA only reads them for benchmarking, it does not change the range figures."},
+
+  mg_h:{id:"Merge field, approval, dan pengiriman",en:"Merge fields, approval, and delivery"},
+  mg_merge:{id:"Merge field kandidat & kompensasi",en:"Candidate & compensation merge fields"},
+  mg_merge_s:{id:"isi otomatis nama, jabatan, paket, tanggal mulai",en:"auto-fill name, title, package, start date"},
+  mg_rich:{id:"Editor rich text untuk penyesuaian",en:"Rich text editor for customization"},
+  mg_appr:{id:"Approval offer wajib sebelum kirim",en:"Offer approval required before sending"},
+  mg_appr_s:{id:"dikonfigurasi di Workflow & Approval, SLA 1 hari kerja",en:"configured in Workflow & Approval, 1 business day SLA"},
+  mg_esign:{id:"Pengiriman aman & tanda tangan elektronik",en:"Secure delivery & e-signature"},
+
+  foot:{id:"One HCMS · Talent Acquisition · Master Admin · Template & Komunikasi · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Master Admin · Templates & Communication · prototype, per Design System v3"},
+  save_note:{id:"Perubahan template berlaku untuk requisition dan offer baru, dokumen terkirim tidak berubah.",en:"Template changes apply to new requisitions and offers, already-sent documents are unchanged."},
+  btn_prev:{id:"Pratinjau template",en:"Preview template"},
+  btn_save:{id:"Simpan template",en:"Save template"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(!I18N[k])return;el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+applyLang();
+document.querySelectorAll('.switch:not([disabled])').forEach(s=>s.addEventListener('click',()=>s.classList.toggle('on')));
+document.getElementById('subtabs').addEventListener('click',e=>{const b=e.target.closest('.subtab');if(!b)return;
+  document.querySelectorAll('.subtab').forEach(x=>x.classList.remove('active'));b.classList.add('active');
+  const v=b.dataset.v;document.querySelectorAll('.view').forEach(s=>s.classList.toggle('active',s.dataset.view===v));
+});
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

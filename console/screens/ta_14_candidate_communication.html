@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Komunikasi &amp; Engagement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n300:#d4dae3;--n400:#aeb6c2;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;--teal:#0d7a8a;--teal-tint:#e2f3f5;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}
+::selection{background:var(--primary);color:#fff}
+
+.topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:13px;padding:11px 20px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.hcai{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:700;color:var(--violet);background:var(--violet-tint);border:1px solid #ddd0f0;border-radius:9px;padding:6px 11px}
+.hcai svg{width:13px;height:13px}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+
+.wrap{max-width:1000px;margin:0 auto;padding:22px 24px 70px}
+.head{margin-bottom:14px}
+.head .eyebrow{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--primary-700)}
+.head h1{font-family:var(--font-display);font-weight:800;font-size:24px;letter-spacing:-.5px;margin:5px 0 5px}
+.head p{font-size:13px;color:var(--ink-2);margin:0;max-width:720px}
+
+.subtabs{display:inline-flex;gap:3px;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:4px;margin:14px 0;flex-wrap:wrap}
+.subtabs button{border:none;background:transparent;padding:8px 14px;border-radius:8px;font-size:12.5px;font-weight:600;color:var(--ink-2)}
+.subtabs button.active{background:var(--surface);color:var(--primary-700);box-shadow:var(--e1)}
+.sv{display:none}.sv.on{display:block;animation:fade .18s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+.panel{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;margin-bottom:13px;box-shadow:var(--e1)}
+.panel h3{font-family:var(--font-display);font-weight:700;font-size:15px;margin:0 0 4px}
+.panel .ph{font-size:12px;color:var(--ink-3);margin:0 0 12px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(max-width:720px){.cols2{grid-template-columns:1fr}}
+
+table.tbl{width:100%;border-collapse:collapse;font-size:12px}
+table.tbl th{text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3);padding:8px 10px;border-bottom:1px solid var(--border);font-weight:700;background:var(--surface-2)}
+table.tbl td{padding:9px 10px;border-bottom:1px solid var(--surface-3);vertical-align:top}
+table.tbl tr:last-child td{border-bottom:none}
+.mono{font-family:var(--font-num)}
+.mf{font-family:var(--font-num);font-size:10.5px;color:var(--violet);background:var(--violet-tint);border:1px solid #ddd0f0;border-radius:4px;padding:1px 5px}
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:9.5px;font-weight:700;border-radius:5px;padding:2px 7px;border:1px solid;text-transform:uppercase;letter-spacing:.02em}
+.b-ok{color:var(--success);background:var(--success-tint);border-color:#bce6cd}
+.b-warn{color:var(--warning);background:var(--warning-tint);border-color:#ecd9a8}
+.b-info{color:var(--info);background:var(--info-tint);border-color:#c5d8f5}
+.b-sl{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+
+.langgrid{display:flex;flex-wrap:wrap;gap:7px}
+.lpill{font-size:11px;font-weight:600;color:var(--ink-2);background:var(--surface-2);border:1px solid var(--border-strong);border-radius:999px;padding:4px 11px}
+.lpill.on{color:var(--primary-700);background:var(--primary-tint);border-color:var(--primary-tint-2)}
+
+.kpis{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:13px}
+.kpi{flex:1;min-width:120px;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;box-shadow:var(--e1)}
+.kpi .l{font-size:10.5px;color:var(--ink-3);font-weight:600}
+.kpi .v{font-family:var(--font-num);font-weight:700;font-size:21px;letter-spacing:-.4px;margin-top:2px}
+.kpi.ok .v{color:var(--success)}.kpi.info .v{color:var(--info)}.kpi.warn .v{color:var(--warning)}
+
+.qrow{display:flex;gap:9px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--surface-3);font-size:12.5px}
+.qrow:last-child{border-bottom:none}
+.qrow svg{width:15px;height:15px;color:var(--violet);flex:none;margin-top:2px}
+
+.note{display:flex;gap:9px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:11px;padding:11px 13px;font-size:12px;color:var(--ink-2);margin-top:12px}
+.note svg{width:15px;height:15px;color:var(--primary);flex:none;margin-top:1px}
+.note.ok{background:var(--success-tint);border-color:#bce6cd;color:#176b3d}.note.ok svg{color:var(--success)}
+.note.lock{background:var(--slate-tint);border-color:#d8dee7;color:var(--slate)}.note.lock svg{color:var(--slate)}
+.note.viol{background:var(--violet-tint);border-color:#ddd0f0;color:#4a3576}.note.viol svg{color:var(--violet)}
+.note.seam{background:var(--teal-tint);border-color:#bfe2e7;color:#0a5560}.note.seam svg{color:var(--teal)}
+.note b{color:inherit;font-weight:700}
+.btn{display:inline-flex;align-items:center;gap:7px;border-radius:10px;padding:9px 15px;font-weight:700;font-size:12.5px;border:1px solid transparent}
+.btn-primary{background:var(--primary);color:#fff}.btn-ghost{background:var(--surface);color:var(--ink);border:1px solid var(--border-strong)}
+.foot{margin-top:20px;font-size:11px;color:var(--ink-3)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+    <div class="pn">One HCMS<small>Nabati Group</small></div>
+  </div>
+  <div class="div"></div>
+  <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Komunikasi &amp; Engagement Kandidat</small></div></div>
+  <div class="sp"></div>
+  <span class="hcai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 1 3 3v1a3 3 0 0 1 3 3v1M12 2a3 3 0 0 0-3 3v1a3 3 0 0 0-3 3v1"/><rect x="4" y="11" width="16" height="9" rx="2"/></svg> HC AI</span>
+  <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+</div>
+
+<div class="wrap">
+
+  <div class="head">
+    <div class="eyebrow" data-i18n="eyebrow">Recruiter · FR-CAND-003</div>
+    <h1 data-i18n="title">Komunikasi &amp; Engagement Kandidat</h1>
+    <p data-i18n="desc">Orkestrasi komunikasi sepanjang funnel, template multi-bahasa, kirim massal yang sadar consent, asisten HC AI untuk kandidat, dan survei pengalaman yang agregat. Semua menghormati privasi, residensi, dan hak kandidat.</p>
+  </div>
+
+  <div class="note seam"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-1 1"/><path d="M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l1-1"/></svg><span data-i18n="seam">Titik temu dengan Employee Core Admin, riwayat komunikasi dan survei onboarding pasca-hire menyeberang ke modul EA saat kandidat menjadi karyawan. Komunikasi tidak terputus di batas modul.</span></div>
+
+  <div class="subtabs" id="subtabs">
+    <button data-st="tpl" class="active" data-i18n="tb_tpl">Template &amp; bahasa</button>
+    <button data-st="bulk" data-i18n="tb_bulk">Kirim massal &amp; pelacakan</button>
+    <button data-st="hcai" data-i18n="tb_hcai">Asisten HC AI</button>
+    <button data-st="surv" data-i18n="tb_surv">Survei &amp; NPS</button>
+  </div>
+
+  <!-- ===== TEMPLATES ===== -->
+  <div class="sv on" data-sv="tpl">
+    <div class="panel">
+      <h3 data-i18n="tpl_h">Template dengan merge field</h3>
+      <p class="ph" data-i18n="tpl_p">personalisasi otomatis, dirakit dari data kandidat dan lowongan</p>
+      <table class="tbl"><thead><tr><th data-i18n="th_tpl">Template</th><th data-i18n="th_ch">Kanal</th><th data-i18n="th_mf">Merge field</th></tr></thead><tbody>
+        <tr><td data-i18n="tp1">Undangan wawancara</td><td>Email · SMS</td><td><span class="mf">nama</span> <span class="mf">posisi</span> <span class="mf">waktu</span> <span class="mf">tautan</span></td></tr>
+        <tr><td data-i18n="tp2">Pengingat wawancara</td><td>SMS</td><td><span class="mf">nama</span> <span class="mf">waktu</span></td></tr>
+        <tr><td data-i18n="tp3">Pemberitahuan penawaran</td><td>Email</td><td><span class="mf">nama</span> <span class="mf">posisi</span> <span class="mf">tautan_portal</span></td></tr>
+        <tr><td data-i18n="tp4">Kabar tidak lolos</td><td>Email</td><td><span class="mf">nama</span> <span class="mf">posisi</span></td></tr>
+      </tbody></table>
+    </div>
+    <div class="panel">
+      <h3 data-i18n="ml_h">Dukungan multi-bahasa</h3>
+      <p class="ph" data-i18n="ml_p">deteksi bahasa otomatis dari lamaran, kandidat dapat memilih bahasa komunikasi</p>
+      <div class="langgrid">
+        <span class="lpill on">Bahasa Indonesia</span><span class="lpill on">English</span><span class="lpill">Mandarin</span><span class="lpill">Malay</span><span class="lpill">Thai</span><span class="lpill">Vietnamese</span><span class="lpill">Arabic</span><span class="lpill">Hindi</span>
+      </div>
+      <div class="note viol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="ml_note">HC AI membantu menerjemahkan pesan kustom yang ditulis recruiter, tetapi recruiter tetap meninjau sebelum kirim. Bahasa mengikuti preferensi kandidat, bukan asumsi.</span></div>
+    </div>
+  </div>
+
+  <!-- ===== BULK ===== -->
+  <div class="sv" data-sv="bulk">
+    <div class="kpis">
+      <div class="kpi"><div class="l" data-i18n="bk1">Cohort terpilih</div><div class="v">248</div></div>
+      <div class="kpi ok"><div class="l" data-i18n="bk2">Terkirim &amp; sampai</div><div class="v">96%</div></div>
+      <div class="kpi info"><div class="l" data-i18n="bk3">Dibuka</div><div class="v">71%</div></div>
+      <div class="kpi warn"><div class="l" data-i18n="bk4">Bounce</div><div class="v">1,8%</div></div>
+    </div>
+    <div class="panel">
+      <h3 data-i18n="bulk_h">Kirim massal ke cohort</h3>
+      <p class="ph" data-i18n="bulk_p">email untuk umum, SMS hanya untuk yang mendesak, semuanya dipersonalisasi per kandidat</p>
+      <table class="tbl"><thead><tr><th data-i18n="th_cohort">Cohort</th><th data-i18n="th_n">Jumlah</th><th data-i18n="th_ch2">Kanal</th><th data-i18n="th_track">Pelacakan</th></tr></thead><tbody>
+        <tr><td data-i18n="co1">Pelamar Sales Manager, tahap skrining</td><td class="mono">112</td><td>Email</td><td><span class="badge b-info" data-i18n="opened">dibuka 78%</span></td></tr>
+        <tr><td data-i18n="co2">Terjadwal wawancara minggu ini</td><td class="mono">34</td><td>SMS</td><td><span class="badge b-ok" data-i18n="delivered">sampai 100%</span></td></tr>
+        <tr><td data-i18n="co3">Talent pool pasif, kabar lowongan</td><td class="mono">102</td><td>Email</td><td><span class="badge b-sl" data-i18n="consented">consent ya</span></td></tr>
+      </tbody></table>
+      <div class="note lock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span data-i18n="bulk_note">SMS hanya untuk komunikasi mendesak seperti pengingat wawancara. Email pemasaran hanya ke kandidat yang memberi consent, dengan unsubscribe yang selalu dihormati dan pemantauan deliverability. Pelacakan disajikan agregat per cohort, bukan profil per individu.</span></div>
+    </div>
+  </div>
+
+  <!-- ===== HC AI ===== -->
+  <div class="sv" data-sv="hcai">
+    <div class="panel">
+      <h3 data-i18n="hcai_h">Asisten HC AI untuk kandidat</h3>
+      <p class="ph" data-i18n="hcai_p">dukungan 24 jam untuk pertanyaan umum, dengan eskalasi ke recruiter manusia</p>
+      <div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="q1">Di mana status lamaran saya sekarang</span></div>
+      <div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="q2">Bisakah saya menjadwalkan ulang wawancara</span></div>
+      <div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="q3">Bagaimana mempersiapkan wawancara</span></div>
+      <div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/></svg><span data-i18n="q4">Saya ingin menarik lamaran saya</span></div>
+      <div class="note viol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/></svg><span data-i18n="hcai_note">HC AI membantu menjawab, menjadwalkan, menerima unggahan dokumen, dan mengumpulkan masukan, tetapi tidak pernah memutuskan kelolosan. Pertanyaan rumit dieskalasi ke recruiter manusia, dan setiap percakapan tercatat serta dapat dijelaskan. Inilah satu nama HC AI yang sama, bukan asisten terpisah.</span></div>
+    </div>
+    <div class="panel">
+      <h3 data-i18n="cap_h">Yang ditangani HC AI</h3>
+      <div class="cols2">
+        <div><div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="cap1">Penjadwalan percakapan</span></div><div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="cap2">Unggah dokumen via chat</span></div></div>
+        <div><div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="cap3">Penanganan penarikan lamaran</span></div><div class="qrow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="cap4">Pengumpulan masukan setelah keputusan</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SURVEYS ===== -->
+  <div class="sv" data-sv="surv">
+    <div class="kpis">
+      <div class="kpi info"><div class="l" data-i18n="sk1">NPS proses rekrutmen</div><div class="v">+42</div></div>
+      <div class="kpi ok"><div class="l" data-i18n="sk2">Tingkat respons</div><div class="v">63%</div></div>
+      <div class="kpi"><div class="l" data-i18n="sk3">Survei aktif</div><div class="v">4</div></div>
+    </div>
+    <div class="panel">
+      <h3 data-i18n="surv_h">Survei pengalaman</h3>
+      <p class="ph" data-i18n="surv_p">memahami pengalaman kandidat di setiap titik, hasil dipakai memperbaiki proses</p>
+      <table class="tbl"><thead><tr><th data-i18n="th_surv">Survei</th><th data-i18n="th_when">Dikirim saat</th><th data-i18n="th_view">Tampilan hasil</th></tr></thead><tbody>
+        <tr><td data-i18n="sv1">Pengalaman pasca tidak lolos</td><td data-i18n="sw1">setelah keputusan akhir</td><td><span class="badge b-ok" data-i18n="agg">agregat</span></td></tr>
+        <tr><td data-i18n="sv2">Pengalaman wawancara</td><td data-i18n="sw2">setelah tiap wawancara</td><td><span class="badge b-ok" data-i18n="agg">agregat</span></td></tr>
+        <tr><td data-i18n="sv3">Alasan terima atau tolak penawaran</td><td data-i18n="sw3">setelah keputusan penawaran</td><td><span class="badge b-ok" data-i18n="agg">agregat</span></td></tr>
+        <tr><td data-i18n="sv4">Masukan onboarding pasca-hire</td><td data-i18n="sw4">setelah hari pertama, lewat EA</td><td><span class="badge b-info" data-i18n="seam_b">menyeberang ke EA</span></td></tr>
+      </tbody></table>
+      <div class="note ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="surv_note">Hasil survei disajikan agregat dan transparan untuk perbaikan proses, bukan untuk menilai atau menargetkan individu. Survei onboarding pasca-hire dijalankan bersama modul Employee Core Admin agar pengalaman karyawan baru terukur lintas batas modul.</span></div>
+    </div>
+  </div>
+
+  <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · FR-CAND-003 Candidate Communication &amp; Engagement · prototipe, mengacu Design System v3</div>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Komunikasi & Engagement Kandidat",en:"Candidate Communication & Engagement"},
+  eyebrow:{id:"Recruiter · FR-CAND-003",en:"Recruiter · FR-CAND-003"},
+  title:{id:"Komunikasi & Engagement Kandidat",en:"Candidate Communication & Engagement"},
+  desc:{id:"Orkestrasi komunikasi sepanjang funnel, template multi-bahasa, kirim massal yang sadar consent, asisten HC AI untuk kandidat, dan survei pengalaman yang agregat. Semua menghormati privasi, residensi, dan hak kandidat.",en:"Communication orchestration across the funnel, multi-language templates, consent-aware bulk sending, an HC AI assistant for candidates, and aggregate experience surveys. All respecting privacy, residency, and candidate rights."},
+  seam:{id:"Titik temu dengan Employee Core Admin, riwayat komunikasi dan survei onboarding pasca-hire menyeberang ke modul EA saat kandidat menjadi karyawan. Komunikasi tidak terputus di batas modul.",en:"Seam with Employee Core Admin, communication history and the post-hire onboarding survey cross into the EA module when a candidate becomes an employee. Communication is not cut at the module boundary."},
+
+  tb_tpl:{id:"Template & bahasa",en:"Templates & language"},tb_bulk:{id:"Kirim massal & pelacakan",en:"Bulk send & tracking"},tb_hcai:{id:"Asisten HC AI",en:"HC AI assistant"},tb_surv:{id:"Survei & NPS",en:"Surveys & NPS"},
+
+  tpl_h:{id:"Template dengan merge field",en:"Templates with merge fields"},tpl_p:{id:"personalisasi otomatis, dirakit dari data kandidat dan lowongan",en:"automatic personalization, assembled from candidate and requisition data"},
+  th_tpl:{id:"Template",en:"Template"},th_ch:{id:"Kanal",en:"Channel"},th_mf:{id:"Merge field",en:"Merge fields"},
+  tp1:{id:"Undangan wawancara",en:"Interview invitation"},tp2:{id:"Pengingat wawancara",en:"Interview reminder"},tp3:{id:"Pemberitahuan penawaran",en:"Offer notification"},tp4:{id:"Kabar tidak lolos",en:"Not-selected notice"},
+  ml_h:{id:"Dukungan multi-bahasa",en:"Multi-language support"},ml_p:{id:"deteksi bahasa otomatis dari lamaran, kandidat dapat memilih bahasa komunikasi",en:"automatic language detection from the application, candidate can choose the communication language"},
+  ml_note:{id:"HC AI membantu menerjemahkan pesan kustom yang ditulis recruiter, tetapi recruiter tetap meninjau sebelum kirim. Bahasa mengikuti preferensi kandidat, bukan asumsi.",en:"HC AI helps translate custom recruiter-written messages, but the recruiter still reviews before sending. Language follows the candidate's preference, not an assumption."},
+
+  bk1:{id:"Cohort terpilih",en:"Selected cohort"},bk2:{id:"Terkirim & sampai",en:"Sent & delivered"},bk3:{id:"Dibuka",en:"Opened"},bk4:{id:"Bounce",en:"Bounce"},
+  bulk_h:{id:"Kirim massal ke cohort",en:"Bulk send to cohort"},bulk_p:{id:"email untuk umum, SMS hanya untuk yang mendesak, semuanya dipersonalisasi per kandidat",en:"email for general, SMS only for the urgent, all personalized per candidate"},
+  th_cohort:{id:"Cohort",en:"Cohort"},th_n:{id:"Jumlah",en:"Count"},th_ch2:{id:"Kanal",en:"Channel"},th_track:{id:"Pelacakan",en:"Tracking"},
+  co1:{id:"Pelamar Sales Manager, tahap skrining",en:"Sales Manager applicants, screening stage"},co2:{id:"Terjadwal wawancara minggu ini",en:"Interview scheduled this week"},co3:{id:"Talent pool pasif, kabar lowongan",en:"Passive talent pool, opening news"},
+  opened:{id:"dibuka 78%",en:"opened 78%"},delivered:{id:"sampai 100%",en:"delivered 100%"},consented:{id:"consent ya",en:"consent yes"},
+  bulk_note:{id:"SMS hanya untuk komunikasi mendesak seperti pengingat wawancara. Email pemasaran hanya ke kandidat yang memberi consent, dengan unsubscribe yang selalu dihormati dan pemantauan deliverability. Pelacakan disajikan agregat per cohort, bukan profil per individu.",en:"SMS only for urgent communication like interview reminders. Marketing email only to candidates who gave consent, with unsubscribe always honored and deliverability monitoring. Tracking is shown in aggregate per cohort, not as a per-individual profile."},
+
+  hcai_h:{id:"Asisten HC AI untuk kandidat",en:"HC AI assistant for candidates"},hcai_p:{id:"dukungan 24 jam untuk pertanyaan umum, dengan eskalasi ke recruiter manusia",en:"24-hour support for common questions, with escalation to a human recruiter"},
+  q1:{id:"Di mana status lamaran saya sekarang",en:"Where is my application status now"},q2:{id:"Bisakah saya menjadwalkan ulang wawancara",en:"Can I reschedule my interview"},q3:{id:"Bagaimana mempersiapkan wawancara",en:"How do I prepare for the interview"},q4:{id:"Saya ingin menarik lamaran saya",en:"I want to withdraw my application"},
+  hcai_note:{id:"HC AI membantu menjawab, menjadwalkan, menerima unggahan dokumen, dan mengumpulkan masukan, tetapi tidak pernah memutuskan kelolosan. Pertanyaan rumit dieskalasi ke recruiter manusia, dan setiap percakapan tercatat serta dapat dijelaskan. Inilah satu nama HC AI yang sama, bukan asisten terpisah.",en:"HC AI helps answer, schedule, accept document uploads, and gather feedback, but never decides selection. Complex questions escalate to a human recruiter, and every conversation is logged and explainable. This is the same single HC AI name, not a separate assistant."},
+  cap_h:{id:"Yang ditangani HC AI",en:"What HC AI handles"},
+  cap1:{id:"Penjadwalan percakapan",en:"Conversational scheduling"},cap2:{id:"Unggah dokumen via chat",en:"Document upload via chat"},cap3:{id:"Penanganan penarikan lamaran",en:"Application withdrawal handling"},cap4:{id:"Pengumpulan masukan setelah keputusan",en:"Feedback collection after a decision"},
+
+  sk1:{id:"NPS proses rekrutmen",en:"Recruitment process NPS"},sk2:{id:"Tingkat respons",en:"Response rate"},sk3:{id:"Survei aktif",en:"Active surveys"},
+  surv_h:{id:"Survei pengalaman",en:"Experience surveys"},surv_p:{id:"memahami pengalaman kandidat di setiap titik, hasil dipakai memperbaiki proses",en:"understand candidate experience at each point, results used to improve the process"},
+  th_surv:{id:"Survei",en:"Survey"},th_when:{id:"Dikirim saat",en:"Sent when"},th_view:{id:"Tampilan hasil",en:"Result view"},
+  sv1:{id:"Pengalaman pasca tidak lolos",en:"Post-rejection experience"},sv2:{id:"Pengalaman wawancara",en:"Interview experience"},sv3:{id:"Alasan terima atau tolak penawaran",en:"Offer accept or decline reason"},sv4:{id:"Masukan onboarding pasca-hire",en:"Post-hire onboarding feedback"},
+  sw1:{id:"setelah keputusan akhir",en:"after the final decision"},sw2:{id:"setelah tiap wawancara",en:"after each interview"},sw3:{id:"setelah keputusan penawaran",en:"after the offer decision"},sw4:{id:"setelah hari pertama, lewat EA",en:"after the first day, via EA"},
+  agg:{id:"agregat",en:"aggregate"},seam_b:{id:"menyeberang ke EA",en:"crosses to EA"},
+  surv_note:{id:"Hasil survei disajikan agregat dan transparan untuk perbaikan proses, bukan untuk menilai atau menargetkan individu. Survei onboarding pasca-hire dijalankan bersama modul Employee Core Admin agar pengalaman karyawan baru terukur lintas batas modul.",en:"Survey results are shown in aggregate and transparently for process improvement, not to judge or target individuals. The post-hire onboarding survey runs together with the Employee Core Admin module so the new employee experience is measured across the module boundary."},
+
+  foot:{id:"One HCMS · Talent Acquisition · FR-CAND-003 Candidate Communication & Engagement · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · FR-CAND-003 Candidate Communication & Engagement · prototype, per Design System v3"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+document.getElementById('subtabs').addEventListener('click',e=>{const b=e.target.closest('button[data-st]');if(!b)return;
+  document.querySelectorAll('#subtabs button').forEach(x=>x.classList.toggle('active',x===b));
+  document.querySelectorAll('.sv').forEach(v=>v.classList.toggle('on',v.dataset.sv===b.dataset.st));
+  window.scrollTo(0,0);
+});
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

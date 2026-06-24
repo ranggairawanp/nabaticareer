@@ -1,0 +1,367 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Persetujuan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff;--surface:#fff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+.role-lm .only-hcbp{display:none!important}
+.role-hcbp .only-lm{display:none!important}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface)}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:150px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-weight:700;font-size:12.5px}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.main{flex:1;overflow-y:auto;padding:20px 26px 60px;min-width:0}
+.phead{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap}
+.phead .mt{font-family:var(--font-display);font-weight:800;font-size:22px;letter-spacing:-.5px}
+.phead .mt small{display:block;font-size:11.5px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui)}
+.rolebadge{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:12px;background:var(--dark);color:#fff;border-radius:999px;padding:6px 13px;font-weight:600}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#fff}
+
+.persp{display:flex;align-items:center;gap:10px;margin:13px 0 12px;flex-wrap:wrap}
+.persp .pl{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3)}
+.seg{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:3px}
+.seg button{border:none;background:transparent;padding:7px 15px;border-radius:7px;font-size:12.5px;font-weight:600;color:var(--ink-3)}
+.seg button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.persp .hint{font-size:11px;color:var(--ink-3)}
+
+.scope{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px;margin-bottom:14px}
+.scope svg{width:15px;height:15px;color:var(--primary);flex:none}
+
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:16px}
+@media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px 13px;box-shadow:var(--e1)}
+.kpi .l{font-size:11px;color:var(--ink-3);font-weight:600}
+.kpi .v{font-family:var(--font-num);font-weight:700;font-size:20px;letter-spacing:-.5px;margin-top:2px}
+.kpi .v small{font-size:11px;color:var(--ink-3);font-weight:500}
+.kpi.urgent .v{color:var(--warning)}
+
+.work{display:grid;grid-template-columns:330px 1fr;gap:14px;align-items:start}
+@media(max-width:920px){.work{grid-template-columns:1fr}}
+
+.inbox{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--e1);overflow:hidden}
+.inbox .ih{display:flex;align-items:center;gap:8px;padding:12px 14px;border-bottom:1px solid var(--border)}
+.inbox .ih h4{margin:0;font-size:13px}
+.inbox .ih .cnt{margin-left:auto;font-family:var(--font-num);font-size:11px;font-weight:700;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;padding:1px 7px}
+.item{display:flex;flex-direction:column;gap:6px;padding:12px 14px;border-bottom:1px solid var(--surface-3);cursor:pointer;border-left:3px solid transparent}
+.item:last-child{border-bottom:none}
+.item:hover{background:var(--surface-2)}
+.item.active{background:var(--primary-tint);border-left-color:var(--primary)}
+.item .r1{display:flex;align-items:center;gap:8px}
+.tb{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;border-radius:5px;padding:2px 7px;border:1px solid}
+.tb-off{color:var(--primary-700);background:var(--primary-tint);border-color:var(--primary-tint-2)}
+.tb-req{color:var(--info);background:var(--info-tint);border-color:#cbddf6}
+.tb-post{color:var(--slate);background:var(--slate-tint);border-color:#d8dee7}
+.tb-eq{color:var(--violet);background:var(--violet-tint);border-color:#ddd0f0}
+.item .sla{margin-left:auto;font-family:var(--font-num);font-size:10px;font-weight:700;padding:1px 7px;border-radius:5px}
+.sla-soon{color:var(--warning);background:var(--warning-tint)}
+.sla-ok{color:var(--ink-3);background:var(--surface-3)}
+.item .ti{font-size:13px;font-weight:600;line-height:1.2}
+.item .mi{font-size:11px;color:var(--ink-3)}
+
+.detail{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);box-shadow:var(--e1);padding:16px}
+.dhead{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--surface-3);padding-bottom:13px;margin-bottom:13px}
+.dhead .dav{width:44px;height:44px;border-radius:50%;background:var(--primary-tint);color:var(--primary-700);display:grid;place-items:center;font-weight:800;font-size:15px;flex:none}
+.dhead h3{margin:0;font-size:17px;letter-spacing:-.3px}
+.dhead .ds{font-size:12px;color:var(--ink-2);margin-top:2px}
+.dhead .amt{margin-left:auto;text-align:right}
+.dhead .amt .a{font-family:var(--font-num);font-weight:700;font-size:17px}
+.dhead .amt .al{font-size:10.5px;color:var(--ink-3)}
+
+.sect{font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin:16px 0 9px}
+.sect:first-of-type{margin-top:4px}
+
+.doa{position:relative;padding-left:24px}
+.doa::before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:2px;background:var(--surface-3)}
+.dstep{position:relative;padding:7px 0}
+.dstep .nd{position:absolute;left:-24px;top:9px;width:17px;height:17px;border-radius:50%;border:2px solid var(--n300);background:#fff;display:grid;place-items:center}
+.dstep .nd svg{width:9px;height:9px;color:#fff}
+.dstep.done .nd{border-color:var(--success);background:var(--success)}
+.dstep.now .nd{border-color:var(--warning);background:var(--warning)}
+.dstep .dn{font-size:12.5px;font-weight:600}
+.dstep .dm{font-size:11px;color:var(--ink-3)}
+.dstep.now .dm{color:var(--warning);font-weight:600}
+
+.lens .lrow{display:flex;align-items:flex-start;gap:10px;padding:9px 0;border-bottom:1px solid var(--surface-3)}
+.lens .lrow:last-child{border-bottom:none}
+.lens .lrow .lc{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;flex:none}
+.lc-ok{background:var(--success-tint);color:var(--success)}.lc-info{background:var(--info-tint);color:var(--info)}
+.lens .lrow .lc svg{width:13px;height:13px}
+.lens .lrow .lt{flex:1}.lens .lrow .lt b{font-size:12.5px;font-weight:600;display:block}.lens .lrow .lt span{font-size:11.5px;color:var(--ink-3)}
+
+.aiband{display:flex;gap:11px;align-items:flex-start;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:10px;padding:11px 12px;margin-top:13px}
+.aiband .ic{width:28px;height:28px;border-radius:8px;background:#fff;border:1px solid var(--primary-tint-2);display:grid;place-items:center;color:var(--primary);flex:none}
+.aiband .ic svg{width:15px;height:15px}
+.aiband .tx{font-size:12px;color:var(--primary-700)}.aiband .tx b{display:block;margin-bottom:1px}
+
+.cmtprev{display:flex;gap:9px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 11px;margin-top:10px}
+.cmtprev .ca{width:24px;height:24px;border-radius:50%;background:var(--dark);color:#fff;display:grid;place-items:center;font-size:10px;font-weight:700;flex:none}
+.cmtprev .cc b{font-size:11.5px}.cmtprev .cc p{margin:1px 0 0;font-size:11.5px;color:var(--ink-2)}
+
+.cmt{width:100%;border:1px solid var(--border-strong);border-radius:9px;padding:9px 11px;font-family:inherit;font-size:12.5px;resize:vertical;min-height:54px;margin-top:14px;background:var(--surface-2)}
+.cmt:focus{outline:none;border-color:var(--primary);background:#fff}
+
+.decbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:12px;padding-top:13px;border-top:1px solid var(--surface-3)}
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:9px 15px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-approve{background:var(--success);color:#fff;border-color:var(--success)}.btn-approve:hover{filter:brightness(.95)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn-reject{background:var(--surface);color:var(--danger);border-color:#e6b3ae}.btn-reject:hover{background:var(--danger-tint)}
+.decbar .slal{margin-left:auto;font-size:11px;color:var(--warning);font-weight:600;font-family:var(--font-num)}
+
+.note{display:flex;gap:8px;align-items:flex-start;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:9px 12px;font-size:11.5px;color:var(--ink-3);margin-top:14px}
+.note svg{width:14px;height:14px;color:var(--primary);flex:none;margin-top:1px}
+.foot{margin-top:16px;font-size:11px;color:var(--ink-3);text-align:center}
+</style>
+</head>
+<body class="role-lm">
+<div class="app">
+
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Persetujuan</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari pengajuan"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me">
+      <div class="avatar only-lm">RW</div><div class="avatar only-hcbp">SL</div>
+      <div class="nm">
+        <span class="only-lm">Rudi Wijaya<small data-i18n="lm_role">Line Manager · Sales</small></span>
+        <span class="only-hcbp">Sri Lestari<small data-i18n="hc_role">HCBP · Commercial</small></span>
+      </div>
+    </div>
+  </div>
+
+  <main class="main">
+    <div class="phead">
+      <div class="mt"><span data-i18n="ptitle">Persetujuan</span><small data-i18n="psub">Antrean keputusan Anda lewat rantai DOA</small></div>
+      <div class="rolebadge"><i></i><span class="only-lm" data-i18n="lm_badge">Line Manager</span><span class="only-hcbp" data-i18n="hc_badge">HCBP</span></div>
+    </div>
+
+    <div class="persp">
+      <span class="pl" data-i18n="persp">Lihat sebagai</span>
+      <div class="seg" id="seg"><button data-r="lm" class="active" data-i18n="lm_badge">Line Manager</button><button data-r="hcbp" data-i18n="hc_badge">HCBP</button></div>
+      <span class="hint" data-i18n="persp_h">Approver ditentukan struktur lewat DOA, bukan nama tetap</span>
+    </div>
+
+    <div class="scope">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg>
+      <span class="only-lm" data-i18n="lm_scope">Anda menyetujui kebutuhan posisi dan penawaran untuk tim Anda, dengan lensa kebutuhan tim dan kecocokan kandidat.</span>
+      <span class="only-hcbp" data-i18n="hc_scope">Anda menyetujui dari sisi kebijakan, ekuitas internal, dan rencana headcount untuk unit bisnis Anda.</span>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="l" data-i18n="k1">Menunggu keputusan saya</div><div class="v">5</div></div>
+      <div class="kpi urgent"><div class="l" data-i18n="k2">SLA mendesak</div><div class="v">2</div></div>
+      <div class="kpi"><div class="l" data-i18n="k3">Rata-rata waktu keputusan</div><div class="v">0,8<small> hari</small></div></div>
+      <div class="kpi"><div class="l" data-i18n="k4">Disetujui bulan ini</div><div class="v">18</div></div>
+    </div>
+
+    <div class="work">
+      <!-- INBOX -->
+      <div class="inbox">
+        <div class="ih"><h4 data-i18n="inbox">Menunggu keputusan saya</h4><span class="cnt">5</span></div>
+        <!-- LM items -->
+        <div class="only-lm">
+          <div class="item active"><div class="r1"><span class="tb tb-off" data-i18n="tb_off">Offer</span><span class="sla sla-soon">1h</span></div><div class="ti">Andi Pratama</div><div class="mi">Area Sales Supervisor · REQ-2026-0151 · Bandung</div></div>
+          <div class="item"><div class="r1"><span class="tb tb-req" data-i18n="tb_req">Requisition</span><span class="sla sla-ok">2h</span></div><div class="ti" data-i18n="lm_i2">Sales Admin pengganti</div><div class="mi">REQ-2026-0153 · Bandung</div></div>
+          <div class="item"><div class="r1"><span class="tb tb-post" data-i18n="tb_post">Posting</span><span class="sla sla-soon" data-i18n="today">hari ini</span></div><div class="ti" data-i18n="lm_i3">Lowongan Area Sales Supervisor</div><div class="mi" data-i18n="lm_i3m">tinjauan sebelum tayang</div></div>
+        </div>
+        <!-- HCBP items -->
+        <div class="only-hcbp">
+          <div class="item active"><div class="r1"><span class="tb tb-off" data-i18n="tb_off">Offer</span><span class="sla sla-soon">1h</span></div><div class="ti">Ahmad Fauzi</div><div class="mi">Senior Sales Manager · REQ-2026-0142 · Jakarta</div></div>
+          <div class="item"><div class="r1"><span class="tb tb-req" data-i18n="tb_req">Requisition</span><span class="sla sla-ok">2h</span></div><div class="ti" data-i18n="hc_i2">Headcount tambahan Trade Marketing</div><div class="mi">REQ-2026-0149 · Jakarta</div></div>
+          <div class="item"><div class="r1"><span class="tb tb-eq" data-i18n="tb_eq">Ekuitas</span><span class="sla sla-soon">1h</span></div><div class="ti" data-i18n="hc_i3">Pengecualian ekuitas, Senior Analyst</div><div class="mi" data-i18n="hc_i3m">di atas rentang, butuh justifikasi</div></div>
+        </div>
+      </div>
+
+      <!-- DETAIL LM -->
+      <div class="detail only-lm">
+        <div class="dhead">
+          <div class="dav">AP</div>
+          <div>
+            <h3>Andi Pratama</h3>
+            <div class="ds">Area Sales Supervisor · REQ-2026-0151 · Bandung · <span data-i18n="replace">pengganti</span></div>
+          </div>
+          <div class="amt"><div class="a">22 jt</div><div class="al" data-i18n="permo">gaji pokok per bulan</div></div>
+        </div>
+
+        <div class="sect" data-i18n="doa_t">Rantai DOA</div>
+        <div class="doa">
+          <div class="dstep done"><div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="dn" data-i18n="lm_d1">Recruiter, Dewi A.</div><div class="dm" data-i18n="lm_d1m">menyusun &amp; mengajukan penawaran</div></div>
+          <div class="dstep now"><div class="nd"></div><div class="dn" data-i18n="lm_d2">Line Manager, Rudi W.</div><div class="dm" data-i18n="waiting_you">menunggu keputusan Anda</div></div>
+          <div class="dstep"><div class="nd"></div><div class="dn" data-i18n="lm_d3">HCBP</div><div class="dm" data-i18n="next">berikutnya</div></div>
+          <div class="dstep"><div class="nd"></div><div class="dn" data-i18n="lm_d4">Finance</div><div class="dm" data-i18n="next">berikutnya</div></div>
+        </div>
+
+        <div class="sect" data-i18n="lm_lens_t">Yang perlu Anda nilai</div>
+        <div class="lens">
+          <div class="lrow"><div class="lc lc-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="lt"><b data-i18n="lm_l1">Kebutuhan tim</b><span data-i18n="lm_l1s">posisi pengganti, prioritas tinggi untuk target sales Q3</span></div></div>
+          <div class="lrow"><div class="lc lc-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div><div class="lt"><b data-i18n="lm_l2">Kecocokan kandidat</b><span data-i18n="lm_l2s">skor HC AI 88, kuat di distribusi area dan kepemimpinan lapangan</span></div></div>
+          <div class="lrow"><div class="lc lc-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="lt"><b data-i18n="lm_l3">Paket terhadap tim</b><span data-i18n="lm_l3s">22 jt dalam rentang tim, tidak menimbulkan kompresi</span></div></div>
+        </div>
+        <div class="aiband"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div><div class="tx"><b data-i18n="lm_ai">Ringkasan HC AI</b><span data-i18n="lm_ai_d">Paket dalam rentang tim dan dalam plan headcount. Saran, keputusan tetap pada Anda.</span></div></div>
+
+        <textarea class="cmt" data-i18n-ph="cmt_ph" placeholder="Tambahkan komentar untuk approver berikutnya, opsional"></textarea>
+        <div class="decbar">
+          <button class="btn btn-approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="approve">Setujui</span></button>
+          <button class="btn btn-ghost" data-i18n="revise">Minta revisi</button>
+          <button class="btn btn-reject" data-i18n="reject">Tolak</button>
+          <button class="btn btn-ghost" data-i18n="delegate">Delegasikan</button>
+          <span class="slal" data-i18n="sla1">SLA 1 hari</span>
+        </div>
+      </div>
+
+      <!-- DETAIL HCBP -->
+      <div class="detail only-hcbp">
+        <div class="dhead">
+          <div class="dav">AF</div>
+          <div>
+            <h3>Ahmad Fauzi</h3>
+            <div class="ds">Senior Sales Manager · REQ-2026-0142 · Jakarta</div>
+          </div>
+          <div class="amt"><div class="a">40 jt</div><div class="al" data-i18n="permo">gaji pokok per bulan</div></div>
+        </div>
+
+        <div class="sect" data-i18n="doa_t">Rantai DOA</div>
+        <div class="doa">
+          <div class="dstep done"><div class="nd"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="dn" data-i18n="hc_d1">Line Manager, Rudi W.</div><div class="dm" data-i18n="hc_d1m">setuju kandidat &amp; paket</div></div>
+          <div class="dstep now"><div class="nd"></div><div class="dn" data-i18n="hc_d2">HCBP, Sri L.</div><div class="dm" data-i18n="waiting_you">menunggu keputusan Anda</div></div>
+          <div class="dstep"><div class="nd"></div><div class="dn" data-i18n="hc_d3">Finance, otoritas budget</div><div class="dm" data-i18n="next">berikutnya</div></div>
+        </div>
+
+        <div class="sect" data-i18n="hc_lens_t">Yang perlu Anda nilai</div>
+        <div class="lens">
+          <div class="lrow"><div class="lc lc-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="lt"><b data-i18n="hc_l1">Ekuitas internal</b><span data-i18n="hc_l1s">40 jt dalam rentang 34 sampai 42 jt, tanpa kompresi atau inversi</span></div></div>
+          <div class="lrow"><div class="lc lc-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="lt"><b data-i18n="hc_l2">Kebijakan &amp; kontrak</b><span data-i18n="hc_l2s">PKWTT, disclaimer at-will mati, sesuai template Indonesia</span></div></div>
+          <div class="lrow"><div class="lc lc-ok"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div class="lt"><b data-i18n="hc_l3">Rencana headcount</b><span data-i18n="hc_l3s">dalam plan unit Commercial, posisi disetujui</span></div></div>
+          <div class="lrow"><div class="lc lc-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8v4M12 16h.01"/></svg></div><div class="lt"><b data-i18n="hc_l4">Keberagaman slate</b><span data-i18n="hc_l4s">slate beragam tercapai lewat sourcing, bukan bonus skor</span></div></div>
+        </div>
+        <div class="cmtprev"><div class="ca">RW</div><div class="cc"><b data-i18n="hc_prev">Rudi W., Line Manager</b><p data-i18n="hc_prev_d">Kandidat kuat, paket sesuai kebutuhan tim. Setuju lanjut.</p></div></div>
+        <div class="aiband"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div><div class="tx"><b data-i18n="hc_ai">Ringkasan HC AI</b><span data-i18n="hc_ai_d">Tawaran 40 jt di antara p50 dan p75 pasar, ekuitas internal aman. Saran, keputusan tetap pada Anda.</span></div></div>
+
+        <textarea class="cmt" data-i18n-ph="cmt_ph" placeholder="Tambahkan komentar untuk approver berikutnya, opsional"></textarea>
+        <div class="decbar">
+          <button class="btn btn-approve"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg><span data-i18n="approve">Setujui</span></button>
+          <button class="btn btn-ghost" data-i18n="revise">Minta revisi</button>
+          <button class="btn btn-reject" data-i18n="reject">Tolak</button>
+          <button class="btn btn-ghost" data-i18n="delegate">Delegasikan</button>
+          <span class="slal" data-i18n="sla1">SLA 1 hari</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="sod_note">Anda tidak bisa menyetujui pengajuan Anda sendiri. Bila ada konflik kepentingan, wajib deklarasi lalu delegasikan ke approver setara. Setiap keputusan dan komentar tercatat di audit.</span></div>
+
+    <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Persetujuan · prototipe, mengacu Design System v3</div>
+  </main>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Persetujuan",en:"Approvals"},
+  search:{id:"Cari pengajuan",en:"Search submissions"},
+  lm_role:{id:"Line Manager · Sales",en:"Line Manager · Sales"},hc_role:{id:"HCBP · Commercial",en:"HCBP · Commercial"},
+  ptitle:{id:"Persetujuan",en:"Approvals"},psub:{id:"Antrean keputusan Anda lewat rantai DOA",en:"Your decision queue via the DOA chain"},
+  lm_badge:{id:"Line Manager",en:"Line Manager"},hc_badge:{id:"HCBP",en:"HCBP"},
+  persp:{id:"Lihat sebagai",en:"View as"},persp_h:{id:"Approver ditentukan struktur lewat DOA, bukan nama tetap",en:"Approvers are set by structure via DOA, not fixed names"},
+  lm_scope:{id:"Anda menyetujui kebutuhan posisi dan penawaran untuk tim Anda, dengan lensa kebutuhan tim dan kecocokan kandidat.",en:"You approve role needs and offers for your team, through the lens of team need and candidate fit."},
+  hc_scope:{id:"Anda menyetujui dari sisi kebijakan, ekuitas internal, dan rencana headcount untuk unit bisnis Anda.",en:"You approve from the angle of policy, internal equity, and the headcount plan for your business unit."},
+  k1:{id:"Menunggu keputusan saya",en:"Awaiting my decision"},k2:{id:"SLA mendesak",en:"Urgent SLA"},k3:{id:"Rata-rata waktu keputusan",en:"Avg decision time"},k4:{id:"Disetujui bulan ini",en:"Approved this month"},
+  inbox:{id:"Menunggu keputusan saya",en:"Awaiting my decision"},
+  tb_off:{id:"Offer",en:"Offer"},tb_req:{id:"Requisition",en:"Requisition"},tb_post:{id:"Posting",en:"Posting"},tb_eq:{id:"Ekuitas",en:"Equity"},today:{id:"hari ini",en:"today"},
+  lm_i2:{id:"Sales Admin pengganti",en:"Sales Admin replacement"},lm_i3:{id:"Lowongan Area Sales Supervisor",en:"Area Sales Supervisor posting"},lm_i3m:{id:"tinjauan sebelum tayang",en:"review before going live"},
+  hc_i2:{id:"Headcount tambahan Trade Marketing",en:"Additional Trade Marketing headcount"},hc_i3:{id:"Pengecualian ekuitas, Senior Analyst",en:"Equity exception, Senior Analyst"},hc_i3m:{id:"di atas rentang, butuh justifikasi",en:"above range, needs justification"},
+  replace:{id:"pengganti",en:"replacement"},permo:{id:"gaji pokok per bulan",en:"base salary per month"},
+  doa_t:{id:"Rantai DOA",en:"DOA chain"},waiting_you:{id:"menunggu keputusan Anda",en:"awaiting your decision"},next:{id:"berikutnya",en:"next"},
+  lm_d1:{id:"Recruiter, Dewi A.",en:"Recruiter, Dewi A."},lm_d1m:{id:"menyusun & mengajukan penawaran",en:"built & submitted the offer"},
+  lm_d2:{id:"Line Manager, Rudi W.",en:"Line Manager, Rudi W."},lm_d3:{id:"HCBP",en:"HCBP"},lm_d4:{id:"Finance",en:"Finance"},
+  lm_lens_t:{id:"Yang perlu Anda nilai",en:"What you need to assess"},
+  lm_l1:{id:"Kebutuhan tim",en:"Team need"},lm_l1s:{id:"posisi pengganti, prioritas tinggi untuk target sales Q3",en:"replacement role, high priority for the Q3 sales target"},
+  lm_l2:{id:"Kecocokan kandidat",en:"Candidate fit"},lm_l2s:{id:"skor HC AI 88, kuat di distribusi area dan kepemimpinan lapangan",en:"HC AI score 88, strong in area distribution and field leadership"},
+  lm_l3:{id:"Paket terhadap tim",en:"Package against the team"},lm_l3s:{id:"22 jt dalam rentang tim, tidak menimbulkan kompresi",en:"22M within the team range, creates no compression"},
+  lm_ai:{id:"Ringkasan HC AI",en:"HC AI summary"},lm_ai_d:{id:"Paket dalam rentang tim dan dalam plan headcount. Saran, keputusan tetap pada Anda.",en:"The package is within the team range and the headcount plan. A suggestion, the decision stays with you."},
+  hc_d1:{id:"Line Manager, Rudi W.",en:"Line Manager, Rudi W."},hc_d1m:{id:"setuju kandidat & paket",en:"approved candidate & package"},
+  hc_d2:{id:"HCBP, Sri L.",en:"HCBP, Sri L."},hc_d3:{id:"Finance, otoritas budget",en:"Finance, budget authority"},
+  hc_lens_t:{id:"Yang perlu Anda nilai",en:"What you need to assess"},
+  hc_l1:{id:"Ekuitas internal",en:"Internal equity"},hc_l1s:{id:"40 jt dalam rentang 34 sampai 42 jt, tanpa kompresi atau inversi",en:"40M within the 34 to 42M range, no compression or inversion"},
+  hc_l2:{id:"Kebijakan & kontrak",en:"Policy & contract"},hc_l2s:{id:"PKWTT, disclaimer at-will mati, sesuai template Indonesia",en:"PKWTT, at-will disclaimer off, per the Indonesia template"},
+  hc_l3:{id:"Rencana headcount",en:"Headcount plan"},hc_l3s:{id:"dalam plan unit Commercial, posisi disetujui",en:"within the Commercial unit plan, position approved"},
+  hc_l4:{id:"Keberagaman slate",en:"Slate diversity"},hc_l4s:{id:"slate beragam tercapai lewat sourcing, bukan bonus skor",en:"a diverse slate achieved through sourcing, not score bonuses"},
+  hc_prev:{id:"Rudi W., Line Manager",en:"Rudi W., Line Manager"},hc_prev_d:{id:"Kandidat kuat, paket sesuai kebutuhan tim. Setuju lanjut.",en:"Strong candidate, package fits the team need. Approved to proceed."},
+  hc_ai:{id:"Ringkasan HC AI",en:"HC AI summary"},hc_ai_d:{id:"Tawaran 40 jt di antara p50 dan p75 pasar, ekuitas internal aman. Saran, keputusan tetap pada Anda.",en:"The 40M offer sits between market p50 and p75, internal equity is clear. A suggestion, the decision stays with you."},
+  cmt_ph:{id:"Tambahkan komentar untuk approver berikutnya, opsional",en:"Add a comment for the next approver, optional"},
+  approve:{id:"Setujui",en:"Approve"},revise:{id:"Minta revisi",en:"Request changes"},reject:{id:"Tolak",en:"Reject"},delegate:{id:"Delegasikan",en:"Delegate"},sla1:{id:"SLA 1 hari",en:"SLA 1 day"},
+  sod_note:{id:"Anda tidak bisa menyetujui pengajuan Anda sendiri. Bila ada konflik kepentingan, wajib deklarasi lalu delegasikan ke approver setara. Setiap keputusan dan komentar tercatat di audit.",en:"You cannot approve your own submission. If there is a conflict of interest, you must declare it and delegate to a peer approver. Every decision and comment is logged in the audit."},
+  foot:{id:"One HCMS · Talent Acquisition · Persetujuan · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Approvals · prototype, per Design System v3"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(I18N[k])el.textContent=I18N[k][lang];});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+document.getElementById('seg').addEventListener('click',e=>{const b=e.target.closest('button[data-r]');if(!b)return;
+  document.querySelectorAll('#seg button').forEach(x=>x.classList.toggle('active',x===b));
+  document.body.className='role-'+b.dataset.r;
+});
+document.querySelectorAll('.inbox').forEach(box=>box.addEventListener('click',e=>{const it=e.target.closest('.item');if(!it)return;
+  const vis=it.closest('.only-lm, .only-hcbp')||box;
+  vis.querySelectorAll('.item').forEach(x=>x.classList.toggle('active',x===it));
+}));
+applyLang();
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>

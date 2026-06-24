@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>One HCMS · TA · Recruiter Workbench</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700;800&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#ffffff;--surface:#ffffff;--surface-2:#f7f8fa;--surface-3:#eef1f5;
+  --n200:#e6e9ef;--n300:#d4dae3;--n400:#aeb6c2;--n500:#8b94a3;
+  --border:#e6e9ef;--border-strong:#d4dae3;
+  --ink:#171a1f;--ink-2:#525a67;--ink-3:#8b94a3;
+  --primary:#e1231b;--primary-700:#b8141a;--primary-600:#cf1a18;--primary-300:#f08a85;--primary-tint:#fceceb;--primary-tint-2:#f9dad7;
+  --dark:#1f242c;--dark-2:#2b323c;
+  --success:#1f9d57;--success-tint:#e6f5ec;--warning:#c47d10;--warning-tint:#faeed4;--danger:#c42b21;--danger-tint:#fbe9e7;--info:#2563c9;--info-tint:#e7effb;--slate:#64748b;--slate-tint:#eef1f5;--violet:#6d4aa8;--violet-tint:#efe9f8;
+  --font-display:"Schibsted Grotesk",system-ui,sans-serif;--font-ui:"Geist",system-ui,sans-serif;--font-num:"Geist Mono",ui-monospace,monospace;
+  --r-sm:8px;--r-md:11px;--r-lg:16px;
+  --e1:0 1px 2px rgba(23,26,31,.05),0 1px 3px rgba(23,26,31,.04);
+  --e2:0 4px 10px -4px rgba(23,26,31,.12),0 2px 6px rgba(23,26,31,.05);
+  --e3:0 12px 28px -10px rgba(23,26,31,.18);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:var(--font-ui);font-size:14px;line-height:1.5;color:var(--ink);background:var(--surface-2)}
+.num{font-family:var(--font-num);font-variant-numeric:tabular-nums}
+h1,h2,h3,h4{font-family:var(--font-display)}
+button{font-family:inherit;cursor:pointer}
+a{color:var(--primary)}
+::selection{background:var(--primary);color:#fff}
+
+.app{height:100vh;display:flex;flex-direction:column;overflow:hidden}
+.topbar{position:relative;flex:0 0 auto;display:flex;align-items:center;gap:13px;padding:11px 22px;border-bottom:1px solid var(--border);background:var(--surface);z-index:60}
+.topbar::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--primary)}
+.brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+.brand .mark{height:26px;width:auto;flex:0 0 auto;display:block}
+.brand .pn{font-family:var(--font-display);font-weight:800;font-size:15px;letter-spacing:-.2px;line-height:1.05;white-space:nowrap}
+.brand .pn small{display:block;font-size:10px;color:var(--ink-3);font-weight:400;font-family:var(--font-ui);letter-spacing:0;white-space:nowrap}
+.brand .div{width:1px;height:24px;background:var(--border);margin:0 4px}
+.modtag{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--ink);flex:0 0 auto}
+.modtag .n{font-family:var(--font-num);font-weight:600;color:var(--primary);font-size:10.5px;background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:6px;width:23px;height:23px;display:grid;place-items:center}
+.modtag>div{white-space:nowrap;line-height:1.12}.modtag small{display:block;line-height:1.05;color:var(--ink-3);font-weight:400}
+.sp{flex:1}
+.search{display:inline-flex;align-items:center;gap:8px;background:var(--surface-2);border:1px solid var(--border);border-radius:999px;padding:8px 14px;color:var(--ink-3);min-width:190px}
+.search svg{width:15px;height:15px}.search input{border:none;outline:none;background:transparent;font-size:13px;font-family:inherit;color:var(--ink);width:100%}
+.lang{display:inline-flex;background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.lang button{border:none;background:transparent;padding:5px 11px;border-radius:6px;font-size:11.5px;font-weight:700;color:var(--ink-3);font-family:var(--font-num)}
+.lang button.active{background:var(--surface);color:var(--primary);box-shadow:var(--e1)}
+.aibtn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--primary);background:var(--primary-tint);color:var(--primary-700);border-radius:999px;padding:8px 13px;font-weight:600;font-size:12.5px}
+.aibtn svg{width:15px;height:15px}
+.iconbtn{width:38px;height:38px;border-radius:9px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2);position:relative}
+.iconbtn:hover{background:var(--surface-2)}.iconbtn svg{width:17px;height:17px}
+.iconbtn .dot{position:absolute;top:7px;right:8px;width:7px;height:7px;border-radius:50%;background:var(--primary);border:1.5px solid #fff}
+.me{display:flex;align-items:center;gap:9px}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;font-weight:700;font-size:12.5px;border:1px solid var(--primary-tint-2)}
+.me .nm{font-size:12.5px;font-weight:600;line-height:1.1}.me .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+
+.layout{flex:1;display:flex;min-height:0}
+.side{width:218px;flex:0 0 auto;border-right:1px solid var(--border);overflow-y:auto;padding:14px 10px;background:var(--surface)}
+.sidehead{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-3);padding:4px 10px 8px}
+.side nav a{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:8px;color:var(--ink-2);text-decoration:none;font-weight:500;font-size:12.5px;margin-bottom:1px;cursor:pointer}
+.side nav a svg{width:16px;height:16px;color:var(--ink-3);flex:0 0 auto}
+.side nav a:hover{background:var(--surface-2);color:var(--ink)}
+.side nav a.active{background:var(--primary-tint);color:var(--primary);font-weight:600}
+.side nav a.active svg{color:var(--primary)}
+.side nav a .cnt{margin-left:auto;font-family:var(--font-num);font-size:10px;color:var(--ink-3);background:var(--surface-3);border-radius:20px;padding:1px 7px}
+.side nav a.active .cnt{background:#fff;color:var(--primary)}
+
+.main{flex:1;overflow:hidden;display:flex;flex-direction:column;min-width:0;padding:16px 22px 0}
+.crumb{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-3);margin-bottom:8px}
+.crumb a{color:var(--ink-3);text-decoration:none}.crumb .cur{color:var(--ink);font-weight:600}
+
+/* requisition header */
+.reqhead{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-md);padding:14px 16px;box-shadow:var(--e1)}
+.reqhead .top{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.reqhead h2{margin:0;font-size:19px;letter-spacing:-.4px}
+.reqhead .tags{display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin-top:6px}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;border-radius:7px;padding:3px 9px;background:var(--surface-2);border:1px solid var(--border);color:var(--ink-2)}
+.pill svg{width:12px;height:12px;color:var(--ink-3)}
+.reqhead .acts{margin-left:auto;display:flex;gap:8px}
+.rolebadge{display:flex;align-items:center;gap:8px;font-size:12px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:6px 12px;font-weight:600}
+.rolebadge i{width:9px;height:9px;border-radius:3px;background:#b8456e}
+.reqstats{display:flex;gap:0;margin-top:13px;border-top:1px solid var(--surface-3);padding-top:12px;flex-wrap:wrap}
+.rstat{padding:0 18px;border-right:1px solid var(--surface-3)}
+.rstat:first-child{padding-left:0}.rstat:last-child{border-right:none}
+.rstat .l{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-3)}
+.rstat .v{font-family:var(--font-num);font-size:18px;font-weight:600;margin-top:2px}
+.rstat .v.hot{color:var(--danger)}
+.rstat .v small{font-size:11px;color:var(--ink-3)}
+
+.btn{display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:7px 13px;font-weight:600;font-size:12.5px;border:1px solid transparent;transition:.12s}
+.btn svg{width:15px;height:15px}.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--primary);color:#fff;border-color:var(--primary)}.btn-primary:hover{background:var(--primary-600)}
+.btn-dark{background:var(--dark);color:#fff;border-color:var(--dark)}.btn-dark:hover{background:var(--dark-2)}
+.btn-ghost{background:var(--surface);color:var(--ink);border-color:var(--border-strong)}.btn-ghost:hover{background:var(--surface-2)}
+.btn-quiet{background:transparent;color:var(--ink-2)}.btn-quiet:hover{background:var(--surface-2)}
+.btn-danger{background:var(--surface);color:var(--danger);border-color:#eec6c1}.btn-danger:hover{background:var(--danger-tint)}
+.btn.sm{padding:5px 10px;font-size:11.5px}
+
+/* HC AI banner */
+.aiband{display:flex;gap:12px;align-items:center;background:linear-gradient(180deg,#fff,var(--primary-tint));border:1px solid var(--primary-tint-2);border-radius:var(--r-md);padding:11px 14px;margin-top:12px}
+.aiband .ic{width:32px;height:32px;border-radius:9px;background:var(--primary);display:grid;place-items:center;flex:0 0 auto}
+.aiband .ic svg{width:18px;height:18px;color:#fff}
+.aiband .tx{flex:1;font-size:12.5px;color:var(--ink)}
+.aiband .tx b{font-weight:700}
+
+/* toolbar */
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:13px 0 11px}
+.chip{border:1px solid var(--border);background:var(--surface);color:var(--ink-2);border-radius:999px;padding:5px 12px;font-size:12px;font-weight:600}
+.chip.active{background:var(--primary);border-color:var(--primary);color:#fff}
+.toolbar .blind{display:inline-flex;align-items:center;gap:9px;font-size:12px;font-weight:600;color:var(--ink-2);background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:6px 11px}
+.switch{position:relative;width:36px;height:21px;border-radius:999px;background:var(--n300);transition:.2s;flex:0 0 auto;border:none}
+.switch.on{background:var(--primary)}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:50%;background:#fff;box-shadow:var(--e1);transition:.2s}
+.switch.on::after{left:17px}
+.toolbar .rt{margin-left:auto;display:flex;gap:9px;align-items:center}
+
+/* board */
+.board{flex:1;display:flex;gap:13px;overflow-x:auto;overflow-y:hidden;padding-bottom:14px}
+.col{flex:0 0 264px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:10px;display:flex;flex-direction:column;min-height:0}
+.colh{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px}
+.colh .ct{font-weight:700;font-size:12px}
+.colh .ai{font-size:9px;font-weight:700;color:var(--primary-700);background:var(--primary-tint);border:1px solid var(--primary-tint-2);border-radius:5px;padding:1px 5px}
+.colh .cc{margin-left:auto;font-family:var(--font-num);font-size:11px;color:var(--ink-3);background:#fff;border:1px solid var(--border);border-radius:20px;padding:1px 8px}
+.cards{display:flex;flex-direction:column;gap:9px;overflow-y:auto;padding:2px}
+.kcard{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:11px;cursor:pointer;transition:.12s;position:relative}
+.kcard:hover{border-color:var(--border-strong);box-shadow:var(--e2)}
+.kcard.sel{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-tint)}
+.kcard .ch{display:flex;align-items:center;gap:9px}
+.kav{width:30px;height:30px;border-radius:50%;background:var(--surface-3);color:var(--ink-2);display:grid;place-items:center;font-weight:700;font-size:11px;flex:0 0 auto}
+.kcard .nm{font-weight:600;font-size:12.5px;line-height:1.15}
+.kcard .nm small{display:block;color:var(--ink-3);font-weight:400;font-size:10.5px}
+.sc{margin-left:auto;font-family:var(--font-num);font-weight:700;border-radius:7px;padding:2px 7px;font-size:12px;border:1px solid;flex:0 0 auto}
+.sc.exc{background:var(--success-tint);color:var(--success);border-color:#bce6cd}
+.sc.str{background:var(--info-tint);color:var(--info);border-color:#cbddf6}
+.sc.mod{background:var(--warning-tint);color:var(--warning);border-color:#ecd9a8}
+.sc.pend{background:var(--surface-2);color:var(--ink-3);border-color:var(--border)}
+.kcard .ktags{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin-top:9px}
+.kt{font-size:10px;font-weight:600;border-radius:6px;padding:2px 6px;background:var(--surface-2);border:1px solid var(--border);color:var(--ink-3);display:inline-flex;align-items:center;gap:4px}
+.kt svg{width:10px;height:10px}
+.kt.flag{background:var(--success-tint);color:var(--success);border-color:#bce6cd}
+.kt.intern{background:var(--info-tint);color:var(--info);border-color:#cbddf6}
+.kcard .qa{display:flex;gap:6px;margin-top:10px;opacity:0;max-height:0;overflow:hidden;transition:.15s}
+.kcard:hover .qa,.kcard.sel .qa{opacity:1;max-height:40px}
+.qb{flex:1;display:grid;place-items:center;height:28px;border-radius:7px;border:1px solid var(--border);background:var(--surface-2);color:var(--ink-2)}
+.qb:hover{background:#fff;border-color:var(--border-strong)}
+.qb svg{width:14px;height:14px}
+.qb.adv:hover{color:var(--success);border-color:#bce6cd;background:var(--success-tint)}
+.qb.rej:hover{color:var(--danger);border-color:#eec6c1;background:var(--danger-tint)}
+
+/* drawer */
+.scrim{position:fixed;inset:58px 0 0 0;background:rgba(23,26,31,.18);z-index:45;opacity:0;pointer-events:none;transition:.2s}
+.scrim.show{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:58px;right:0;bottom:0;width:392px;max-width:92vw;background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--e3);z-index:50;transform:translateX(100%);transition:transform .22s cubic-bezier(.22,.61,.36,1);display:flex;flex-direction:column}
+.drawer.open{transform:none}
+.dwh{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;align-items:flex-start;gap:11px}
+.dwh .x{margin-left:auto;width:30px;height:30px;border-radius:8px;border:1px solid var(--border);background:var(--surface);display:grid;place-items:center;color:var(--ink-2)}
+.dwh .x svg{width:15px;height:15px}
+.dwav{width:46px;height:46px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:grid;place-items:center;font-weight:700;font-size:16px;flex:0 0 auto;border:1px solid var(--primary-tint-2)}
+.dwh .who .nm{font-family:var(--font-display);font-weight:800;font-size:17px;letter-spacing:-.3px}
+.dwh .who .rl{font-size:11.5px;color:var(--ink-3)}
+.dwh .who .meta{display:flex;align-items:center;gap:6px;margin-top:5px}
+.scbig{font-family:var(--font-num);font-weight:700;font-size:13px;border-radius:8px;padding:3px 9px;border:1px solid}
+.tierlab{font-size:11px;font-weight:700;border-radius:6px;padding:2px 8px}
+.tierlab.exc{background:var(--success-tint);color:var(--success)}
+.dwbody{flex:1;overflow-y:auto;padding:14px 16px}
+.dwacts{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--border);background:var(--surface)}
+.dwacts .btn{flex:1;justify-content:center}
+.sec{margin-bottom:16px}
+.sec h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);margin:0 0 9px;display:flex;align-items:center;gap:7px}
+.sec h5 svg{width:13px;height:13px;color:var(--primary)}
+.wbar{display:grid;grid-template-columns:118px 1fr 40px;align-items:center;gap:9px;margin-bottom:7px}
+.wbar .wl{font-size:11.5px;color:var(--ink-2)}
+.wbar .wt{height:14px;background:var(--surface-3);border-radius:5px;overflow:hidden}
+.wbar .wf{height:100%;background:linear-gradient(90deg,var(--primary),var(--primary-600));border-radius:5px}
+.wbar .wv{font-family:var(--font-num);font-size:11.5px;font-weight:600;text-align:right}
+.wtot{display:flex;align-items:center;justify-content:space-between;border-top:1px dashed var(--border-strong);margin-top:6px;padding-top:7px;font-size:12px;font-weight:700}
+.wtot .num{color:var(--success)}
+.reason{font-size:12.5px;color:var(--ink);background:var(--surface-2);border:1px solid var(--border);border-radius:9px;padding:10px 12px;line-height:1.5}
+.kc{display:flex;gap:8px;align-items:flex-start;font-size:12px;padding:7px 0;border-bottom:1px solid var(--surface-3)}
+.kc:last-child{border-bottom:none}
+.kc .ki{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;flex:0 0 auto;margin-top:1px}
+.kc .ki svg{width:12px;height:12px}
+.kc.good .ki{background:var(--success-tint);color:var(--success)}
+.kc.warn .ki{background:var(--warning-tint);color:var(--warning)}
+.kc b{font-weight:600}
+.exp{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--surface-3)}
+.exp:last-child{border-bottom:none}
+.exp .dot{width:8px;height:8px;border-radius:50%;background:var(--primary);margin-top:5px;flex:0 0 auto}
+.exp .et{font-weight:600;font-size:12.5px}
+.exp .em{font-size:11px;color:var(--ink-3)}
+.pred{background:var(--violet-tint);border:1px solid #d9cdef;border-radius:9px;padding:10px 12px;font-size:12.5px;color:#4a3470}
+.pred b{font-weight:700}
+.muted{font-size:12px;color:var(--ink-3);font-style:normal}
+.foot{font-size:10.5px;color:var(--ink-3);text-align:center;padding:8px 0 12px}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="brand">
+      <img class="mark" src="data:image/png;base64,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" alt="Nabati">
+      <div class="pn">One HCMS<small>Nabati Group</small></div>
+    </div>
+    <div class="div"></div>
+    <div class="modtag"><span class="n">04</span><div>Talent Acquisition<small data-i18n="topsub">Recruiter Workbench</small></div></div>
+    <div class="sp"></div>
+    <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><input data-i18n-ph="search" placeholder="Cari kandidat"></div>
+    <div class="lang" id="lang"><button data-l="id" class="active">ID</button><button data-l="en">EN</button></div>
+    <button class="aibtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg>HC AI</button>
+    <button class="iconbtn"><span class="dot"></span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></button>
+    <div class="me"><div class="avatar">DA</div><div class="nm">Dewi A.<small>Recruiter</small></div></div>
+  </div>
+
+  <div class="layout">
+    <!-- SIDE NAV -->
+    <aside class="side">
+      <div class="sidehead" data-i18n="navhead">Talent Acquisition</div>
+      <nav>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="n_home">Ringkasan</span></a>
+        <a class="active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2h8l4 4v16H6Z"/><path d="M14 2v4h4M9 13h6M9 17h6"/></svg><span data-i18n="n_req">Requisition saya</span><span class="cnt">34</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M16 3.5a3 3 0 0 1 0 9M21 20a6 6 0 0 0-4-5.7"/></svg><span data-i18n="n_cand">Kandidat</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4M9 15l2 2 4-4"/></svg><span data-i18n="n_int">Wawancara</span><span class="cnt">7</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 1.7 3 .2.9 2.9 2 2.2-1 2.8.4 3-2.6 1.5-1.5 2.6-3-.4-2.7 1.3-2.7-1.3-3 .4-1.5-2.6L3.3 16l.4-3-1-2.8 2-2.2.9-2.9 3-.2Z"/><path d="m9 12 2 2 4-4"/></svg><span data-i18n="n_offer">Penawaran</span></a>
+        <a><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4-4"/></svg><span data-i18n="n_source">Sumber &amp; Channel</span></a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <div class="crumb"><a data-i18n="cr_req">Requisition saya</a><span>/</span><span class="cur">Senior Sales Manager</span></div>
+
+      <!-- REQ HEADER -->
+      <div class="reqhead">
+        <div class="top">
+          <div>
+            <h2>Senior Sales Manager</h2>
+            <div class="tags">
+              <span class="pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="10" r="3"/><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11Z"/></svg>Jakarta</span>
+              <span class="pill" data-i18n="p_bu">BU Sales ID</span>
+              <span class="pill"><span data-i18n="p_open">1 lowongan</span></span>
+              <span class="pill" data-i18n="p_type">Permanen</span>
+              <span class="pill" style="color:var(--danger);border-color:#eec6c1;background:var(--danger-tint)"><span data-i18n="p_age">Umur 41 hari</span></span>
+            </div>
+          </div>
+          <div class="acts">
+            <div class="rolebadge"><i></i>Recruiter</div>
+            <button class="btn btn-ghost sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/></svg><span data-i18n="a_channel">Channel</span></button>
+            <button class="btn btn-dark sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg><span data-i18n="a_add">Tambah kandidat</span></button>
+          </div>
+        </div>
+        <div class="reqstats">
+          <div class="rstat"><div class="l" data-i18n="st_app">Pelamar</div><div class="v">247</div></div>
+          <div class="rstat"><div class="l" data-i18n="st_screen">Tersaring</div><div class="v">86</div></div>
+          <div class="rstat"><div class="l" data-i18n="st_short">Shortlist</div><div class="v">15</div></div>
+          <div class="rstat"><div class="l" data-i18n="st_int">Wawancara</div><div class="v">4</div></div>
+          <div class="rstat"><div class="l" data-i18n="st_offer">Penawaran</div><div class="v">1</div></div>
+          <div class="rstat"><div class="l" data-i18n="st_ttf">Time to fill</div><div class="v hot">41 <small data-i18n="u_day">hari</small></div></div>
+        </div>
+      </div>
+
+      <!-- HC AI BANNER -->
+      <div class="aiband">
+        <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+        <div class="tx" data-i18n="ai_band"><b>247 pelamar tersaring dalam 8 menit.</b> 15 masuk shortlist, 3 ditandai luar biasa. Ahmad Fauzi teratas dengan kecocokan 94%.</div>
+        <button class="btn btn-ghost sm" data-i18n="ai_btn">Lihat 3 unggulan</button>
+      </div>
+
+      <!-- TOOLBAR -->
+      <div class="toolbar">
+        <span class="chip active" data-i18n="f_all">Semua</span>
+        <span class="chip" data-i18n="f_exc">Luar biasa</span>
+        <span class="chip" data-i18n="f_str">Kuat</span>
+        <span class="chip" data-i18n="f_mod">Sedang</span>
+        <div class="rt">
+          <div class="blind"><span data-i18n="blind">Blind screening</span><button class="switch" id="blindsw"></button></div>
+          <button class="btn btn-ghost sm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M6 12h12M10 18h4"/></svg><span data-i18n="sort">Urutkan: skor</span></button>
+        </div>
+      </div>
+
+      <!-- KANBAN BOARD -->
+      <div class="board" id="board">
+        <!-- col: pelamar baru -->
+        <div class="col">
+          <div class="colh"><span class="ct" data-i18n="c_new">Pelamar baru</span><span class="cc">161</span></div>
+          <div class="cards">
+            <div class="kcard" data-name="Indah Permata" data-blind="Kandidat A-1607" data-score="" data-tier="pend" data-sub="">
+              <div class="ch"><div class="kav">IP</div><div class="nm cn">Indah Permata<small class="cs" data-i18n="cs_new">baru melamar</small></div><span class="sc pend">·</span></div>
+              <div class="ktags"><span class="kt" data-i18n="kt_jobboard">Job board</span><span class="kt" data-i18n="kt_wait">menunggu screening</span></div>
+            </div>
+            <div class="kcard" data-name="Yoga Saputra" data-blind="Kandidat A-1608" data-score="" data-tier="pend" data-sub="">
+              <div class="ch"><div class="kav">YS</div><div class="nm cn">Yoga Saputra<small class="cs" data-i18n="cs_new">baru melamar</small></div><span class="sc pend">·</span></div>
+              <div class="ktags"><span class="kt" data-i18n="kt_referral">Referral</span><span class="kt" data-i18n="kt_wait">menunggu screening</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- col: tersaring HC AI -->
+        <div class="col">
+          <div class="colh"><span class="ct" data-i18n="c_screen">Tersaring</span><span class="ai">HC AI</span><span class="cc">86</span></div>
+          <div class="cards">
+            <div class="kcard" data-name="Sari Wulandari" data-blind="Kandidat A-1420" data-score="76" data-tier="str" data-sub="6 thn ritel">
+              <div class="ch"><div class="kav">SW</div><div class="nm cn">Sari Wulandari<small class="cs">6 thn ritel</small></div><span class="sc str">76</span></div>
+              <div class="ktags"><span class="kt">Bandung</span><span class="kt" data-i18n="kt_jobboard">Job board</span></div>
+              <div class="qa"><button class="qb adv" title="Naikkan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="qb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button><button class="qb rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            </div>
+            <div class="kcard" data-name="Eko Prasetyo" data-blind="Kandidat A-1421" data-score="71" data-tier="mod" data-sub="4 thn sales">
+              <div class="ch"><div class="kav">EP</div><div class="nm cn">Eko Prasetyo<small class="cs">4 thn sales</small></div><span class="sc mod">71</span></div>
+              <div class="ktags"><span class="kt">Jakarta</span><span class="kt" data-i18n="kt_jobboard">Job board</span></div>
+              <div class="qa"><button class="qb adv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="qb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button><button class="qb rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            </div>
+            <div class="kcard" data-name="Lina Marlina" data-blind="Kandidat A-1422" data-score="68" data-tier="mod" data-sub="5 thn FMCG">
+              <div class="ch"><div class="kav">LM</div><div class="nm cn">Lina Marlina<small class="cs">5 thn FMCG</small></div><span class="sc mod">68</span></div>
+              <div class="ktags"><span class="kt">Surabaya</span><span class="kt" data-i18n="kt_referral">Referral</span></div>
+              <div class="qa"><button class="qb adv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="qb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button><button class="qb rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- col: shortlist -->
+        <div class="col">
+          <div class="colh"><span class="ct" data-i18n="c_short">Shortlist HM</span><span class="cc">15</span></div>
+          <div class="cards">
+            <div class="kcard sel" data-name="Ahmad Fauzi" data-blind="Kandidat A-1180" data-score="94" data-tier="exc" data-sub="8 thn FMCG sales">
+              <div class="ch"><div class="kav">AF</div><div class="nm cn">Ahmad Fauzi<small class="cs">8 thn FMCG sales</small></div><span class="sc exc">94</span></div>
+              <div class="ktags"><span class="kt flag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 2 3 7h7l-5.5 4 2 7L12 17l-6.5 4 2-7L2 9h7z"/></svg><span data-i18n="kt_exc">Luar biasa</span></span><span class="kt" data-i18n="kt_referral">Referral</span><span class="kt">Mandarin</span></div>
+              <div class="qa"><button class="qb adv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="qb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button><button class="qb rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            </div>
+            <div class="kcard" data-name="Putri Lestari" data-blind="Kandidat A-1181" data-score="88" data-tier="str" data-sub="7 thn sales B2B">
+              <div class="ch"><div class="kav">PL</div><div class="nm cn">Putri Lestari<small class="cs">7 thn sales B2B</small></div><span class="sc str">88</span></div>
+              <div class="ktags"><span class="kt">Jakarta</span><span class="kt" data-i18n="kt_jobboard">Job board</span></div>
+              <div class="qa"><button class="qb adv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="qb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button><button class="qb rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            </div>
+            <div class="kcard" data-name="Reza Hidayat" data-blind="Kandidat A-1182" data-score="82" data-tier="str" data-sub="internal, BU Distribution">
+              <div class="ch"><div class="kav">RH</div><div class="nm cn">Reza Hidayat<small class="cs">internal, BU Distribution</small></div><span class="sc str">82</span></div>
+              <div class="ktags"><span class="kt intern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m12 2 3 7h7l-5.5 4 2 7L12 17l-6.5 4 2-7L2 9h7z"/></svg><span data-i18n="kt_intern">Internal</span></span><span class="kt">Surabaya</span></div>
+              <div class="qa"><button class="qb adv"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button><button class="qb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button><button class="qb rej"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- col: assessment -->
+        <div class="col">
+          <div class="colh"><span class="ct" data-i18n="c_assess">Assessment</span><span class="cc">6</span></div>
+          <div class="cards">
+            <div class="kcard" data-name="Maya Sari" data-blind="Kandidat A-0980" data-score="79" data-tier="str" data-sub="6 thn sales">
+              <div class="ch"><div class="kav">MS</div><div class="nm cn">Maya Sari<small class="cs">6 thn sales</small></div><span class="sc str">79</span></div>
+              <div class="ktags"><span class="kt">Jakarta</span><span class="kt" data-i18n="kt_assessing">tes berlangsung</span></div>
+            </div>
+            <div class="kcard" data-name="Doni Kurnia" data-blind="Kandidat A-0981" data-score="77" data-tier="str" data-sub="5 thn FMCG">
+              <div class="ch"><div class="kav">DK</div><div class="nm cn">Doni Kurnia<small class="cs">5 thn FMCG</small></div><span class="sc str">77</span></div>
+              <div class="ktags"><span class="kt">Bekasi</span><span class="kt" data-i18n="kt_assessing">tes berlangsung</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- col: wawancara -->
+        <div class="col">
+          <div class="colh"><span class="ct" data-i18n="c_int">Wawancara</span><span class="cc">4</span></div>
+          <div class="cards">
+            <div class="kcard" data-name="Bima Putra" data-blind="Kandidat A-0712" data-score="85" data-tier="str" data-sub="9 thn sales regional">
+              <div class="ch"><div class="kav">BP</div><div class="nm cn">Bima Putra<small class="cs">9 thn sales regional</small></div><span class="sc str">85</span></div>
+              <div class="ktags"><span class="kt">Jakarta</span><span class="kt" data-i18n="kt_panel">panel 2 dari 3</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- col: penawaran -->
+        <div class="col">
+          <div class="colh"><span class="ct" data-i18n="c_offer">Penawaran</span><span class="cc">1</span></div>
+          <div class="cards">
+            <div class="kcard" data-name="Citra Dewi" data-blind="Kandidat A-0455" data-score="90" data-tier="exc" data-sub="10 thn sales FMCG">
+              <div class="ch"><div class="kav">CD</div><div class="nm cn">Citra Dewi<small class="cs">10 thn sales FMCG</small></div><span class="sc exc">90</span></div>
+              <div class="ktags"><span class="kt" data-i18n="kt_offerprep">offer disiapkan</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="foot" data-i18n="foot">One HCMS · Talent Acquisition · Recruiter Workbench · prototipe, mengacu Design System v3</div>
+    </main>
+  </div>
+
+  <!-- SCRIM + DRAWER -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer open" id="drawer">
+    <div class="dwh">
+      <div class="dwav" id="dw_av">AF</div>
+      <div class="who">
+        <div class="nm" id="dw_name">Ahmad Fauzi</div>
+        <div class="rl"><span data-i18n="dw_applied">Melamar</span>: Senior Sales Manager</div>
+        <div class="meta"><span class="scbig sc exc" id="dw_score">94</span><span class="tierlab exc" id="dw_tier" data-i18n="kt_exc">Luar biasa</span></div>
+      </div>
+      <button class="x" id="dw_close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="dwbody">
+      <!-- HC AI reasoning -->
+      <div class="sec">
+        <h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v3M5.6 5.6l2.1 2.1M3 12h3M18 12h3M16.3 7.7l2.1-2.1M12 18v3"/><circle cx="12" cy="12" r="3.5"/></svg><span data-i18n="s_reason">Alasan HC AI</span></h5>
+        <div class="wbar"><div class="wl" data-i18n="b_exp">Relevansi pengalaman</div><div class="wt"><div class="wf" style="width:95%"></div></div><div class="wv">38/40</div></div>
+        <div class="wbar"><div class="wl" data-i18n="b_skill">Kecocokan skill</div><div class="wt"><div class="wf" style="width:93%"></div></div><div class="wv">28/30</div></div>
+        <div class="wbar"><div class="wl" data-i18n="b_edu">Pendidikan</div><div class="wt"><div class="wf" style="width:87%"></div></div><div class="wv">13/15</div></div>
+        <div class="wbar"><div class="wl" data-i18n="b_cult">Budaya &amp; perilaku</div><div class="wt"><div class="wf" style="width:90%"></div></div><div class="wv">9/10</div></div>
+        <div class="wbar"><div class="wl" data-i18n="b_traj">Trajektori karier</div><div class="wt"><div class="wf" style="width:100%"></div></div><div class="wv">5/5</div></div>
+        <div class="wtot"><span data-i18n="b_total">Total kecocokan</span><span class="num">94%</span></div>
+        <div class="reason" style="margin-top:11px" data-i18n="reason_tx">Kandidat unggul karena 8 tahun pengalaman sales FMCG, rekam jejak memimpin tim regional, dan fasih Mandarin untuk ekspansi pasar China.</div>
+      </div>
+      <!-- kekuatan & perhatian -->
+      <div class="sec">
+        <h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg><span data-i18n="s_signal">Kekuatan &amp; perhatian</span></h5>
+        <div class="kc good"><div class="ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></div><div data-i18n="sig_good">Fasih Mandarin, langka untuk peran ini dan kritis bagi ekspansi China.</div></div>
+        <div class="kc warn"><div class="ki"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 8v5M12 16h.01"/></svg></div><div data-i18n="sig_warn">Ekspektasi gaji 12% di atas budget, perlu strategi negosiasi.</div></div>
+      </div>
+      <!-- prediksi -->
+      <div class="sec">
+        <h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20V4M3 20h18M8 16V9M13 16V6M18 16v-4"/></svg><span data-i18n="s_pred">Prediksi sukses</span></h5>
+        <div class="pred" data-i18n="pred_tx"><b>78% kemungkinan menjadi top performer</b>, keyakinan tinggi. Mirip 47 hire sukses di peran sales. Dapat ditelusuri di audit HC AI.</div>
+      </div>
+      <!-- pengalaman -->
+      <div class="sec">
+        <h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg><span data-i18n="s_exp">Pengalaman</span></h5>
+        <div class="exp"><div class="dot"></div><div><div class="et">Regional Sales Manager · Indofood</div><div class="em">2019 - 2026 · Jakarta</div></div></div>
+        <div class="exp"><div class="dot"></div><div><div class="et">Area Sales Supervisor · Wings Food</div><div class="em">2016 - 2019 · Bandung</div></div></div>
+        <div class="exp"><div class="dot"></div><div><div class="et">Sales Executive · Mayora</div><div class="em">2014 - 2016 · Surabaya</div></div></div>
+      </div>
+      <!-- assessment & wawancara -->
+      <div class="sec">
+        <h5><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><span data-i18n="s_assess">Assessment &amp; wawancara</span></h5>
+        <div class="kc"><div class="ki" style="background:var(--surface-2);color:var(--ink-3)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v4"/></svg></div><div class="muted" data-i18n="assess_none">Belum ditugaskan, akan otomatis saat masuk tahap Assessment.</div></div>
+      </div>
+    </div>
+    <div class="dwacts">
+      <button class="btn btn-danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg><span data-i18n="act_rej">Tolak</span></button>
+      <button class="btn btn-ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span data-i18n="act_sched">Jadwalkan</span></button>
+      <button class="btn btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span data-i18n="act_adv">Naikkan ke Assessment</span></button>
+    </div>
+  </aside>
+</div>
+
+<script>
+const I18N={
+  topsub:{id:"Recruiter Workbench",en:"Recruiter Workbench"},
+  search:{id:"Cari kandidat",en:"Search candidates"},
+  navhead:{id:"Talent Acquisition",en:"Talent Acquisition"},
+  n_home:{id:"Ringkasan",en:"Overview"},
+  n_req:{id:"Requisition saya",en:"My requisitions"},
+  n_cand:{id:"Kandidat",en:"Candidates"},
+  n_int:{id:"Wawancara",en:"Interviews"},
+  n_offer:{id:"Penawaran",en:"Offers"},
+  n_source:{id:"Sumber & Channel",en:"Sources & Channels"},
+  cr_req:{id:"Requisition saya",en:"My requisitions"},
+  p_bu:{id:"BU Sales ID",en:"BU Sales ID"},
+  p_open:{id:"1 lowongan",en:"1 opening"},
+  p_type:{id:"Permanen",en:"Permanent"},
+  p_age:{id:"Umur 41 hari",en:"Age 41 days"},
+  a_channel:{id:"Channel",en:"Channels"},
+  a_add:{id:"Tambah kandidat",en:"Add candidate"},
+  st_app:{id:"Pelamar",en:"Applicants"},
+  st_screen:{id:"Tersaring",en:"Screened"},
+  st_short:{id:"Shortlist",en:"Shortlist"},
+  st_int:{id:"Wawancara",en:"Interview"},
+  st_offer:{id:"Penawaran",en:"Offer"},
+  st_ttf:{id:"Time to fill",en:"Time to fill"},
+  u_day:{id:"hari",en:"days"},
+  ai_band:{id:"<b>247 pelamar tersaring dalam 8 menit.</b> 15 masuk shortlist, 3 ditandai luar biasa. Ahmad Fauzi teratas dengan kecocokan 94%.",en:"<b>247 applicants screened in 8 minutes.</b> 15 shortlisted, 3 flagged exceptional. Ahmad Fauzi leads at 94% match."},
+  ai_btn:{id:"Lihat 3 unggulan",en:"View top 3"},
+  f_all:{id:"Semua",en:"All"},
+  f_exc:{id:"Luar biasa",en:"Exceptional"},
+  f_str:{id:"Kuat",en:"Strong"},
+  f_mod:{id:"Sedang",en:"Moderate"},
+  blind:{id:"Blind screening",en:"Blind screening"},
+  sort:{id:"Urutkan: skor",en:"Sort: score"},
+  c_new:{id:"Pelamar baru",en:"New applicants"},
+  c_screen:{id:"Tersaring",en:"Screened"},
+  c_short:{id:"Shortlist HM",en:"HM shortlist"},
+  c_assess:{id:"Assessment",en:"Assessment"},
+  c_int:{id:"Wawancara",en:"Interview"},
+  c_offer:{id:"Penawaran",en:"Offer"},
+  cs_new:{id:"baru melamar",en:"just applied"},
+  kt_jobboard:{id:"Job board",en:"Job board"},
+  kt_referral:{id:"Referral",en:"Referral"},
+  kt_wait:{id:"menunggu screening",en:"awaiting screening"},
+  kt_exc:{id:"Luar biasa",en:"Exceptional"},
+  kt_intern:{id:"Internal",en:"Internal"},
+  kt_assessing:{id:"tes berlangsung",en:"assessment in progress"},
+  kt_panel:{id:"panel 2 dari 3",en:"panel 2 of 3"},
+  kt_offerprep:{id:"offer disiapkan",en:"offer in prep"},
+  foot:{id:"One HCMS · Talent Acquisition · Recruiter Workbench · prototipe, mengacu Design System v3",en:"One HCMS · Talent Acquisition · Recruiter Workbench · prototype, per Design System v3"},
+  dw_applied:{id:"Melamar",en:"Applied for"},
+  s_reason:{id:"Alasan HC AI",en:"HC AI reasoning"},
+  b_exp:{id:"Relevansi pengalaman",en:"Experience relevance"},
+  b_skill:{id:"Kecocokan skill",en:"Skills match"},
+  b_edu:{id:"Pendidikan",en:"Education"},
+  b_cult:{id:"Budaya & perilaku",en:"Culture & behavior"},
+  b_traj:{id:"Trajektori karier",en:"Career trajectory"},
+  b_total:{id:"Total kecocokan",en:"Total match"},
+  reason_tx:{id:"Kandidat unggul karena 8 tahun pengalaman sales FMCG, rekam jejak memimpin tim regional, dan fasih Mandarin untuk ekspansi pasar China.",en:"Top candidate due to 8 years FMCG sales experience, a track record leading regional teams, and Mandarin fluency for China market expansion."},
+  s_signal:{id:"Kekuatan & perhatian",en:"Strengths & concerns"},
+  sig_good:{id:"Fasih Mandarin, langka untuk peran ini dan kritis bagi ekspansi China.",en:"Mandarin fluency, rare for this role and critical for China expansion."},
+  sig_warn:{id:"Ekspektasi gaji 12% di atas budget, perlu strategi negosiasi.",en:"Salary expectation 12% above budget, needs a negotiation strategy."},
+  s_pred:{id:"Prediksi sukses",en:"Success prediction"},
+  pred_tx:{id:"<b>78% kemungkinan menjadi top performer</b>, keyakinan tinggi. Mirip 47 hire sukses di peran sales. Dapat ditelusuri di audit HC AI.",en:"<b>78% likelihood of becoming a top performer</b>, high confidence. Similar to 47 successful sales hires. Traceable in the HC AI audit."},
+  s_exp:{id:"Pengalaman",en:"Experience"},
+  s_assess:{id:"Assessment & wawancara",en:"Assessment & interview"},
+  assess_none:{id:"Belum ditugaskan, akan otomatis saat masuk tahap Assessment.",en:"Not yet assigned, automatic once the Assessment stage begins."},
+  act_rej:{id:"Tolak",en:"Reject"},
+  act_sched:{id:"Jadwalkan",en:"Schedule"},
+  act_adv:{id:"Naikkan ke Assessment",en:"Advance to Assessment"}
+};
+let lang='id';
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.dataset.i18n;if(!I18N[k])return;const v=I18N[k][lang];if(v.indexOf('<')>-1)el.innerHTML=v;else el.textContent=v;});
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.dataset.i18nPh;if(I18N[k])el.placeholder=I18N[k][lang];});
+  document.documentElement.lang=lang;
+}
+document.getElementById('lang').addEventListener('click',e=>{const b=e.target.closest('button[data-l]');if(!b)return;lang=b.dataset.l;document.querySelectorAll('#lang button').forEach(x=>x.classList.toggle('active',x===b));applyLang();});
+applyLang();
+
+/* filter chips */
+document.querySelector('.toolbar').addEventListener('click',e=>{const c=e.target.closest('.chip');if(!c)return;document.querySelectorAll('.toolbar .chip').forEach(x=>x.classList.remove('active'));c.classList.add('active');});
+
+/* blind screening swap */
+let blind=false;
+document.getElementById('blindsw').addEventListener('click',function(){
+  blind=!blind;this.classList.toggle('on',blind);
+  document.querySelectorAll('.kcard').forEach(card=>{
+    const nmEl=card.querySelector('.cn');const csEl=card.querySelector('.cs');const av=card.querySelector('.kav');
+    const realName=card.dataset.name, blindId=card.dataset.blind, sub=card.dataset.sub;
+    if(blind){
+      av.dataset.real=av.textContent;av.textContent='??';
+      nmEl.childNodes[0].nodeValue=blindId;
+    }else{
+      if(av.dataset.real)av.textContent=av.dataset.real;
+      nmEl.childNodes[0].nodeValue=realName;
+    }
+  });
+  // drawer header
+  const dn=document.getElementById('dw_name');const dav=document.getElementById('dw_av');
+  if(blind){dn.dataset.real=dn.textContent;dn.textContent='Kandidat A-1180';dav.textContent='??';}
+  else{if(dn.dataset.real)dn.textContent=dn.dataset.real;dav.textContent='AF';}
+});
+
+/* card click -> open drawer & populate header */
+const drawer=document.getElementById('drawer'),scrim=document.getElementById('scrim');
+function openDrawer(){drawer.classList.add('open');}
+function closeDrawer(){drawer.classList.remove('open');}
+document.getElementById('board').addEventListener('click',e=>{
+  const card=e.target.closest('.kcard');if(!card)return;
+  if(e.target.closest('.qb')){return;} // quick actions don't open drawer
+  document.querySelectorAll('.kcard').forEach(c=>c.classList.remove('sel'));
+  card.classList.add('sel');
+  const tier=card.dataset.tier, score=card.dataset.score;
+  document.getElementById('dw_name').textContent=blind?card.dataset.blind:card.dataset.name;
+  document.getElementById('dw_av').textContent=blind?'??':card.dataset.name.split(' ').map(w=>w[0]).slice(0,2).join('');
+  const ds=document.getElementById('dw_score');ds.textContent=score||'·';ds.className='scbig sc '+(tier||'pend');
+  const dt=document.getElementById('dw_tier');
+  const tierName={exc:I18N.kt_exc[lang],str:I18N.f_str[lang],mod:I18N.f_mod[lang],pend:I18N.kt_wait[lang]}[tier]||'';
+  dt.textContent=tierName;dt.className='tierlab '+(tier==='exc'?'exc':'');dt.style.cssText=tier==='exc'?'':'background:var(--surface-2);color:var(--ink-3)';
+  openDrawer();
+});
+document.getElementById('dw_close').addEventListener('click',closeDrawer);
+scrim.addEventListener('click',closeDrawer);
+</script>
+<style>.topbar{display:none!important}</style></body>
+</html>
