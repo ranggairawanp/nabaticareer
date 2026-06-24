@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apply - Nabati Careers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="nabati_career_data.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --red:#E1231B;--ink:#1F242C;--ink-2:#4b5563;--ink-3:#6b7280;
+  --surface:#fff;--surface-2:#f7f8fa;--border:#e5e7eb;--border-strong:#d1d5db;
+  --font-display:'Schibsted Grotesk',system-ui,sans-serif;
+  --font-ui:'Geist',system-ui,sans-serif;
+  --font-mono:'Geist Mono',monospace;
+  --radius:10px;
+}
+body{font-family:var(--font-ui);background:var(--surface-2);color:var(--ink);min-height:100vh}
+/* NAV */
+.appbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.nav-inner{max-width:780px;margin:0 auto;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:8px;text-decoration:none}
+.logo-mark{width:28px;height:28px;background:var(--red);border-radius:50% 50% 50% 6px;display:flex;align-items:center;justify-content:center}
+.logo-mark span{color:#fff;font-family:var(--font-display);font-weight:800;font-size:11px}
+.brand-name{font-family:var(--font-display);font-weight:700;font-size:.95rem;color:var(--ink)}
+.back-link{display:flex;align-items:center;gap:6px;font-size:.85rem;color:var(--ink-3);cursor:pointer;text-decoration:none}
+.back-link:hover{color:var(--ink)}
+/* LAYOUT */
+.page{max-width:780px;margin:0 auto;padding:32px 24px 80px}
+/* JOB BANNER */
+.job-banner{background:#fff;border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:28px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.job-banner-info h2{font-family:var(--font-display);font-size:1.1rem;font-weight:700;color:var(--ink);margin-bottom:4px}
+.job-banner-info p{font-size:.82rem;color:var(--ink-3)}
+.tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:600}
+.tag-red{background:#fff1f0;color:#c0392b}
+/* STEPPER */
+.stepper{display:flex;align-items:center;gap:0;margin-bottom:32px;overflow-x:auto;padding-bottom:4px}
+.step{display:flex;align-items:center;flex-shrink:0}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;border:2px solid var(--border);background:#fff;color:var(--ink-3);transition:all .2s}
+.step-dot.done{background:var(--red);border-color:var(--red);color:#fff}
+.step-dot.active{border-color:var(--red);color:var(--red)}
+.step-label{font-size:.7rem;color:var(--ink-3);margin-top:4px;white-space:nowrap}
+.step-label.active{color:var(--ink);font-weight:600}
+.step-inner{display:flex;flex-direction:column;align-items:center}
+.step-line{height:2px;width:32px;background:var(--border);flex-shrink:0;margin-bottom:20px}
+.step-line.done{background:var(--red)}
+/* FORM CARD */
+.form-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:28px 28px}
+.form-card h3{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--ink);margin-bottom:4px}
+.form-card .sub{font-size:.85rem;color:var(--ink-3);margin-bottom:24px}
+.field{margin-bottom:18px}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--ink-2);margin-bottom:6px}
+.field label .req{color:var(--red)}
+.field input,.field select,.field textarea{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:var(--radius);font-family:var(--font-ui);font-size:.88rem;color:var(--ink);background:#fff;transition:border-color .15s}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--red)}
+.field textarea{resize:vertical;min-height:90px}
+.field .hint{font-size:.75rem;color:var(--ink-3);margin-top:5px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+/* SECTION HEADING */
+.sec-label{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--red);text-transform:uppercase;margin:24px 0 14px}
+/* EXPERIENCE BLOCK */
+.exp-block{border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px;margin-bottom:14px;position:relative}
+.exp-block .remove-btn{position:absolute;top:12px;right:14px;background:none;border:none;color:var(--ink-3);font-size:1.1rem;cursor:pointer}
+.add-btn{display:flex;align-items:center;gap:6px;border:1.5px dashed var(--border-strong);border-radius:var(--radius);padding:10px 16px;width:100%;background:none;font-family:var(--font-ui);font-size:.85rem;color:var(--ink-3);cursor:pointer;margin-top:4px}
+.add-btn:hover{border-color:var(--red);color:var(--red)}
+/* ORG STRUCTURE */
+.org-tree{padding:20px;background:var(--surface-2);border-radius:var(--radius);border:1px solid var(--border)}
+.org-row{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.org-label{font-size:.75rem;font-weight:600;color:var(--ink-3);min-width:110px;flex-shrink:0}
+.org-field{flex:1;display:flex;gap:8px}
+.org-field input{flex:1;padding:8px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:.82rem;font-family:var(--font-ui);color:var(--ink)}
+.org-self{background:#fff1f0;border:1.5px solid var(--red);border-radius:8px;padding:8px 12px;font-size:.85rem;font-weight:600;color:var(--red);flex:1;font-family:var(--font-display)}
+/* LINKEDIN PARSED BANNER */
+.li-banner{background:#eff8ff;border:1px solid #bfdbfe;border-radius:10px;padding:12px 16px;font-size:.82rem;color:#1e40af;display:flex;align-items:center;gap:10px;margin-bottom:20px}
+/* CONSENT */
+.check-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:12px}
+.check-row input[type=checkbox]{width:16px;height:16px;flex-shrink:0;margin-top:2px;accent-color:var(--red)}
+.check-row label{font-size:.82rem;color:var(--ink-2);line-height:1.5}
+.check-row label a{color:var(--red)}
+/* SUMMARY */
+.summary-row{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--border);font-size:.85rem}
+.summary-row:last-child{border-bottom:none}
+.summary-key{color:var(--ink-3);font-size:.8rem}
+.summary-val{color:var(--ink);font-weight:500}
+/* ACTIONS */
+.action-bar{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px}
+.btn-back{padding:11px 20px;border:1.5px solid var(--border-strong);border-radius:var(--radius);background:#fff;font-family:var(--font-ui);font-size:.88rem;font-weight:600;color:var(--ink);cursor:pointer}
+.btn-back:hover{background:var(--surface-2)}
+.btn-next{padding:11px 28px;background:var(--red);color:#fff;border:none;border-radius:var(--radius);font-family:var(--font-display);font-size:.9rem;font-weight:700;cursor:pointer;transition:opacity .15s}
+.btn-next:hover{opacity:.9}
+.btn-next:disabled{opacity:.5;cursor:not-allowed}
+/* SUCCESS */
+.success-screen{text-align:center;padding:48px 24px}
+.success-screen .icon{width:64px;height:64px;background:#f0fdf4;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px}
+.success-screen h2{font-family:var(--font-display);font-weight:800;font-size:1.5rem;color:var(--ink);margin-bottom:8px}
+.success-screen p{color:var(--ink-3);font-size:.9rem;margin-bottom:8px}
+.app-id{font-family:var(--font-mono);font-size:1.1rem;font-weight:600;color:var(--ink);background:var(--surface-2);padding:10px 20px;border-radius:8px;display:inline-block;margin:12px 0 24px;letter-spacing:.05em}
+.social-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:13px 16px;border:1.5px solid var(--border);border-radius:var(--radius);background:#fff;font-family:var(--font-ui);font-size:.9rem;font-weight:500;color:var(--ink);cursor:pointer;transition:border-color .15s,box-shadow .15s;margin-bottom:12px}
+.social-btn:hover{border-color:#9ca3af;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.social-btn svg{flex-shrink:0}
+.btn-outline{padding:11px 24px;border:1.5px solid var(--border-strong);border-radius:var(--radius);background:#fff;font-family:var(--font-ui);font-size:.88rem;font-weight:600;color:var(--ink);cursor:pointer;text-decoration:none;display:inline-block}
+.btn-outline:hover{background:var(--surface-2)}
+/* UPLOAD */
+.upload-area{border:2px dashed var(--border-strong);border-radius:var(--radius);padding:28px;text-align:center;cursor:pointer;transition:border-color .15s}
+.upload-area:hover{border-color:var(--red)}
+.upload-area p{font-size:.85rem;color:var(--ink-3);margin-top:6px}
+.upload-area .icon-up{font-size:1.8rem}
+.uploaded-file{display:flex;align-items:center;gap:10px;background:var(--surface-2);padding:10px 14px;border-radius:8px;font-size:.82rem;color:var(--ink);margin-top:10px}
+@media(max-width:600px){.two,.three{grid-template-columns:1fr}.action-bar{flex-direction:column-reverse}.btn-back,.btn-next{width:100%;text-align:center}.job-banner{flex-direction:column;align-items:flex-start}}
+</style>
+</head>
+<body>
+<div class="appbar">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <div class="logo-mark"><span>N</span></div>
+      <span class="brand-name">Nabati Careers</span>
+    </a>
+    <a class="back-link" href="javascript:history.back()">
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Back to job
+    </a>
+  </div>
+</div>
+
+<div class="page">
+  <div id="jobBanner"></div>
+  <div class="stepper" id="stepper"></div>
+  <div id="formContent"></div>
+</div>
+
+<script>
+(function(){
+  // Auth guard
+  if(!isLoggedIn()){
+    location.href='auth.html?next='+encodeURIComponent(location.href);
+    return;
+  }
+
+  var user = getCurrentUser();
+  var linkedinData = _getLocal('linkedin_parsed');
+  var jobId = new URLSearchParams(location.search).get('job') || 'JOB-2026-001';
+  var currentJob = null;
+  var step = 0;
+  var TOTAL_STEPS = 6;
+
+  // FLK Data Model
+  var flk = {
+    // Step 1: Personal Info
+    full_name: (user.name||''), nickname:'', dob:'', pob:'',
+    gender:'', religion:'', citizenship:'Indonesia',
+    phone: '', email: user.email||'',
+    linkedin_id:'', instagram_id:'',
+    height:'', weight:'',
+    address_id:'', city_id:'', district_id:'', kelurahan_id:'', postal_id:'',
+    address_current:'', city_current:'', district_current:'', kelurahan_current:'', postal_current:'',
+    ktp_number:'', sim_number:'', npwp_number:'',
+    // Step 2: Education & Skills
+    edu_formal:[{ type:'', school:'', major:'', year_start:'', year_end:'', gpa:'' }],
+    edu_nonformal:[{ name:'', institution:'', year:'', cert:'' }],
+    languages:[{ lang:'', level:'' }],
+    computer_skills:[{ program:'', level:'' }],
+    cv_uploaded:false, cv_filename:'',
+    // Step 2B: Keluarga (III)
+    marital_status:'', marriage_year:'',
+    family:[
+      {relation:'Suami/Istri (Husband/Wife)',name:'',gender:'',dob:'',education:'',occupation:'',company:''},
+      {relation:'Anak (Children)',name:'',gender:'',dob:'',education:'',occupation:'',company:''},
+      {relation:'Ayah (Father)',name:'',gender:'M',dob:'',education:'',occupation:'',company:''},
+      {relation:'Ibu (Mother)',name:'',gender:'F',dob:'',education:'',occupation:'',company:''},
+      {relation:'Saudara Kandung (Sibling)',name:'',gender:'',dob:'',education:'',occupation:'',company:''}
+    ],
+    // Step 2C: Organisasi (IV) + Hobi (V)
+    organizations:[{name:'',activity:'',year:'',position:''}],
+    hobbies:'',
+    // Step 5: Lain-lain tambahan
+    psych_test_history:'',
+    // Step 3: Work Experience
+    experiences:[{ company:'', industry:'', address:'', period_start:'', period_end:'',
+      position:'', supervisor:'', initiatives:'', salary_net:'', salary_gross:'', benefits:'',
+      reference_name:'', reference_pos:'', reference_hp:'', reason_leaving:'' }],
+    // Step 4: Org Structure & Application Info
+    org_n2_name:'', org_n2_position:'',
+    org_n1_name:'', org_n1_position:'',
+    org_peers:[{name:'',position:''},{name:'',position:''}],
+    org_reports:[{name:'',position:''}],
+    expected_salary:'', expected_benefits:'',
+    available_date:'',
+    prev_applied:false, prev_applied_when:'', prev_applied_pos:'',
+    knows_employee:false, employee_name:'', employee_relation:'',
+    about_nabati:'',
+    health_history:'',
+    vehicle:'none',
+    criminal_record:false,
+    self_description:'',
+    // Step 5: Consent
+    consent_pdp:false, consent_sensitive:false, consent_data:false, consent_pool:false, consent_alerts:false
+  };
+
+  // Pre-fill dari saved candidate profile (one-time fill)
+  var savedProfile = _getLocal('nabati_candidate_profile');
+  if(savedProfile){
+    // Merge saved profile ke flk, tapi jangan override user/email dari session
+    var savedEmail = flk.email;
+    Object.assign(flk, savedProfile);
+    flk.email = savedEmail || flk.email;
+    flk._from_saved = true;
+  }
+
+  // Pre-fill from LinkedIn if available
+  if(linkedinData && !savedProfile){
+    if(linkedinData.name && !flk.full_name) flk.full_name = linkedinData.name;
+    if(linkedinData.email && !flk.email) flk.email = linkedinData.email;
+    if(linkedinData.experience && linkedinData.experience.length){
+      flk.experiences = linkedinData.experience.map(function(e){
+        return Object.assign({company:'',industry:'',address:'',period_start:String(e.start||''),
+          period_end:e.end?String(e.end):'',position:e.title||'',supervisor:'',initiatives:'',
+          salary_net:'',salary_gross:'',benefits:'',reference_name:'',reference_pos:'',
+          reference_hp:'',reason_leaving:''},{company:e.company||''});
+      });
+    }
+  }
+
+  var STEP_LABELS = ['CV & Profile','Personal Info','Education & Family','Skills & Experience','Role Details','Review'];
+
+  // ─── LOAD JOB ───
+  apiGetJob(jobId, function(err, job){
+    if(err || !job){ document.getElementById('jobBanner').innerHTML='<p>Job not found.</p>'; return; }
+    currentJob = job;
+    renderBanner();
+    renderStepper();
+    renderStep();
+  });
+
+  function renderBanner(){
+    document.getElementById('jobBanner').innerHTML =
+      '<div class="job-banner">'
+      +'<div class="job-banner-info">'
+      +'<h2>'+currentJob.title+'</h2>'
+      +'<p>'+currentJob.department+' &middot; '+currentJob.location+'</p>'
+      +'</div>'
+      +'<span class="tag tag-red">'+currentJob.grade+'</span>'
+      +'</div>';
+  }
+
+  function renderStepper(){
+    var html = '';
+    STEP_LABELS.forEach(function(label, i){
+      var done = i < step;
+      var active = i === step;
+      html += '<div class="step">'
+        +'<div class="step-inner">'
+        +'<div class="step-dot'+(done?' done':active?' active':'')+'">'+( done?'<svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>':String(i+1))+'</div>'
+        +'<div class="step-label'+(active?' active':'')+'">'+label+'</div>'
+        +'</div>'
+        +(i < STEP_LABELS.length-1 ? '<div class="step-line'+(done?' done':'')+'"></div>' : '')
+        +'</div>';
+    });
+    document.getElementById('stepper').innerHTML = html;
+  }
+
+  function renderStep(){
+    renderStepper();
+    var el = document.getElementById('formContent');
+    if(step===0) el.innerHTML = renderStep0();
+    else if(step===1) el.innerHTML = renderStep1();
+    else if(step===2) el.innerHTML = renderStep2();
+    else if(step===3) el.innerHTML = renderStep3();
+    else if(step===4) el.innerHTML = renderStep4();
+    else if(step===5) el.innerHTML = renderStep5();
+    bindStep();
+  }
+
+  // ─── STEP 0: PERSONAL INFO ───
+  function renderStep0(){
+    var liParsed = _getLocal('linkedin_parsed');
+    var savedProf = _getLocal('nabati_candidate_profile');
+    var banner = '';
+    if(savedProf){ banner='<div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:12px 16px;font-size:.82rem;color:#166534;display:flex;align-items:center;gap:10px;margin-bottom:20px"><svg width="16" height="16" fill="none" stroke="#16a34a" stroke-width="2" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> Profile pre-filled from a previous application. Review each step and update as needed.</div>'; }
+    else if(liParsed){ banner='<div class="li-banner"><svg width="16" height="16" fill="#0A66C2" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Data from LinkedIn pre-filled. Please verify and complete each step.</div>'; }
+    return '<div class="form-card">'
+      +'<h3>CV & Profile</h3>'
+      +'<p class="sub">Upload your CV or import from LinkedIn. We auto-fill the form so you only need to verify and complete.</p>'
+      + banner
+      +'<p class="sec-label">Upload CV / Resume</p>'
+      +'<div class="upload-area" onclick="mockUpload()" id="uploadArea">'
+      +'<div class="icon-up">'+(flk.cv_uploaded?'📎':'📤')+'</div>'
+      +'<p>'+(flk.cv_uploaded?flk.cv_filename:'Upload your CV (PDF, DOCX, or any format)')+'</p>'
+      +'<p style="font-size:.72rem;margin-top:2px">'+(flk.cv_uploaded?'Click to replace':'We auto-parse all fields so you skip most of the form')+'</p>'
+      +'</div>'
+      +'<p class="sec-label">Or import from LinkedIn</p>'
+      +'<button class="social-btn" onclick="importLinkedIn()" style="margin-bottom:0">'
+      +'<svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>'
+      +'Import from LinkedIn'
+      +'</button>'
+      +'<p style="font-size:.75rem;color:var(--ink-3);margin-top:10px;line-height:1.6">You can skip this step and fill the form manually. Your data will be saved after first submission for future applications.</p>'
+      +actions(false,true)
+      +'</div>';
+  }
+
+    // ─── STEP 1: PERSONAL INFO (was Step 0) ───
+  function renderPersonalInfo(){
+    return '<div class="form-card">'
+      +'<h3>Personal Information</h3><p class="sub">Data diri sesuai KTP / Identity document.</p>'
+      +'<div class="two">'
+      +f('full_name','Full name / Nama Lengkap','text',true)
+      +f('nickname','Nickname / Nama Panggilan','text',false)
+      +'</div>'
+      +'<div class="two">'
+      +f('pob','Place of birth / Tempat Lahir','text',true)
+      +f('dob','Date of birth / Tanggal Lahir','date',true)
+      +'</div>'
+      +'<div class="two">'
+      +fsel('gender','Gender',['','Male / Pria','Female / Wanita'],true)
+      +fsel('religion','Religion / Agama',['','Islam','Kristen Protestan','Katolik','Hindu','Buddha','Konghucu','Lainnya'],true)
+      +'</div>'
+      +'<div class="two">'
+      +f('phone','Phone number / Nomor HP','tel',true)
+      +f('email','Email address','email',true)
+      +'</div>'
+      +'<div class="two">'
+      +f('citizenship','Citizenship / Kewarganegaraan','text',true)
+      +f('linkedin_id','LinkedIn ID (if any)','text',false)
+      +'</div>'
+      +'<div class="two">'
+      +f('height','Height (cm)','number',false)
+      +f('weight','Weight (kg)','number',false)
+      +'</div>'
+      +'<p class="sec-label">ID Address / Alamat Sesuai KTP</p>'
+      +'<div class="field"><label>Street address</label><textarea id="fld_address_id" rows="2">'+esc(flk.address_id)+'</textarea></div>'
+      +'<div class="three">'
+      +f('city_id','City / Kota','text',true)
+      +f('district_id','District / Kecamatan','text',false)
+      +f('postal_id','Postal Code','text',false)
+      +'</div>'
+      +'<p class="sec-label">Current / Temporary Address / Alamat Sekarang</p>'
+      +'<div class="field"><label>Street address</label><textarea id="fld_addr_cur" rows="2" oninput="flk.address_current=this.value">'+esc(flk.address_current)+'</textarea></div>'
+      +'<div class="two">'
+      +f('city_current','City / Kota','text',false)
+      +f('district_current','District / Kecamatan','text',false)
+      +'</div>'
+      +'<div class="two">'
+      +f('kelurahan_current','Kelurahan','text',false)
+      +f('postal_current','Postal Code','text',false)
+      +'</div>'
+      +'<p class="sec-label">Legal Documents</p>'
+      +'<div class="three">'
+      +f('ktp_number','KTP Number','text',true)
+      +f('ktp_place','KTP Issued in / Tempat Dikeluarkan','text',false)
+      +f('ktp_valid_from','KTP Valid from','date',false)
+      +'</div>'
+      +'<div class="three">'
+      +f('sim_number','SIM Number (if any)','text',false)
+      +f('npwp_number','NPWP (if any)','text',false)
+      +'<div></div>'
+      +'</div>'
+      +actions(false,true)
+      +'</div>';
+  }
+
+  function renderStep1(){
+    return renderPersonalInfo();
+  }
+
+    // ─── STEP 2: PENDIDIKAN (II) + KELUARGA (III) + ORGANISASI (IV) + HOBI (V) ───
+  function renderStep2(){
+    var eduRows = flk.edu_formal.map(function(e,i){
+      return '<div class="exp-block">'
+        +(i>0?'<button class="remove-btn" onclick="removeEdu('+i+')">&times;</button>':'')
+        +'<div class="two">'
+        +'<div class="field"><label>Education level</label><select onchange="flk.edu_formal['+i+'].type=this.value"><option value="">Select</option><option value="SMA/SMK">SMA/SMK</option><option value="D1/D2/D3">Diploma D1-D3</option><option value="D4/S1">D4/S1 Bachelor</option><option value="S2">S2 Master</option><option value="S3">S3 Doctoral</option></select></div>'
+        +'<div class="field"><label>GPA / NEM / IPK</label><input type="text" placeholder="3.75 / 85" oninput="flk.edu_formal['+i+'].gpa=this.value" value="'+esc(e.gpa)+'"></div>'
+        +'</div>'
+        +'<div class="field"><label>Institution name</label><input type="text" placeholder="Universitas Padjadjaran" oninput="flk.edu_formal['+i+'].school=this.value" value="'+esc(e.school)+'"></div>'
+        +'<div class="two">'
+        +'<div class="field"><label>Major / Jurusan</label><input type="text" oninput="flk.edu_formal['+i+'].major=this.value" value="'+esc(e.major)+'"></div>'
+        +'<div class="field"><label>Year in - out</label><div style="display:flex;gap:6px"><input type="text" placeholder="2016" style="width:80px" oninput="flk.edu_formal['+i+'].year_start=this.value" value="'+esc(e.year_start)+'"><span style="padding:11px 4px;color:var(--ink-3)">-</span><input type="text" placeholder="2020" style="width:80px" oninput="flk.edu_formal['+i+'].year_end=this.value" value="'+esc(e.year_end)+'"></div></div>'
+        +'</div>'
+        +'</div>';
+    }).join('');
+
+    return '<div class="form-card">'
+      +'<h3>Education, Family & Background</h3>'
+      +'<p class="sub">Sections II, III, IV, V of the Nabati FLK standard form.</p>'
+      +'<p class="sec-label">II.A Formal Education / Pendidikan Formal</p>'
+      + eduRows
+      +'<button class="add-btn" onclick="addEdu()">+ Add education level</button>'
+      +'<p class="sec-label">II.B Non-Formal Education / Pendidikan Non-Formal</p>'
+      +'<p style="font-size:.78rem;color:var(--ink-3);margin-bottom:12px">Seminar, course, training, certification</p>'
+      + flk.edu_nonformal.map(function(e,i){
+          return '<div class="exp-block">'
+            +(i>0?'<button class="remove-btn" onclick="removeNonFormal('+i+')">&times;</button>':'')
+            +'<div class="two">'
+            +'<div class="field"><label>Seminar / Course / Training name</label>'
+            +'<input type="text" oninput="flk.edu_nonformal['+i+'].name=this.value" value="'+esc(e.name||'')+'"></div>'
+            +'<div class="field"><label>Institution / Lembaga</label>'
+            +'<input type="text" oninput="flk.edu_nonformal['+i+'].institution=this.value" value="'+esc(e.institution||'')+'"></div>'
+            +'</div>'
+            +'<div class="three">'
+            +'<div class="field"><label>Year</label>'
+            +'<input type="text" placeholder="2022" oninput="flk.edu_nonformal['+i+'].year=this.value" value="'+esc(e.year||'')+'"></div>'
+            +'<div class="field"><label>Certificate</label>'
+            +'<select onchange="flk.edu_nonformal['+i+'].cert=this.value">'
+            +'<option value="">Select</option>'
+            +'<option value="Yes" '+(e.cert==='Yes'?'selected':'')+'>Yes</option>'
+            +'<option value="No" '+(e.cert==='No'?'selected':'')+'>No</option>'
+            +'</select></div>'
+            +'<div class="field"><label>Level / Tingkat</label>'
+            +'<select onchange="flk.edu_nonformal['+i+'].level=this.value">'
+            +'<option value="">Select</option>'
+            +'<option value="Local">Local</option>'
+            +'<option value="Regional">Regional</option>'
+            +'<option value="National">National</option>'
+            +'<option value="International">International</option>'
+            +'</select></div>'
+            +'</div></div>';
+        }).join('')
+      +'<button class="add-btn" onclick="addNonFormal()">+ Add seminar or course</button>'
+      +'<p class="sec-label">III. Family / Keluarga</p>'
+      +'<div class="two">'
+      +'<div class="field"><label>Marital status</label>'
+      +'<select onchange="flk.marital_status=this.value">'
+      +'<option value="" '+(flk.marital_status===''?'selected':'')+'>Select</option>'
+      +'<option value="Single" '+(flk.marital_status==='Single'?'selected':'')+'>Single / Belum Menikah</option>'
+      +'<option value="Married" '+(flk.marital_status==='Married'?'selected':'')+'>Married / Menikah</option>'
+      +'<option value="Widow" '+(flk.marital_status==='Widow'?'selected':'')+'>Widow / Janda</option>'
+      +'<option value="Widower" '+(flk.marital_status==='Widower'?'selected':'')+'>Widower / Duda</option>'
+      +'</select></div>'
+      +'<div class="field"><label>Year of marriage (if applicable)</label>'
+      +'<input type="text" placeholder="2019" oninput="flk.marriage_year=this.value" value="'+esc(flk.marriage_year)+'"></div>'
+      +'</div>'
+      +'<p style="font-size:.75rem;color:var(--ink-3);margin-bottom:10px">Family members details:</p>'
+      + flk.family.map(function(m,i){
+          return '<div class="exp-block">'
+            +'<p style="font-size:.73rem;font-weight:700;color:var(--ink-3);margin-bottom:10px">'+m.relation+'</p>'
+            +'<div class="two">'
+            +'<div class="field"><label>Name</label>'
+            +'<input type="text" oninput="flk.family['+i+'].name=this.value" value="'+esc(m.name)+'"></div>'
+            +'<div class="field"><label>M / F</label>'
+            +'<select onchange="flk.family['+i+'].gender=this.value">'
+            +'<option value="">Select</option>'
+            +'<option value="M" '+(m.gender==="M"?"selected":"")+'>Male / L</option>'
+            +'<option value="F" '+(m.gender==="F"?"selected":"")+'>Female / P</option>'
+            +'</select></div>'
+            +'</div>'
+            +'<div class="three">'
+            +'<div class="field"><label>Date of birth</label>'
+            +'<input type="date" oninput="flk.family['+i+'].dob=this.value" value="'+esc(m.dob)+'"></div>'
+            +'<div class="field"><label>Education</label>'
+            +'<input type="text" placeholder="S1 Teknik" oninput="flk.family['+i+'].education=this.value" value="'+esc(m.education)+'"></div>'
+            +'<div class="field"><label>Occupation</label>'
+            +'<input type="text" oninput="flk.family['+i+'].occupation=this.value" value="'+esc(m.occupation)+'"></div>'
+            +'</div>'
+            +'<div class="field"><label>Company name</label>'
+            +'<input type="text" oninput="flk.family['+i+'].company=this.value" value="'+esc(m.company)+'"></div>'
+            +'</div>';
+        }).join('')
+      +'<p class="sec-label">IV. Organization Involvement / Organisasi</p>'
+      + flk.organizations.map(function(o,i){
+          return '<div class="exp-block">'
+            +(i>0?'<button class="remove-btn" onclick="removeOrg('+i+')">&times;</button>':'')
+            +'<div class="two">'
+            +'<div class="field"><label>Organization name & activity</label>'
+            +'<input type="text" placeholder="BEM Universitas, Karang Taruna..." oninput="flk.organizations['+i+'].name=this.value" value="'+esc(o.name)+'"></div>'
+            +'<div class="field"><label>Year / Tahun</label>'
+            +'<input type="text" placeholder="2018 - 2020" oninput="flk.organizations['+i+'].year=this.value" value="'+esc(o.year)+'"></div>'
+            +'</div>'
+            +'<div class="field"><label>Your position</label>'
+            +'<input type="text" placeholder="Ketua / Secretary / Member" oninput="flk.organizations['+i+'].position=this.value" value="'+esc(o.position)+'"></div>'
+            +'</div>';
+        }).join('')
+      +'<button class="add-btn" onclick="addOrg()">+ Add organization</button>'
+      +'<p class="sec-label">V. Hobby & Interest / Hobi & Minat</p>'
+      +'<div class="field">'
+      +'<input type="text" id="fld_hobbies" placeholder="Reading, photography, badminton..." value="'+esc(flk.hobbies)+'" oninput="flk.hobbies=this.value">'
+      +'</div>'
+      +actions(true,true)
+      +'</div>';
+  }
+
+  // ─── STEP 3: BAHASA (VI) + KOMPUTER (VII) + PENGALAMAN KERJA (VIII) ───
+  // ─── STEP 3: BAHASA (VI) + KOMPUTER (VII) + PENGALAMAN KERJA (VIII) ───
+  function renderStep3(){
+    var expRows = flk.experiences.map(function(e,i){
+      return '<div class="exp-block">'
+        +(i>0?'<button class="remove-btn" onclick="removeExp('+i+')">&times;</button>':'')
+        +'<p style="font-size:.75rem;font-weight:700;color:var(--ink-3);margin-bottom:12px">Experience '+(i+1)+(i===0?' (most recent)':'')+'</p>'
+        +'<div class="two">'
+        +'<div class="field"><label>Company name</label><input type="text" oninput="flk.experiences['+i+'].company=this.value" value="'+esc(e.company)+'"></div>'
+        +'<div class="field"><label>Industry type</label><input type="text" placeholder="FMCG, Retail, Banking..." oninput="flk.experiences['+i+'].industry=this.value" value="'+esc(e.industry)+'"></div>'
+        +'</div>'
+        +'<div class="field"><label>Your position</label><input type="text" oninput="flk.experiences['+i+'].position=this.value" value="'+esc(e.position)+'"></div>'
+        +'<div class="field"><label>Direct superior name and title</label><input type="text" placeholder="Name, Job Title" oninput="flk.experiences['+i+'].supervisor=this.value" value="'+esc(e.supervisor)+'"></div>'
+        +'<div class="field"><label>Office address and phone number</label><input type="text" placeholder="Jl. Sudirman No.1, Jakarta | (021) 555-1234" oninput="flk.experiences['+i+'].address=this.value" value="'+esc(e.address)+'"></div>'
+        +'<div class="two">'
+        +'<div class="field"><label>Start date</label><input type="month" oninput="flk.experiences['+i+'].period_start=this.value" value="'+esc(e.period_start)+'"></div>'
+        +'<div class="field"><label>End date (blank if current)</label><input type="month" oninput="flk.experiences['+i+'].period_end=this.value" value="'+esc(e.period_end)+'"></div>'
+        +'</div>'
+        +'<div class="field"><label>Initiatives / achievements / portfolio link</label><textarea rows="2" oninput="flk.experiences['+i+'].initiatives=this.value">'+esc(e.initiatives)+'</textarea></div>'
+        +'<div class="two">'
+        +'<div class="field"><label>Last net salary / Gaji bersih (Rp)</label><input type="text" placeholder="8,000,000" oninput="flk.experiences['+i+'].salary_net=this.value" value="'+esc(e.salary_net)+'"></div>'
+        +'<div class="field"><label>Last gross salary / Gaji kotor (Rp)</label><input type="text" oninput="flk.experiences['+i+'].salary_gross=this.value" value="'+esc(e.salary_gross)+'"></div>'
+        +'</div>'
+        +'<div class="field"><label>Reason for leaving</label><input type="text" oninput="flk.experiences['+i+'].reason_leaving=this.value" value="'+esc(e.reason_leaving)+'"></div>'
+        +'<p style="font-size:.72rem;color:var(--ink-3);margin:8px 0 4px;font-weight:600">Reference contact</p>'
+        +'<div class="three">'
+        +'<div class="field"><label>Name</label><input type="text" oninput="flk.experiences['+i+'].reference_name=this.value" value="'+esc(e.reference_name)+'"></div>'
+        +'<div class="field"><label>Title</label><input type="text" oninput="flk.experiences['+i+'].reference_pos=this.value" value="'+esc(e.reference_pos)+'"></div>'
+        +'<div class="field"><label>Phone</label><input type="tel" oninput="flk.experiences['+i+'].reference_hp=this.value" value="'+esc(e.reference_hp)+'"></div>'
+        +'</div>'
+        +'</div>';
+    }).join('');
+
+    return '<div class="form-card">'
+      +'<h3>Skills & Work Experience</h3>'
+      +'<p class="sub">Sections VI, VII, VIII of the Nabati FLK standard form.</p>'
+      +'<p class="sec-label">VI. Language Skills / Kemampuan Berbahasa</p>'
+      + flk.languages.map(function(l,i){
+          return '<div class="exp-block"><div class="two">'
+            +'<div class="field"><label>Language</label><input type="text" placeholder="English" oninput="flk.languages['+i+'].lang=this.value" value="'+esc(l.lang)+'"></div>'
+            +'<div class="field"><label>Proficiency / Tingkat Kemahiran</label><select onchange="flk.languages['+i+'].level=this.value"><option value="">Select</option><option value="Poor / Kurang" '+(l.level==="Poor / Kurang"?"selected":"")+'>Poor / Kurang</option><option value="Average / Cukup" '+(l.level==="Average / Cukup"?"selected":"")+'>Average / Cukup</option><option value="Good / Baik" '+(l.level==="Good / Baik"?"selected":"")+'>Good / Baik</option></select></div>'
+            +'</div></div>';
+        }).join('')
+      +'<button class="add-btn" onclick="addLang()">+ Add language</button>'
+      +'<p class="sec-label">VII. Computer Skills / Keterampilan Komputer</p>'
+      + flk.computer_skills.map(function(c,i){
+          return '<div class="exp-block"><div class="two">'
+            +'<div class="field"><label>Software / Program</label><input type="text" placeholder="Microsoft Excel" oninput="flk.computer_skills['+i+'].program=this.value" value="'+esc(c.program)+'"></div>'
+            +'<div class="field"><label>Proficiency</label><select onchange="flk.computer_skills['+i+'].level=this.value"><option value="">Select</option><option value="Poor / Kurang" '+(c.level==="Poor / Kurang"?"selected":"")+'>Poor / Kurang</option><option value="Average / Cukup" '+(c.level==="Average / Cukup"?"selected":"")+'>Average / Cukup</option><option value="Good / Baik" '+(c.level==="Good / Baik"?"selected":"")+'>Good / Baik</option></select></div>'
+            +'</div></div>';
+        }).join('')
+      +'<button class="add-btn" onclick="addSkill()">+ Add software skill</button>'
+      +'<p class="sec-label">VIII. Work Experience / Pengalaman Kerja</p>'
+      +'<p style="font-size:.78rem;color:var(--ink-3);margin-bottom:12px">List from most recent. Up to 3 companies.</p>'
+      + expRows
+      +(flk.experiences.length<3?'<button class="add-btn" onclick="addExp()">+ Add previous company</button>':'')
+      +actions(true,true)
+      +'</div>';
+  }
+
+  function renderStep4(){
+    var peers = flk.org_peers.map(function(p,i){
+      return '<div class="org-row"><div class="org-label">Peer '+(i+1)+'</div>'
+        +'<div class="org-field"><input type="text" placeholder="Name" value="'+esc(p.name)+'" oninput="flk.org_peers['+i+'].name=this.value"><input type="text" placeholder="Position" value="'+esc(p.position)+'" oninput="flk.org_peers['+i+'].position=this.value"></div>'
+        +(i===flk.org_peers.length-1 && i<4 ? '<button class="add-btn" style="width:auto;padding:6px 12px;font-size:.75rem" onclick="addPeer()">+</button>' : '')
+        +'</div>';
+    }).join('');
+    var reports = flk.org_reports.map(function(r,i){
+      return '<div class="org-row"><div class="org-label">N-1 Position '+(i+1)+'</div>'
+        +'<div class="org-field"><input type="text" placeholder="Name (if known)" value="'+esc(r.name)+'" oninput="flk.org_reports['+i+'].name=this.value"><input type="text" placeholder="Position title" value="'+esc(r.position)+'" oninput="flk.org_reports['+i+'].position=this.value"></div>'
+        +(i===flk.org_reports.length-1 && i<4 ? '<button class="add-btn" style="width:auto;padding:6px 12px;font-size:.75rem" onclick="addReport()">+</button>' : '')
+        +'</div>';
+    }).join('');
+    return '<div class="form-card">'
+      +'<h3>Role Details & Organization Structure</h3>'
+      +'<p class="sub">Structure of your last organization, plus details about this application.</p>'
+      +'<p class="sec-label">IX. Organization Structure / Struktur Organisasi Posisi Terakhir</p>'
+      +'<div class="org-tree">'
+      +'<div class="org-row"><div class="org-label">Report to N+2</div><div class="org-field"><input type="text" placeholder="Name" value="'+esc(flk.org_n2_name)+'" oninput="flk.org_n2_name=this.value"><input type="text" placeholder="Position" value="'+esc(flk.org_n2_position)+'" oninput="flk.org_n2_position=this.value"></div></div>'
+      +'<div class="org-row"><div class="org-label">Report to N+1</div><div class="org-field"><input type="text" placeholder="Name" value="'+esc(flk.org_n1_name)+'" oninput="flk.org_n1_name=this.value"><input type="text" placeholder="Position" value="'+esc(flk.org_n1_position)+'" oninput="flk.org_n1_position=this.value"></div></div>'
+      +'<div class="org-row"><div class="org-label">Your Position</div><div class="org-self">'+(flk.experiences[0]&&flk.experiences[0].position?flk.experiences[0].position:'Your Last Position')+'</div></div>'
+      + peers
+      + reports
+      +'</div>'
+      +'<p class="sec-label">X. Job Information / Informasi Pekerjaan (Gaji, Tunjangan, Ketersediaan)</p>'
+      +'<div class="two">'
+      +'<div class="field"><label>Expected salary (Rp/month range) <span class="req">*</span></label><input type="text" placeholder="9,000,000 - 12,000,000" id="fld_expected_salary" value="'+esc(flk.expected_salary)+'" oninput="flk.expected_salary=this.value"></div>'
+      +'<div class="field"><label>Available to start</label><input type="date" id="fld_available_date" value="'+esc(flk.available_date)+'" oninput="flk.available_date=this.value"></div>'
+      +'</div>'
+      +'<p class="sec-label">XI. Other Information / Lain-lain</p>'
+      +'<div class="field"><label>Have you applied to Nabati before? If yes, when and for which position?</label><textarea rows="2" oninput="flk.prev_applied_when=this.value">'+esc(flk.prev_applied_when)+'</textarea><p class="hint">Leave blank if this is your first application.</p></div>'
+      +'<div class="field"><label>Do you have relatives or acquaintances working at Nabati? Name and relationship?</label><input type="text" oninput="flk.employee_name=this.value" value="'+esc(flk.employee_name)+'" placeholder="Name - Relationship (e.g. Friend)"></div>'
+      +'<div class="field"><label>Briefly describe what you know about Nabati Group.</label><textarea rows="3" oninput="flk.about_nabati=this.value">'+esc(flk.about_nabati)+'</textarea></div>'
+      +'<div class="field"><label>Describe yourself: your strengths and areas for growth.</label><textarea rows="3" oninput="flk.self_description=this.value">'+esc(flk.self_description)+'</textarea></div>'
+      +'<div class="field"><label>Have you ever taken a psychological test? If yes, when and for what purpose? / Pernah ikut psikotes sebelumnya?</label>'
+      +'<textarea rows="2" oninput="flk.psych_test_history=this.value">'+esc(flk.psych_test_history)+'</textarea></div>'
+      +'<div class="two">'
+      +'<div class="field"><label>Vehicle owned</label><select onchange="flk.vehicle=this.value"><option value="none" '+(flk.vehicle==='none'?'selected':'')+'>None</option><option value="motorcycle" '+(flk.vehicle==='motorcycle'?'selected':'')+'>Motorcycle</option><option value="car" '+(flk.vehicle==='car'?'selected':'')+'>Car</option><option value="both" '+(flk.vehicle==='both'?'selected':'')+'>Both</option></select></div>'
+      +'<div class="field"><label>Any medical history requiring treatment? (7+ days)</label><input type="text" placeholder="Describe or write None" oninput="flk.health_history=this.value" value="'+esc(flk.health_history)+'"></div>'
+      +'</div>'
+      +actions(true,true)
+      +'</div>';
+  }
+
+  // ─── STEP 5 (was STEP 4): REVIEW + CONSENT ───
+  function renderStep5(){
+    var rows = [
+      ['Position applied','<b>'+(currentJob?currentJob.title:'')+'</b>'],
+      ['Department',currentJob?currentJob.department:''],
+      ['Location',currentJob?currentJob.location:''],
+      ['Name',flk.full_name],
+      ['Email',flk.email],
+      ['Phone',flk.phone],
+      ['Education',(flk.edu_formal[0]?flk.edu_formal[0].type+' - '+flk.edu_formal[0].school:'')],
+      ['Last position',(flk.experiences[0]?flk.experiences[0].position+' at '+flk.experiences[0].company:'')],
+      ['Expected salary',flk.expected_salary],
+      ['Available from',flk.available_date]
+    ];
+    return '<div class="form-card">'
+      +'<h3>Review & Submit</h3><p class="sub">Please confirm your details before submitting your application.</p>'
+      +'<div style="margin-bottom:24px">'
+      + rows.map(function(r){ return '<div class="summary-row"><span class="summary-key">'+r[0]+'</span><span class="summary-val">'+( r[1]||'<span style="color:var(--ink-3)">Not provided</span>')+'</span></div>'; }).join('')
+      +'</div>'
+      +'<p class="sec-label">Data Privacy Consent / Persetujuan Privasi Data (UU PDP No. 27/2022)</p>'
+      +'<div style="background:#f7f8fa;border:1px solid var(--border);border-radius:12px;padding:18px 20px;margin-bottom:20px;font-size:.82rem;color:var(--ink-2);line-height:1.7">'
+      +'<p style="font-weight:700;color:var(--ink);margin-bottom:10px">Bagaimana Nabati Group memproses data pribadi Anda</p>'
+      +'<p style="margin-bottom:8px"><b>Data yang dikumpulkan / Data collected:</b> Identitas diri, pendidikan, pengalaman kerja, data keluarga, riwayat kesehatan, dan informasi lain dalam formulir ini (FLK), termasuk kategori sensitif seperti agama, riwayat kesehatan, dan pernyataan kriminal.</p>'
+      +'<p style="margin-bottom:8px"><b>Tujuan / Purpose:</b> Rekrutmen, evaluasi kandidat, manajemen talent pool, dan kepatuhan regulasi ketenagakerjaan. Data Anda tidak akan digunakan untuk tujuan lain tanpa persetujuan tambahan.</p>'
+      +'<p style="margin-bottom:8px"><b>Penerima data / Recipients:</b> Manajer perekrutan dan personel HR di PT Kaldu Sari Nabati Indonesia dan entitas afiliasinya. Penyedia layanan asesmen dan background check (mis. Talentlytica, Kimia Farma) hanya menerima data yang diperlukan untuk layanan spesifik mereka.</p>'
+      +'<p style="margin-bottom:8px"><b>Transfer lintas negara / Cross-border transfer:</b> Nabati Group beroperasi di 15+ negara. Data Anda dapat diakses oleh personel HR di negara-negara tempat Nabati beroperasi, dengan perlindungan data yang sesuai.</p>'
+      +'<p style="margin-bottom:8px"><b>Retensi / Retention:</b> Jika Anda diterima, data disimpan selama masa kerja sesuai hukum ketenagakerjaan Indonesia. Jika tidak terpilih, data disimpan maksimal 2 tahun, kecuali Anda meminta penghapusan lebih awal atau memberikan persetujuan talent pool di bawah.</p>'
+      +'<p style="margin-bottom:0"><b>Hak Anda / Your rights:</b> Anda berhak mengakses, mengoreksi, menghapus, dan mencabut persetujuan atas data pribadi Anda kapan saja. Hubungi: <b>privacy@nabatigroup.com</b></p>'
+      +'</div>'
+      +'<div class="check-row" style="align-items:flex-start;padding:14px;background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:10px">'
+      +'<input type="checkbox" id="cPDP" '+(flk.consent_pdp?'checked':'')+' onchange="flk.consent_pdp=this.checked" style="margin-top:3px">'
+      +'<label for="cPDP" style="font-size:.83rem;line-height:1.6"><b>Saya menyetujui pengumpulan dan pemrosesan data pribadi saya</b> oleh PT Kaldu Sari Nabati Indonesia dan entitas afiliasinya untuk keperluan rekrutmen sebagaimana diuraikan di atas, sesuai UU PDP No. 27/2022. / <i>I consent to the collection and processing of my personal data for recruitment purposes as described above.</i> <span style="color:var(--red)">*</span></label>'
+      +'</div>'
+      +'<div class="check-row" style="align-items:flex-start;padding:14px;background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:10px">'
+      +'<input type="checkbox" id="cSensitive" '+(flk.consent_sensitive?'checked':'')+' onchange="flk.consent_sensitive=this.checked" style="margin-top:3px">'
+      +'<label for="cSensitive" style="font-size:.83rem;line-height:1.6"><b>Saya secara khusus menyetujui pemrosesan data pribadi sensitif</b> yang saya berikan, termasuk agama, riwayat kesehatan, dan riwayat kriminal, untuk keperluan evaluasi ketenagakerjaan. / <i>I specifically consent to processing of sensitive personal data I have provided.</i> <span style="color:var(--red)">*</span></label>'
+      +'</div>'
+      +'<div class="check-row" style="align-items:flex-start;padding:14px;background:#fff;border:1.5px solid var(--border);border-radius:10px;margin-bottom:10px">'
+      +'<input type="checkbox" id="cData" '+(flk.consent_data?'checked':'')+' onchange="flk.consent_data=this.checked" style="margin-top:3px">'
+      +'<label for="cData" style="font-size:.83rem;line-height:1.6"><b>Saya menyatakan bahwa seluruh informasi yang saya berikan adalah lengkap dan benar.</b> Saya memberikan wewenang kepada Nabati Group untuk memverifikasi informasi tersebut dan memahami bahwa pemalsuan informasi dapat mengakibatkan diskualifikasi atau pemutusan hubungan kerja. / <i>I declare all information provided is complete and truthful.</i> <span style="color:var(--red)">*</span></label>'
+      +'</div>'
+      +'<div class="check-row" style="align-items:flex-start;padding:14px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px">'
+      +'<input type="checkbox" id="cPool" '+(flk.consent_pool?'checked':'')+' onchange="flk.consent_pool=this.checked" style="margin-top:3px">'
+      +'<label for="cPool" style="font-size:.83rem;color:var(--ink-2);line-height:1.6"><b>Saya menyetujui profil saya disimpan di talent pool Nabati</b> hingga 2 tahun untuk pertimbangan posisi yang relevan di masa depan. Saya dapat meminta penghapusan kapan saja ke privacy@nabatigroup.com. <i>(Opsional / Optional)</i></label>'
+      +'</div>'
+      +'<div class="check-row" style="align-items:flex-start;padding:14px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px">'
+      +'<input type="checkbox" id="cAlerts" '+(flk.consent_alerts?'checked':'')+' onchange="flk.consent_alerts=this.checked" style="margin-top:3px">'
+      +'<label for="cAlerts" style="font-size:.83rem;color:var(--ink-2);line-height:1.6">Saya bersedia menerima notifikasi lowongan dan pembaruan rekrutmen dari Nabati Group. Saya dapat berhenti berlangganan kapan saja. <i>(Opsional / Optional)</i></label>'
+      +'</div>'
+      +'<p style="font-size:.75rem;color:var(--ink-3);margin-top:6px;line-height:1.6">Dengan mengirimkan, Anda menyatakan telah membaca Kebijakan Privasi dan Pemberitahuan Data Kandidat kami. By submitting, you acknowledge you have read our Privacy Policy and Candidate Data Notice.</p>'
+      +'<div class="action-bar">'
+      +'<button class="btn-back" onclick="prev()">Back</button>'
+      +'<button class="btn-next" id="submitBtn" onclick="submitApp()">Submit Application</button>'
+      +'</div>'
+      +'</div>';
+  }
+
+  // ─── HELPERS ───
+  function f(key,label,type,req){
+    return '<div class="field"><label>'+label+(req?' <span class="req">*</span>':'')+'</label>'
+      +'<input type="'+(type||'text')+'" id="fld_'+key+'" value="'+esc(flk[key]||'')+'" oninput="flk.'+key+'=this.value"></div>';
+  }
+  function fsel(key,label,opts,req){
+    return '<div class="field"><label>'+label+(req?' <span class="req">*</span>':'')+'</label>'
+      +'<select id="fld_'+key+'" onchange="flk.'+key+'=this.value">'
+      + opts.map(function(o){ return '<option value="'+o+'"'+(flk[key]===o?' selected':'')+'>'+o+'</option>'; }).join('')
+      +'</select></div>';
+  }
+  function fselInline(label,opts,path,val){
+    return '<div class="field"><label>'+label+'</label>'
+      +'<select onchange="'+path+'=this.value">'
+      + opts.map(function(o){ return '<option value="'+o+'"'+(val===o?' selected':'')+'>'+o+'</option>'; }).join('')
+      +'</select></div>';
+  }
+  function actions(hasPrev, hasNext){
+    return '<div class="action-bar">'
+      +(hasPrev?'<button class="btn-back" onclick="prev()">Back</button>':'<div></div>')
+      +(hasNext?'<button class="btn-next" onclick="next()">Continue</button>':'')
+      +'</div>';
+  }
+  function esc(v){ return String(v||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+  function bindStep(){
+    // Sync textarea values that need special handling
+    var addrEl = document.getElementById('fld_address_id');
+    if(addrEl) addrEl.addEventListener('input', function(){ flk.address_id = this.value; });
+  }
+
+  window.next = function(){
+    step = Math.min(step+1, TOTAL_STEPS-1);
+    renderStep();
+    window.scrollTo(0,0);
+  };
+  window.prev = function(){
+    step = Math.max(step-1,0);
+    renderStep();
+    window.scrollTo(0,0);
+  };
+
+  window.addEdu = function(){ flk.edu_formal.push({type:'',school:'',major:'',year_start:'',year_end:'',gpa:''}); renderStep(); };
+  window.removeEdu = function(i){ flk.edu_formal.splice(i,1); renderStep(); };
+  window.addLang = function(){ flk.languages.push({lang:'',level:''}); renderStep(); };
+  window.addSkill = function(){ flk.computer_skills.push({program:'',level:''}); renderStep(); };
+  window.importLinkedIn = function(){
+    // Mock: simulate LinkedIn OAuth return
+    var mockLI = {
+      name: flk.full_name || 'Demo Candidate',
+      email: flk.email,
+      headline: 'Professional at PT XYZ',
+      education: [{school:'Universitas Indonesia',degree:'S1 Manajemen',year:2020}],
+      experience: [{company:'PT XYZ',title:'Supervisor',start:2021,end:null}],
+      skills: ['Leadership','Data Analysis','Communication']
+    };
+    _setLocal('linkedin_parsed', mockLI);
+    // Pre-fill ke flk
+    if(mockLI.name && !flk.full_name) flk.full_name = mockLI.name;
+    if(mockLI.experience && mockLI.experience.length){
+      flk.experiences = mockLI.experience.map(function(e){
+        return {company:e.company||'',industry:'',address:'',period_start:String(e.start||''),
+          period_end:e.end?String(e.end):'',position:e.title||'',supervisor:'',initiatives:'',
+          salary_net:'',salary_gross:'',benefits:'',reference_name:'',reference_pos:'',reference_hp:'',reason_leaving:''};
+      });
+    }
+    flk.cv_uploaded = true;
+    flk.cv_filename = 'LinkedIn Profile - '+mockLI.name;
+    window.next();
+  };
+  window.addNonFormal = function(){ flk.edu_nonformal.push({name:'',institution:'',year:'',cert:'',level:''}); renderStep(); };
+  window.removeNonFormal = function(i){ flk.edu_nonformal.splice(i,1); renderStep(); };
+  window.addOrg = function(){ flk.organizations.push({name:'',activity:'',year:'',position:''}); renderStep(); };
+  window.removeOrg = function(i){ flk.organizations.splice(i,1); renderStep(); };
+  window.addExp = function(){ if(flk.experiences.length<3) flk.experiences.push({company:'',industry:'',address:'',period_start:'',period_end:'',position:'',supervisor:'',initiatives:'',salary_net:'',salary_gross:'',benefits:'',reference_name:'',reference_pos:'',reference_hp:'',reason_leaving:''}); renderStep(); };
+  window.removeExp = function(i){ flk.experiences.splice(i,1); renderStep(); };
+  window.addPeer = function(){ if(flk.org_peers.length<5) flk.org_peers.push({name:'',position:''}); renderStep(); };
+  window.addReport = function(){ if(flk.org_reports.length<5) flk.org_reports.push({name:'',position:''}); renderStep(); };
+
+  window.mockUpload = function(){
+    flk.cv_uploaded = true;
+    flk.cv_filename = 'CV_' + (flk.full_name||'Candidate').replace(/\s+/g,'_') + '.pdf';
+    renderStep();
+  };
+
+  window.submitApp = function(){
+    if(!flk.consent_pdp){ alert('Harap setujui pemrosesan data pribadi Anda sebelum mengirim. / Please consent to personal data processing before submitting.'); return; }
+    if(!flk.consent_sensitive){ alert('Harap setujui pemrosesan data sensitif sebelum mengirim. / Please consent to sensitive data processing before submitting.'); return; }
+    if(!flk.consent_data){ alert('Harap nyatakan kebenaran informasi Anda sebelum mengirim. / Please declare the accuracy of your information before submitting.'); return; }
+    var btn = document.getElementById('submitBtn');
+    if(btn){ btn.disabled=true; btn.textContent='Submitting...'; }
+    var payload = { job_id: jobId, candidate: Object.assign({}, flk), user_id: user.id };
+    apiSubmitApplication(payload, function(err, result){
+      if(err){ if(btn){btn.disabled=false;btn.textContent='Submit Application';} alert('Submission failed. Please try again.'); return; }
+      // Simpan profile untuk one-time fill di lamaran berikutnya
+      var profileToSave = Object.assign({}, flk);
+      delete profileToSave._from_saved;
+      _setLocal('nabati_candidate_profile', profileToSave);
+      renderSuccess(result.id);
+    });
+  };
+
+  function renderSuccess(appId){
+    document.getElementById('stepper').style.display='none';
+    document.getElementById('jobBanner').style.display='none';
+    document.getElementById('formContent').innerHTML =
+      '<div class="success-screen">'
+      +'<div class="icon"><svg width="28" height="28" fill="none" stroke="#16a34a" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg></div>'
+      +'<h2>Application submitted!</h2>'
+      +'<p>Thank you '+(flk.full_name||user.name)+'. We have received your application for</p>'
+      +'<p><b>'+(currentJob?currentJob.title:'')+'</b> at Nabati Group.</p>'
+      +'<div class="app-id">'+appId+'</div>'
+      +'<p style="margin-bottom:8px">Save this number to track your application status.</p>'
+      +'<p style="font-size:.8rem;color:var(--ink-3);margin-bottom:24px">Your profile has been saved. Next time you apply to a Nabati role, your details will be pre-filled automatically.</p>'
+      +'<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">'
+      +'<a class="btn-outline" href="index.html">Browse more roles</a>'
+      +'<a class="btn-next" href="index.html?view=status" style="padding:11px 24px;text-decoration:none">Track my application</a>'
+      +'</div>'
+      +'</div>';
+  }
+})();
+</script>
+</body>
+</html>
