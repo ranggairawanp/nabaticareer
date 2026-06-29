@@ -69,6 +69,8 @@ img{max-width:100%;display:block}
 .filters{border:1px solid var(--border);border-radius:var(--r-md);padding:15px;background:var(--surface);position:sticky;top:108px}
 .no-scam .appbar{top:0!important}
 .no-scam .filters{top:68px!important}
+.no-scam .hero{padding-top:88px}
+.no-scam #app.nohero{padding-top:74px}
 
 .filters h4{font-size:13px;margin-bottom:11px}
 .fgroup{margin-bottom:13px}.fgroup>span{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-3);display:block;margin-bottom:6px}
@@ -128,7 +130,15 @@ img{max-width:100%;display:block}
 .upload svg{width:26px;height:26px;color:var(--ink-3);margin-bottom:6px}
 .upload b{font-size:13.5px;display:block}.upload span{font-size:11.5px;color:var(--ink-3)}
 .parsed{display:none;border:1px solid var(--success);background:var(--success-tint);border-radius:var(--r-sm);padding:10px 12px;font-size:12.5px;color:#176b3c;margin-top:10px}
-.parsed.show{display:block}
+.parsed svg{width:15px;height:15px;flex-shrink:0;color:var(--success)}
+.cmodal{text-align:center;padding:8px 6px 4px}
+.cmicon{width:44px;height:44px;border-radius:50%;background:var(--primary-tint);color:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 4px}
+.cmicon svg{width:21px;height:21px}
+.cmodal h3{font-family:var(--font-display);font-size:1.18rem;margin:8px 0 6px}
+.cmodal p{color:var(--ink-2);font-size:.92rem;line-height:1.5;margin-bottom:18px}
+.cmact{display:flex;gap:10px;justify-content:center}
+.check.decl{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:11px 12px;margin-top:8px}
+.parsed.show{display:flex;align-items:center;gap:7px}
 .orline{display:flex;align-items:center;gap:12px;margin:14px 0;color:var(--ink-3);font-size:11px;font-weight:700;letter-spacing:.06em}
 .orline::before,.orline::after{content:"";flex:1;height:1px;background:var(--border)}
 .notebox{display:flex;gap:10px;background:var(--info-tint);border:1px solid #c4d8f5;color:#1d4f9e;border-radius:var(--r-sm);padding:11px 13px;font-size:12.5px;margin-bottom:16px}
@@ -463,7 +473,7 @@ html.anim .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transf
  .brand b{font-size:14px}
  .aibtn{padding:7px 10px}
 }
-.langsel{font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--border-strong);border-radius:9px;padding:6px 10px;cursor:pointer;max-width:170px;line-height:1.2}.langsel:focus{outline:2px solid var(--primary);outline-offset:1px}.pdpnotice{display:flex;gap:8px;align-items:flex-start;background:var(--info-tint);border:1px solid var(--info);border-radius:10px;padding:9px 11px;margin-bottom:12px;font-size:13px;color:var(--ink-2)}.pdpnotice svg{flex:none;margin-top:1px}.pdpcountry{display:flex;align-items:center;gap:10px;margin:6px 0 12px}.pdpcountry label{font-size:13px;color:var(--ink-2);font-weight:600}.pdplaw{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;margin-bottom:10px}.pdprights{margin:4px 0 8px;padding-left:18px}.pdprights li{margin:3px 0;font-size:13.5px}.pdpdpo{margin-top:10px;font-size:13px;color:var(--ink-2)}
+.langsel{font-family:var(--font-ui);font-size:13px;font-weight:600;color:var(--ink);background:var(--surface);border:1px solid var(--border-strong);border-radius:9px;padding:6px 10px;cursor:pointer;max-width:170px;line-height:1.2}.langsel:focus{outline:2px solid var(--primary);outline-offset:1px}.pdpnotice{display:flex;gap:8px;align-items:flex-start;background:var(--info-tint);border:1px solid var(--info);border-radius:10px;padding:9px 11px;margin-bottom:12px;font-size:13px;color:var(--ink-2)}.pdpnotice svg{width:16px;height:16px;flex:none;margin-top:1px}.pdpcountry{display:flex;align-items:center;gap:10px;margin:6px 0 12px}.pdpcountry label{font-size:13px;color:var(--ink-2);font-weight:600}.pdplaw{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:9px 12px;margin-bottom:10px}.pdprights{margin:4px 0 8px;padding-left:18px}.pdprights li{margin:3px 0;font-size:13.5px}.pdpdpo{margin-top:10px;font-size:13px;color:var(--ink-2)}
 /* --- TASTE Values --- */
 .taste-sec{background:var(--surface-2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
 .taste-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:28px}
@@ -473,10 +483,12 @@ html.anim .reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transf
 .taste-body p{font-size:13px;color:var(--ink-3);margin:0;line-height:1.55}
 
 /* --- Anti-Scam Banner --- */
-.scam-bar{position:fixed;top:0;left:0;right:0;z-index:51;background:#1F242C;color:#fff;padding:9px 24px;font-size:.78rem;display:flex;align-items:center;justify-content:center;gap:10px;text-align:center;line-height:1.5}
-.scam-bar svg{flex-shrink:0;opacity:.85}
-.scam-bar b{color:#fbbf24}
-.scam-bar a{color:#fbbf24;text-decoration:underline}
+.scam-bar{position:fixed;top:0;left:0;right:0;z-index:51;background:#fff;color:var(--ink-2);padding:7px 46px 7px 24px;font-size:.73rem;display:flex;align-items:center;justify-content:center;gap:9px;text-align:center;line-height:1.45;border-bottom:1px solid var(--border)}
+.scam-bar button{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--ink-3);font-size:17px;line-height:1;cursor:pointer;padding:2px 7px;border-radius:6px}
+.scam-bar button:hover{background:var(--surface-2);color:var(--ink)}
+.scam-bar svg{flex-shrink:0;color:#c47d10}
+.scam-bar b{color:var(--ink);font-weight:700}
+.scam-bar a{color:var(--primary);text-decoration:underline;font-weight:600}
 </style></head>
 <body>
 <script>
@@ -513,7 +525,7 @@ window._requireAuth = function(next){
 
 <footer class="foot"><div class="wrap"><div class="row">
   <small id="foot_copy"></small>
-  <div class="fl"><a onclick="openPrivacy()" id="foot_priv"></a><a onclick="toggleAI()">HC AI</a></div>
+  <div class="fl"><a onclick="openPrivacy()" id="foot_priv"></a><a onclick="toggleAI()">HC AI</a><a href="recruiter.html">Recruiter Console</a><a href="admin.html">Admin Console</a></div>
 </div></div></footer>
 
 <div class="aidrawer" id="aidrawer">
@@ -708,6 +720,8 @@ out_pending:["Menunggu keputusan","Awaiting decision"],
  c_process:["Saya menyetujui pemrosesan data lamaran saya sesuai ","I consent to the processing of my application data per the "],
  c_process_link:["kebijakan privasi","privacy policy"],
  c_alert:["Saya ingin menerima job alert untuk peran yang relevan.","I want to receive job alerts for relevant roles."],
+ c_declare:["Saya menyatakan data yang saya isi sudah benar dan dapat dipertanggungjawabkan. Segala dampak atas ketidaksesuaian dengan data sebenarnya menjadi tanggung jawab saya sendiri.","I declare that the information I have provided is true and accountable. Any consequences arising from discrepancies with the actual data are my own responsibility."],
+ need_declare:["Centang dulu pernyataan kebenaran data untuk mengirim.","Please tick the data-accuracy declaration to submit."],
  c_pool:["Simpan profil saya di talent pool untuk peluang mendatang.","Keep my profile in the talent pool for future opportunities."],
  retain:["Data Anda disimpan sesuai masa retensi pada kebijakan privasi, dan Anda berhak mengakses atau menghapusnya kapan saja.","Your data is retained per the privacy policy, and you may access or delete it at any time."],
  submit_app:["Kirim lamaran","Submit application"],
@@ -1116,7 +1130,7 @@ function renderDetail(){var j=JOBS.find(function(x){return x.id===jobId;});if(!j
 /* ---------- form ---------- */
 var STEPS=['s1','s2','s3','s4','s5'];
 function startApply(id){jobId=id;form={step:0,data:{}};
- var c=candidate();if(c&&c.profile){['name','email','phone','city','workauth'].forEach(function(k){if(c.profile[k])form.data[k]=c.profile[k];});}
+ var c=candidate();if(c&&c.profile){['name','email','phone','city','workauth','gender','ethnic','disab','cvDone'].forEach(function(k){if(c.profile[k])form.data[k]=c.profile[k];});}
  try{var d=JSON.parse(localStorage.getItem('nabDraft_'+id)||'null');if(d){form=d;toast(L('saved_draft'));}}catch(e){}
  go('apply');}
 function saveDraft(){try{localStorage.setItem('nabDraft_'+jobId,JSON.stringify(form));}catch(e){}}
@@ -1132,16 +1146,8 @@ function renderForm(){
  var j=JOBS.find(function(x){return x.id===jobId;});
  var step=form.step,body='';
  var steps='';for(var i=0;i<5;i++){steps+='<div class="s '+(i<step?'done':(i===step?'cur':''))+'"></div>';}
- if(step===0){body=fieldHTML('name',L('f_name'),'text',true)+fieldHTML('email',L('f_email'),'email',true)+'<div class="two">'+fieldHTML('phone',L('f_phone'),'tel',true)+fieldHTML('city',L('f_city'),'text',true)+'</div>';}
- else if(step===1){
-  body='<div class="upload" onclick="simParse()">'+I.up+'<b>'+L('up_t')+'</b><span>'+L('up_s')+'</span></div>'
-   +'<div class="parsed" id="parsed">'+I.ck+' '+L('parsed_t')+'</div>'
-   +'<div class="orline">'+L('or')+'</div>'
-   +'<button class="btn btn-g btn-block" onclick="simLinkedIn()"><b>in</b> '+L('linkedin')+'</button>'
-   +'<div style="height:18px"></div>'
-   +'<div class="notebox">'+I.info+'<span>'+L('wa_q')+' ('+TX(COUNTRY[j.country])+')</span></div>'
-   +fieldHTML('workauth',L('f_workauth'),'select',true,'',[['yes',L('wa_yes')],['spons',L('wa_spons')],['no',L('wa_no')]]);
- }
+ if(step===0){body='<div class="upload" onclick="simParse()">'+I.up+'<b>'+L('up_t')+'</b><span>'+L('up_s')+'</span></div>'+'<div class="parsed'+(form.data.cvDone?' show':'')+'" id="parsed">'+I.ck+' '+L('parsed_t')+'</div>'+'<div class="orline">'+L('or')+'</div>'+'<button class="btn btn-g btn-block" onclick="simLinkedIn()"><b>in</b> '+L('linkedin')+'</button>'+'<div style="height:18px"></div>'+fieldHTML('name',L('f_name'),'text',true)+fieldHTML('email',L('f_email'),'email',true)+'<div class="two">'+fieldHTML('phone',L('f_phone'),'tel',true)+fieldHTML('city',L('f_city'),'text',true)+'</div>';}
+ else if(step===1){body='<div class="notebox">'+I.info+'<span>'+L('wa_q')+' ('+TX(COUNTRY[j.country])+')</span></div>'+fieldHTML('workauth',L('f_workauth'),'select',true,'',[['yes',L('wa_yes')],['spons',L('wa_spons')],['no',L('wa_no')]]);}
  else if(step===2){
   body=fieldHTML('salary',L('f_salary'),'text',false,L('sal_ph'))
    +fieldHTML('avail',L('f_avail'),'date',true)
@@ -1168,6 +1174,7 @@ function renderForm(){
    +'<div class="check"><input type="checkbox" id="cProcess" '+(d.cProcess?'checked':'')+' onchange="setF(\'cProcess\',this.checked)"><label for="cProcess"><b>'+L('c_process')+'</b><a onclick="openPrivacy(applyCountry())">'+L('c_process_link')+'</a>.</label></div>'+(applyCountry()==='CN'?'<div class="check"><input type="checkbox" id="cChina" '+(d.cChina?'checked':'')+' onchange="setF(\'cChina\',this.checked)"><label for="cChina">'+L('pdp_cn_consent')+'</label></div>':'')
    +'<div class="check"><input type="checkbox" id="cAlert" '+(d.cAlert?'checked':'')+' onchange="setF(\'cAlert\',this.checked)"><label for="cAlert">'+L('c_alert')+'</label></div>'
    +'<div class="check"><input type="checkbox" id="cPool" '+(d.cPool?'checked':'')+' onchange="setF(\'cPool\',this.checked)"><label for="cPool">'+L('c_pool')+'</label></div>'
+   +'<div class="check decl"><input type="checkbox" id="cDeclare" '+(d.cDeclare?'checked':'')+' onchange="setF(\'cDeclare\',this.checked)"><label for="cDeclare"><b>'+L('c_declare')+'</b></label></div>'
    +'<div class="notebox" style="margin-top:14px">'+I.info+'<span>'+L('retain')+'</span></div>';
  }
  var nav='<div class="formnav">'+(step>0?'<button class="btn btn-g" onclick="prevStep()">'+L('prev')+'</button>':'<span></span>')
@@ -1188,16 +1195,17 @@ function validateStep(){
  if(form.step===0&&form.data.email&&form.data.email.indexOf('@')<0){miss.push('email');var n=el('fw_email');if(n)n.classList.add('bad');}
  return miss.length===0;
 }
-function nextStep(skip){if(!skip&&!validateStep()){toast(L('fix_fields'));return;}saveDraft();form.step++;render();window.scrollTo(0,0);}
+function nextStep(skip){if(!skip&&!validateStep()){toast(L('fix_fields'));return;}saveDraft();if(typeof saveProfile==='function')saveProfile();form.step++;render();window.scrollTo(0,0);}
 function prevStep(){form.step--;render();window.scrollTo(0,0);}
-function simParse(){form.data.name=form.data.name||'Calon Kandidat';form.data.email=form.data.email||'kandidat@email.test';form.data.phone=form.data.phone||'0812xxxxxxx';el('parsed').classList.add('show');toast(L('parsed_t'));saveDraft();}
-function simLinkedIn(){form.data.name=form.data.name||'Calon Kandidat';form.data.email=form.data.email||'kandidat@email.test';el('parsed').classList.add('show');toast(L('parsed_t'));saveDraft();}
+function simParse(){form.data.name=form.data.name||'Calon Kandidat';form.data.email=form.data.email||'kandidat@email.test';form.data.phone=form.data.phone||'0812xxxxxxx';form.data.cvDone=true;var _pe=el('parsed');if(_pe)_pe.classList.add('show');toast(L('parsed_t'));saveDraft();if(typeof saveProfile==='function')saveProfile();if(typeof render==='function')render();}
+function simLinkedIn(){form.data.name=form.data.name||'Calon Kandidat';form.data.email=form.data.email||'kandidat@email.test';form.data.cvDone=true;var _pe=el('parsed');if(_pe)_pe.classList.add('show');toast(L('parsed_t'));saveDraft();if(typeof saveProfile==='function')saveProfile();if(typeof render==='function')render();}
 function submitApp(){if(!form.data.cProcess){toast(L('need_consent'));return;}
+ if(!form.data.cDeclare){toast(L('need_declare'));return;}
  var j=JOBS.find(function(x){return x.id===jobId;});
  var jc=j?j.country:'ID';if(jc==='CN'&&!form.data.cChina){toast(L('need_consent_cn'));return;}
  var no='NAB-2026-'+Math.floor(100300+Math.random()*899000);
  var o=apps();o[no]={role:j.t,email:form.data.email||'',stage:0,when:fmtDate(new Date().toISOString().slice(0,10)),consent:{ts:Date.now(),country:jc,law:(pdpFor(jc).law||'baseline'),ver:'1.0',lang:lang,process:true,alerts:!!form.data.cAlert,pool:!!form.data.cPool,china:(jc==='CN')||undefined}};setApps(o);
- var c=candidate()||{};c.name=form.data.name||c.name||'';c.email=form.data.email||c.email||'';c.profile=Object.assign({},c.profile||{},{name:form.data.name,email:form.data.email,phone:form.data.phone,city:form.data.city,workauth:form.data.workauth});setCandidate(c);
+ var c=candidate()||{};c.name=form.data.name||c.name||'';c.email=form.data.email||c.email||'';c.profile=Object.assign({},c.profile||{},{name:form.data.name,email:form.data.email,phone:form.data.phone,city:form.data.city,workauth:form.data.workauth,gender:form.data.gender,ethnic:form.data.ethnic,disab:form.data.disab,cvDone:true});setCandidate(c);
  pushInbox('status',['Lamaran '+j.t[0]+' diterima','Application for '+j.t[1]+' received'],['Kami akan mengabari perkembangannya. Pantau di Akun saya.','We will update you on the progress. Track it in My account.'],{go:'status',no:no});
  try{localStorage.removeItem('nabDraft_'+jobId);}catch(e){}
  view='success';jobId=no;render();window.scrollTo(0,0);
@@ -1205,7 +1213,7 @@ function submitApp(){if(!form.data.cProcess){toast(L('need_consent'));return;}
 function renderSuccess(){
  return '<div class="wrap"><div class="success"><div class="burst" id="burst"></div><div class="ic">'+I.ck+'</div>'
  +'<h1>'+L('suc_h')+'</h1><p>'+L('suc_p1')+'</p><p>'+L('suc_p2')+'</p>'
- +'<div class="appno">'+jobId+'</div>'
+ +'<div style="font-family:var(--font-display);font-weight:800;font-size:1.45rem;color:var(--ink);background:var(--surface-2);border:1px solid var(--border);border-radius:14px;padding:15px 28px;display:inline-block;margin:6px 0 8px;letter-spacing:-.01em;max-width:92%">'+(function(){var r=apps()[jobId];return (r&&r.role)?TX(r.role):jobId;})()+'</div>'+'<div style="font-family:var(--font-mono);font-size:12px;color:var(--ink-3)">'+L('f_appno')+': '+jobId+'</div>'
  +'<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px"><button class="btn btn-r" onclick="go(\'status\')">'+L('suc_track')+'</button><button class="btn btn-g" onclick="go(\'list\')">'+L('suc_more')+'</button></div>'
  +'</div></div>';
 }
@@ -1240,7 +1248,8 @@ function renderStatus(){
   +'</div></div>';
 }
 function doLookup(){var no=(el('luNo').value||'').trim().toUpperCase();var rec=apps()[no];if(!rec){toast(L('not_found'));return;}lookupNo=no;render();window.scrollTo(0,0);}
-function withdrawApp(){var roleName=lookupNo&&apps()[lookupNo]?apps()[lookupNo].role:"";var msg=lang==="en"?"Are you sure you want to withdraw your application"+(roleName?" for "+roleName:"")+" ? This cannot be undone.":"Apakah Anda yakin ingin menarik lamaran"+(roleName?" untuk "+roleName:"")+" ? Tindakan ini tidak dapat dibatalkan.";if(!confirm(msg))return;var o=apps();if(o[lookupNo]){o[lookupNo].stage=-1;setApps(o);}toast(L('withdraw_done'));render();}
+function withdrawApp(){var rec=lookupNo&&apps()[lookupNo]?apps()[lookupNo]:null;var roleName=rec?TX(rec.role):"";var t=lang==="en"?"Withdraw application?":"Tarik lamaran?";var msg=lang==="en"?("You are about to withdraw your application"+(roleName?" for <b>"+esc(roleName)+"</b>":"")+". This cannot be undone."):("Anda akan menarik lamaran"+(roleName?" untuk <b>"+esc(roleName)+"</b>":"")+". Tindakan ini tidak dapat dibatalkan.");var yes=lang==="en"?"Yes, withdraw":"Ya, tarik lamaran";var no=lang==="en"?"Keep it":"Batal";el('mbox').innerHTML='<div class="cmodal"><div class="cmicon">'+I.info+'</div><h3>'+t+'</h3><p>'+msg+'</p><div class="cmact"><button class="btn btn-g" onclick="closeModal()">'+no+'</button><button class="btn btn-r" onclick="doWithdraw()">'+yes+'</button></div></div>';el('modal').classList.add('show');}
+function doWithdraw(){var o=apps();if(o[lookupNo]){o[lookupNo].stage=-1;setApps(o);}closeModal();toast(L('withdraw_done'));render();}
 /* ---------- shared actions ---------- */
 function go(v){view=v;jobId=(v==='apply'||v==='success')?jobId:null;if(v==='status')lookupNo=null;render();window.scrollTo(0,0);}
 function openJob(id){jobId=id;view='detail';render();window.scrollTo(0,0);}
@@ -1394,6 +1403,48 @@ if(window.addEventListener&&!window._jobsync){window._jobsync=1;window.addEventL
   }
   window.render=paint;
   try{ paint(); }catch(e){}
+})();
+</script>
+<script>
+/* Iteration 2: reusable candidate profile + scam-bar persistence */
+function saveProfile(){
+  try{
+    var c=candidate()||{};
+    c.profile=Object.assign({},c.profile||{},{
+      name:form.data.name,email:form.data.email,phone:form.data.phone,city:form.data.city,
+      workauth:form.data.workauth,gender:form.data.gender,ethnic:form.data.ethnic,disab:form.data.disab,
+      cvDone:form.data.cvDone
+    });
+    if(form.data.name)c.name=form.data.name;
+    if(form.data.email)c.email=form.data.email;
+    setCandidate(c);
+  }catch(e){}
+}
+(function(){
+  try{ var sb=document.getElementById('scamBar'); if(sb&&sb.parentNode){ sb.parentNode.removeChild(sb); } document.body.classList.add('no-scam'); }catch(e){}
+})();
+/* ---------- UNIFIED FLK: route every Apply to the full FLK (apply.html) ---------- */
+window.startApply=function(id){
+  var j=null;
+  try{ j=(typeof JOBS!=='undefined'?JOBS:[]).find(function(x){return x.id===id;}); }catch(e){}
+  if(!j){ try{ j=(typeof JOBS_SEED!=='undefined'?JOBS_SEED:[]).find(function(x){return x.id===id;}); }catch(e){} }
+  if(j){
+    var DEP={sales:'Sales',mfg:'Manufacturing',scm:'Supply Chain',corp:'Corporate',tech:'Technology'};
+    var TYP={full:'Full-time',contract:'Contract',intern:'Internship',part:'Part-time'};
+    var LVL={junior:'Junior',mid:'Mid',senior:'Senior',lead:'Lead',exec:'Executive'};
+    var loc=''; try{ loc=TX(j.city)+', '+TX(COUNTRY[j.country]); }catch(e){ loc=''; }
+    var njob={ id:j.id, title:TX(j.t), department:(DEP[j.cat]||j.cat||''), location:loc,
+      type:(TYP[j.type]||j.type||''), grade:(LVL[j.lvl]||j.lvl||''), country:j.country };
+    try{ localStorage.setItem('nab_apply_job', JSON.stringify(njob)); }catch(e){}
+  }
+  location.href='apply.html?job='+encodeURIComponent(id);
+};
+/* deep-link from FLK success back into a chosen view (e.g. Track my application) */
+(function(){
+  try{
+    var v=new URLSearchParams(location.search).get('view');
+    if(v && ['home','list','status','account'].indexOf(v)>=0){ view=v; if(v==='account'){ try{ ACCTAB='apps'; }catch(e){} } if(typeof render==='function') render(); window.scrollTo(0,0); }
+  }catch(e){}
 })();
 </script>
 </body></html>

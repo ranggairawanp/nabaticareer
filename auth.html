@@ -53,6 +53,9 @@ h1{font-family:var(--font-display);font-weight:800;font-size:1.5rem;color:var(--
 .tab.active{background:#fff;color:var(--primary);box-shadow:var(--e1)}
 .trust-line{display:flex;align-items:center;justify-content:center;gap:7px;font-size:.72rem;color:var(--ink-3);margin-top:18px;padding-top:16px;border-top:1px solid var(--border);line-height:1.4;text-align:center}
 .trust-line svg{flex-shrink:0;color:var(--success)}
+.optins{display:flex;flex-direction:column;gap:9px;margin:2px 0 14px;text-align:left}
+.optin{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:#525a67;cursor:pointer;line-height:1.4}
+.optin input{margin-top:2px;width:16px;height:16px;flex:none;accent-color:#e1231b;cursor:pointer}
 </style>
 </head>
 <body>
@@ -101,6 +104,7 @@ h1{font-family:var(--font-display);font-weight:800;font-size:1.5rem;color:var(--
       + (isSignup?'<div class="field"><label>Full name</label><input id="nameInput" type="text" placeholder="As per KTP / ID"></div>':'')
       + '<div class="field"><label>Email address</label><input id="emailInput" type="email" placeholder="your@email.com"></div>'
       + '<div class="field"><label>Password</label><input id="pwInput" type="password" placeholder="Min. 8 characters"></div>'
+      + (isSignup?'<div class="optins"><label class="optin"><input type="checkbox" id="optNews" checked><span>I want to receive Nabati careers news and job alerts.</span></label><label class="optin"><input type="checkbox" id="optPool" checked><span>Keep my profile in the talent pool for future opportunities.</span></label></div>':'')
       + '<button class="btn-primary" onclick="emailAuth()">'+(isSignup?'Create account':'Sign in')+'</button>'
       + '<p class="switch">'
       + (isSignup?'Already have an account? <a onclick="setMode(\'login\')">Sign in</a>':'No account yet? <a onclick="setMode(\'signup\')">Create one</a>')
@@ -137,8 +141,10 @@ h1{font-family:var(--font-display);font-weight:800;font-size:1.5rem;color:var(--
     var name = mode==='signup' ? ((document.getElementById('nameInput')||{}).value||'') : '';
     if(!email || !pw){ showErr('Please fill in all required fields.'); return; }
     if(pw.length < 8){ showErr('Password must be at least 8 characters.'); return; }
+    var prefs={news:!!((document.getElementById('optNews')||{}).checked),pool:!!((document.getElementById('optPool')||{}).checked)};
     apiLogin({ name: name || email, email: email, password: pw }, 'email', function(err, user){
       if(err){ showErr('Sign in failed. Please check your credentials.'); return; }
+      if(mode==='signup'){ try{var c=JSON.parse(localStorage.getItem('nabCandidate')||'{}');c.prefs=prefs;if(!c.name)c.name=name;if(!c.email)c.email=email;localStorage.setItem('nabCandidate',JSON.stringify(c));}catch(e){} }
       redirect();
     });
   };

@@ -189,6 +189,8 @@ a{color:inherit;text-decoration:none}
   .summary-key{font-size:.72rem;text-transform:uppercase;letter-spacing:.04em}
   .stepper-head{flex-direction:column;align-items:flex-start;gap:3px}
 }
+
+.trust{display:none!important}
 </style>
 </head>
 <body>
@@ -289,7 +291,8 @@ a{color:inherit;text-decoration:none}
   };
 
   // Pre-fill dari saved candidate profile (one-time fill)
-  var savedProfile = _getLocal('nabati_candidate_profile');
+  window.flk = flk;
+  var savedProfile = (function(){ try{ var nc=JSON.parse(localStorage.getItem('nabCandidate')||'null'); if(nc && nc.profile) return nc.profile; }catch(e){} return _getLocal('nabati_candidate_profile'); })();
   if(savedProfile){
     // Merge saved profile ke flk, tapi jangan override user/email dari session
     var savedEmail = flk.email;
@@ -315,13 +318,14 @@ a{color:inherit;text-decoration:none}
   var STEP_LABELS = ['CV & Profile','Personal Info','Education & Family','Skills & Experience','Role Details','Review'];
 
   // ─── LOAD JOB ───
-  apiGetJob(jobId, function(err, job){
-    if(err || !job){ document.getElementById('jobBanner').innerHTML='<p>Job not found.</p>'; return; }
-    currentJob = job;
-    renderBanner();
-    renderStepper();
-    renderStep();
-  });
+  (function(){
+    var nj=null; try{ nj=JSON.parse(localStorage.getItem('nab_apply_job')||'null'); }catch(e){}
+    if(nj && nj.title){ currentJob = nj; renderBanner(); renderStepper(); renderStep(); return; }
+    apiGetJob(jobId, function(err, job){
+      if(err || !job){ document.getElementById('jobBanner').innerHTML='<p>Job not found.</p>'; return; }
+      currentJob = job; renderBanner(); renderStepper(); renderStep();
+    });
+  })();
 
   function renderBanner(){
     var icoBrief = '<svg fill="none" stroke="currentColor" stroke-width="1.75" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>';
@@ -841,14 +845,20 @@ a{color:inherit;text-decoration:none}
     var btn = document.getElementById('submitBtn');
     if(btn){ btn.disabled=true; btn.textContent='Submitting...'; }
     var payload = { job_id: jobId, candidate: Object.assign({}, flk), user_id: user.id };
-    apiSubmitApplication(payload, function(err, result){
-      if(err){ if(btn){btn.disabled=false;btn.textContent='Submit Application';} alert('Submission failed. Please try again.'); return; }
-      // Simpan profile untuk one-time fill di lamaran berikutnya
-      var profileToSave = Object.assign({}, flk);
-      delete profileToSave._from_saved;
-      _setLocal('nabati_candidate_profile', profileToSave);
-      renderSuccess(result.id);
-    });
+    (function(){
+      var appNo='NAB-2026-'+Math.floor(100000+Math.random()*900000);
+      var roleTitle=(currentJob&&currentJob.title)?currentJob.title:'Application';
+      var when=(function(){var d=new Date();var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];return d.getDate()+' '+M[d.getMonth()]+' '+d.getFullYear();})();
+      try{
+        var o=JSON.parse(localStorage.getItem('nabApps')||'{}');
+        o[appNo]={ role:[roleTitle,roleTitle], email:(flk.email||''), stage:0, when:when, consent:true, job_id:jobId };
+        localStorage.setItem('nabApps', JSON.stringify(o));
+      }catch(e){}
+      var profileToSave = Object.assign({}, flk); delete profileToSave._from_saved;
+      try{ var nc=JSON.parse(localStorage.getItem('nabCandidate')||'{}'); nc.profile=profileToSave; if(!nc.name)nc.name=flk.full_name||nc.name; if(!nc.email)nc.email=flk.email||nc.email; localStorage.setItem('nabCandidate', JSON.stringify(nc)); }catch(e){}
+      try{ _setLocal('nabati_candidate_profile', profileToSave); }catch(e){}
+      renderSuccess(appNo);
+    })();
   };
 
   function renderSuccess(appId){
@@ -865,7 +875,7 @@ a{color:inherit;text-decoration:none}
       +'<p style="font-size:.8rem;color:var(--ink-3);margin-bottom:24px">Your profile has been saved. Next time you apply to a Nabati role, your details will be pre-filled automatically.</p>'
       +'<div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">'
       +'<a class="btn-outline" href="index.html">Browse more roles</a>'
-      +'<a class="btn-next" href="index.html?view=status" style="padding:11px 24px;text-decoration:none">Track my application</a>'
+      +'<a class="btn-next" href="index.html?view=account" style="padding:11px 24px;text-decoration:none">Track my application</a>'
       +'</div>'
       +'</div>';
   }
